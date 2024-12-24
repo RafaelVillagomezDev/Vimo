@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import purgecss from 'vite-plugin-purgecss';
+import path from 'path';
 import imagemin from 'vite-plugin-imagemin';
 
 export default defineConfig({
@@ -9,24 +9,25 @@ export default defineConfig({
     react({
       jsxImportSource: 'react',
     }),
-   
-    // Plugin para purgar CSS no utilizado
-    purgecss({
-      content: ['./src/**/*.{html,js,jsx,ts,tsx,vue}'], // Archivos donde se buscan las clases no utilizadas
-      safelist: ['safe-class'],  // Clases que no se deben eliminar
-    }),
+
+  
 
     // Plugin para optimización de imágenes
     imagemin({
       gifsicle: { optimizationLevel: 7, interlaced: false },
       optipng: { optimizationLevel: 7 },
       pngquant: { quality: [0.6, 0.8], speed: 4 },
-      svgo: { plugins: [{ removeViewBox: false }] },
       mozjpeg: { quality: 70 },  // Reducir la calidad de JPEG
       webp: { quality: 75 },     // Convertir imágenes a WebP con calidad 75%
     }),
   ],
-
+  resolve: {
+    alias: {
+      '@components': path.resolve(__dirname, './src/components'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@styles':path.resolve(__dirname, './src/styles'),
+    },
+  },
   build: {
     // Usar Terser para minificar el código
     minify: 'terser',

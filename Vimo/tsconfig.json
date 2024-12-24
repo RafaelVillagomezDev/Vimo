@@ -2,7 +2,14 @@
     "files": [],
     "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
     "compilerOptions": {
-        "jsx": "react-jsx", // Asegúrate de que esté configurado para usar JSX
-        "moduleResolution": "node"
-    }
+        "baseUrl": "./",
+        "jsx": "react-jsx",
+        "moduleResolution": "node",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@assets/*": ["src/assets/*"],
+            "@styles/*": ["src/styles/*"]
+        }
+    },
+  
 }

@@ -3,12 +3,16 @@ import { devices } from '../../../styles/mixin_styledComponent';
 
 export const CarrousellContainer = styled.div`
     width: 100%;
-    height: 1117px;
+    height: 450px;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
+    @media only screen and (${devices.sm}) {
+        height: 750px;
+    }
 `;
 
 export const CarrousellPicture = styled.img`
@@ -19,7 +23,7 @@ export const CarrousellPicture = styled.img`
 
 export const CarrousellTitle = styled.h1`
     font-family: 'Rokkitt', serif;
-    font-size: 90px;
+    font-size: 15vw; 
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -28,10 +32,5 @@ export const CarrousellTitle = styled.h1`
     top: 12rem;
     flex-direction: column;
     justify-content: center;
-    @media only screen and (${devices.sm}) {
-        font-size: 200px;
-    }
-    @media only screen and (${devices.md}) {
-        font-size: 250px;
-    }
+  
 `;

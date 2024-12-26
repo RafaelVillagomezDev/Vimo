@@ -7,8 +7,9 @@ import {
     Route,
 } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import LoadingScreen from './pages/LoadingScreen';
 
-const LoadingScreen = lazy(() => import('./pages/LoadingScreen'));
+
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Destination = lazy(() => import('./pages/Destination'));

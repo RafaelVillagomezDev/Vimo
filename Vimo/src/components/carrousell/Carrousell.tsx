@@ -1,9 +1,11 @@
 import Navbar from '../navbar/Navbar';
 import { CarrousellContainer, CarrousellPicture, CarrousellTitle } from './styles/CarrousellStyle';
 
-import Portada_576 from '../../assets/pictures/japan/tokio_576.jpg'; // Asegúrate de que esta imagen exista
-import Portada_768 from '../../assets/pictures/japan/tokio_768.jpg'; // Asegúrate de que esta imagen exista
+import Portada_576 from '../../assets/pictures/japan/tokio_576.jpg'; 
+import Portada_768 from '../../assets/pictures/japan/tokio_768.jpg'; 
 import Portada_1200 from '../../assets/pictures/japan/tokio_1200.jpg';
+import CarrousellSlide from '../carrousellSlide/CarrousellSlide';
+
 
 function Carrousell() {
     return (
@@ -25,6 +27,7 @@ function Carrousell() {
                 />
                 <Navbar />
                 <CarrousellTitle>JAPÓN</CarrousellTitle>
+                <CarrousellSlide/>
             </CarrousellContainer>
         </>
     );

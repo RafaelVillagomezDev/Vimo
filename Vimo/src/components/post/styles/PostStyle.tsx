@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 
 export const PostMain = styled.div`
-
     width: 100%;
     padding: 2rem;
     @media only screen and (${devices.sm}) {
@@ -12,9 +11,9 @@ export const PostMain = styled.div`
 
 export const PostSubtitle = styled.h2`
     font-family: 'Rokkitt', serif;
-    font-size: 10vw;
+    font-size: 5vw;
     font-weight: 500;
-    color: white;
+    color: black;
     padding-bottom: 2rem;
     text-align: center;
     @media only screen and (${devices.sm}) {
@@ -23,9 +22,6 @@ export const PostSubtitle = styled.h2`
 `;
 
 export const PostContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    max-height: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,37 +32,24 @@ export const PostContainer = styled.div`
     }
 `;
 
-export const PostContainerRight=styled(PostContainer)`
-    flex-direction: column;
-    @media only screen and (${devices.sm}) {
-        flex-direction: row-reverse;
-    }
-`
+export const PostFigure = styled.figure``;
 
-export const PostImg = styled.img`
-    height: 100%;
-    flex-shrink: 0;
-    border-radius: 15px;
+export const PostFigcaption = styled.figcaption`
+    color: black;
+    font-family: 'fangsong';
 `;
 
-export const PostBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    max-height: 300px;
-    padding-right: 10px;
-    color: bla;
-    scrollbar-color: red transparent;
-    scrollbar-width: thin;
+export const PostImg = styled.img`
+    flex-shrink: 0;
+    border-radius: 15px;
+    height: 250px;
     @media only screen and (${devices.sm}) {
-        color: white;
+        border-radius: 0px;
     }
 `;
 
 export const PostTitle = styled.h2`
-    color: #fff;
+    color: black;
     font-family: 'Roboto';
     font-size: 30px;
     font-style: normal;
@@ -78,12 +61,46 @@ export const PostTitle = styled.h2`
 `;
 
 export const PostText = styled.p`
-    color: #fff;
+    color: black;
     word-wrap: break-word;
     font-family: 'Roboto';
-    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 200;
     line-height: normal;
     padding: 1rem;
+    font-size: 16px;
+    @media only screen and (${devices.sm}) {
+        font-size: 20px;
+    }
 `;
+
+export const PostBoardBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 10px;
+    color: black;
+    @media only screen and (${devices.sm}) {
+        color: black;
+    }
+`;
+
+export const PostQuote=styled.q`
+    font-weight: 600;
+    font-style: oblique;
+`
+export const PostList = styled.ul`
+    
+    
+`;
+
+export const PostListItem = styled.li`
+
+`;
+
+export const PostSpan=styled.span`
+    display: inline-flex;
+    column-gap: 12px;
+    font-family: 'Rokkitt',serif;
+    font-size: 25px;
+`

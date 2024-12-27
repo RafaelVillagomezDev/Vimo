@@ -9,10 +9,10 @@ import {
 import { Suspense, lazy } from 'react';
 import LoadingScreen from './pages/LoadingScreen';
 
-
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Destination = lazy(() => import('./pages/Destination'));
+const History = lazy(() => import('./pages/History'));
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
@@ -24,6 +24,7 @@ if (rootElement) {
             <Route path="/">
                 <Route path="/" element={<Home />} />
                 <Route path="home" element={<Home />} />
+                <Route path="history" element={<History />} />
                 <Route path="experiences" element={<Experience />} />
                 <Route path="destinations" element={<Destination />} />
             </Route>

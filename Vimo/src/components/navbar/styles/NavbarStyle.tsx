@@ -30,12 +30,6 @@ export const NavLinks = styled(NavContainer)`
     }
 `;
 
-export const NavSearching = styled(NavContainer)`
-    display: none;
-    @media only screen and (${devices.sm}) {
-        display: flex;
-    }
-`;
 
 export const NavContact = styled(NavContainer)`
     display: flex;
@@ -57,6 +51,7 @@ export const NavLinker = styled(Link)`
     font-weight: bold;
     &:hover {
         border-bottom: 5px solid black;
+        font-size: 25px;
     }
 
     &.active {
@@ -65,27 +60,7 @@ export const NavLinker = styled(Link)`
     }
 `;
 
-export const NavSearch = styled.input`
-    height: 45px;
-    width: 100%;
-    max-width: 260px;
-    padding: 10px 15px 10px 40px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
 
-    &:focus {
-        border-color: #000300;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-    }
-
-    &::placeholder {
-        color: #aaa;
-        font-size: 14px;
-    }
-`;
 
 export const NavButton = styled.button`
     width: 160px;

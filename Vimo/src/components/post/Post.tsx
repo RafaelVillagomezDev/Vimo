@@ -1,81 +1,125 @@
 import {
-    PostBox,
+    PostBoardBox,
     PostContainer,
-    PostContainerRight,
+    PostFigcaption,
+    PostFigure,
     PostImg,
+    PostList,
+    PostListItem,
     PostMain,
+    PostQuote,
+    PostSpan,
     PostSubtitle,
     PostText,
-    PostTitle,
 } from './styles/PostStyle';
-import templo_toji from '../../assets/pictures/japan/templo_toji.jpg';
-import tokio_future from '../../assets/pictures/japan/tokio_future.jpg';
+import { TfiMapAlt } from 'react-icons/tfi';
+import { TiWeatherPartlySunny } from 'react-icons/ti';
+import alcazar from '../../assets/pictures/spain/alcazar_madrid.jpg';
+import bandera from '../../assets/pictures/spain/bandera_madrid.png';
+import mapa_madrid from '../../assets/pictures/spain/mapa_madrid.webp';
 function Post() {
     return (
         <>
             <PostMain>
-                <PostSubtitle>Sitios Turisticos</PostSubtitle>
+                <PostSubtitle>Historia</PostSubtitle>
                 <PostContainer>
-                    <PostImg src={templo_toji} />
-                    <PostBox>
-                        <PostTitle>Templo de Toji</PostTitle>
+                    <PostFigure>
+                        <PostImg src={alcazar} alt="Alcazar de Madrid" loading='lazy' />
+                        <PostFigcaption>Alcazar de Madrid </PostFigcaption>
+                    </PostFigure>
+
+                    <PostBoardBox>
+                        
                         <PostText>
-                            El Templo Tōji es uno de los templos más emblemáticos de Kioto, Japón,
-                            reconocido especialmente por su pagoda de cinco pisos, la más alta de
-                            Japón con 55 metros de altura. Fundado en el año 796 durante el periodo
-                            Heian, el templo originalmente formaba parte de un par de templos
-                            guardianes a la entrada sur de la ciudad, aunque su compañero, el
-                            Sai-ji, ya no existe.
+                            En las orillas del Manzanares, donde el agua fluía generosa, los árabes
+                            erigieron en el año 865 una fortaleza a la que llamaron 'Mayrit', que
+                            significa 'abundancia de ríos de agua'. Este nombre, tan evocador,
+                            reflejaba la esencia de aquel lugar, un oasis en la meseta castellana.
+                            Su primer escudo, con el lema <PostQuote cite='https://caminandopormadrid.com/fui-sobre-agua-edificada-mis-muros-de'>Fui sobre agua edificada / Mis muros de
+                            fuego son / Esta es mi insignia y mi blasón</PostQuote>, era un canto a su origen
+                            acuático y a la fortaleza que la protegería a lo largo de los siglos. En
+                            1083, la ciudad cambió de manos con la conquista de Alfonso VI,
+                            iniciando un nuevo capítulo en su milenaria historia
                         </PostText>
                         <PostText>
-                            El Tōji pertenece a la escuela Shingon del budismo esotérico y tiene una
-                            rica historia espiritual y arquitectónica. Su pagoda es un símbolo de
-                            Kioto y un tesoro nacional. Está rodeada de bellos jardines y estanques,
-                            que ofrecen un ambiente sereno durante todo el año, con paisajes
-                            particularmente impresionantes durante la primavera con los cerezos en
-                            flor y el otoño con los colores cálidos de las hojas.
+                            En 1561, la historia de Madrid dio un giro trascendental. Felipe II, con
+                            su mirada puesta en el futuro, decidió trasladar la corte a esta ciudad,
+                            lejos de las antiguas capitales. La centralidad geográfica de Madrid y
+                            la menor presencia de poderes establecidos la convirtieron en el lienzo
+                            perfecto sobre el que construir una nueva corte. La predilección de su
+                            esposa, Isabel de Valois, por este modesto pueblo, fue la pincelada
+                            final que completó el cuadro. A partir de ese momento, Madrid se
+                            transformó en el epicentro de un imperio, un crisol de culturas y el
+                            escenario de grandes acontecimientos históricos
                         </PostText>
-                        <PostText>
-                            En su interior, el templo alberga estatuas y mandalas intrincadamente
-                            tallados, que representan la cosmología budista. Además, cada 21 de mes
-                            se celebra el mercado Kobo-san, una vibrante feria al aire libre que
-                            combina puestos de antigüedades, ropa, artesanías y comida tradicional.
-                            El Templo Tōji es una joya histórica y cultural que combina
-                            majestuosidad arquitectónica con un profundo significado espiritual.
-                        </PostText>
-                    </PostBox>
+                    </PostBoardBox>
                 </PostContainer>
-                <PostContainerRight>
-                    <PostImg src={tokio_future} />
-                    <PostBox>
-                        <PostTitle>Shibuya</PostTitle>
+                <PostSubtitle>Simbolos</PostSubtitle>
+                <PostContainer>
+                    <PostFigure>
+                        <PostImg src={bandera} alt="Bandera de Comunidad Madrid"  loading='lazy'  />
+                        <PostFigcaption>Bandera Comunidad de Madrid </PostFigcaption>
+                    </PostFigure>
+
+                    <PostBoardBox>
                         <PostText>
-                            Shibuya es uno de los barrios más icónicos de Tokio, conocido por su
-                            energía vibrante, cultura juvenil y moda. Su principal atractivo es el
-                            Cruce de Shibuya, el paso peatonal más transitado del mundo, donde miles
-                            de personas cruzan simultáneamente, reflejando el ritmo frenético de la
-                            ciudad.
+                            La bandera de la Comunidad de Madrid es descrita como un símbolo de
+                            identidad regional, caracterizado por su color rojo carmesí y sus siete
+                            estrellas plateadas de cinco puntas, dispuestas en dos filas de cuatro y
+                            tres. El rojo carmesí hace alusión a la tradición histórica de Madrid
+                            como parte de Castilla, mientras que las estrellas representan la
+                            constelación de la Osa Mayor, símbolo del cielo nocturno visible en la
+                            región. Este diseño, simple pero significativo, busca reflejar tanto el
+                            legado cultural como la ubicación geográfica de la Comunidad.
                         </PostText>
                         <PostText>
-                            La Estatua de Hachiko, símbolo de lealtad, es un popular punto de
-                            encuentro cercano. Shibuya también es un epicentro de tendencias, con
-                            lugares como Shibuya 109, un centro comercial repleto de moda juvenil, y
-                            calles llenas de boutiques, tiendas vintage y cafés modernos.
+                            Las siete estrellas presentes en la bandera de la Comunidad de Madrid
+                            han dado lugar a múltiples interpretaciones a lo largo del tiempo. Su
+                            significado más aceptado las asocia con la constelación de la Osa Mayor,
+                            un referente astronómico muy conocido en el hemisferio norte. Esta
+                            constelación, visible claramente desde la Sierra de Guadarrama, no solo
+                            simboliza la conexión de Madrid con el cielo estrellado, sino que
+                            también evoca el vínculo de la región con su entorno natural y su
+                            herencia mitológica.
                         </PostText>
-                        <PostText>
-                            Por las noches, el barrio se transforma en un centro de vida nocturna,
-                            con bares, discotecas y karaokes. Además, su arquitectura combina
-                            tradición y modernidad con edificios como Shibuya Scramble Square y
-                            Shibuya Stream.
-                        </PostText>
-                        <PostText>
-                            A pesar de su dinamismo, Shibuya ofrece espacios tranquilos como el
-                            Parque Yoyogi, ideal para un respiro en medio del bullicio. Este barrio
-                            es la esencia de Tokio: moderno, vibrante y lleno de cultura, un destino
-                            imprescindible para cualquier visitante.
-                        </PostText>
-                    </PostBox>
-                </PostContainerRight>
+                    </PostBoardBox>
+                </PostContainer>
+                <PostSubtitle>Ubicación</PostSubtitle>
+                <PostContainer>
+                    <PostFigure>
+                        <PostImg src={mapa_madrid} alt="Mapa Comunidad Madrid"  loading='lazy'  />
+                        <PostFigcaption>Mapa Comunidad de Madrid </PostFigcaption>
+                    </PostFigure>
+
+                    <PostBoardBox>
+                        <PostList>
+                            <PostListItem>
+                                <PostSpan>
+                                    {' '}
+                                    <TfiMapAlt /> Ubicación
+                                </PostSpan>
+                                <PostText>
+                                    Madrid se encuentra casi en el centro geográfico de la Península
+                                    Ibérica, a una latitud de 40º 25' Norte, y una longitud de 3º
+                                    42' Oeste.
+                                </PostText>
+                            </PostListItem>
+                            <PostListItem>
+                                <PostSpan>
+                                    {' '}
+                                    <TiWeatherPartlySunny /> Tiempo
+                                </PostSpan>
+                                <PostText>
+                                    La temperatura media anual, en la sombra, es de 13 ºC. En las
+                                    estaciones más frías, las temperaturas mínimas suelen caer por
+                                    debajo de los 0 ºC, aunque en la ciudad en sí rara vez nieva.
+                                    Durante los meses de verano la temperatura puede llegar
+                                    fácilmente a los 40 ºC.
+                                </PostText>
+                            </PostListItem>
+                        </PostList>
+                    </PostBoardBox>
+                </PostContainer>
             </PostMain>
         </>
     );

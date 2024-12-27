@@ -1,13 +1,13 @@
 import Carrousell from '../components/carrousell/Carrousell';
+import Post from '../components/post/Post';
 
-
-function Home() {
+function History() {
     return (
         <>
             <Carrousell />
-          
+            <Post/>
         </>
     );
 }
 
-export default Home;
+export default History;

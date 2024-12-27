@@ -34,8 +34,8 @@ export const CarrousellSlideCard = styled.img`
     height: 75px;
     width: 75px;
     border-radius: 120px;
-    object-fit: cover; 
-    object-position: center; 
+    object-fit: cover;
+    object-position: center;
 
     @media only screen and (${devices.sm}) {
         height: 120px;
@@ -44,7 +44,6 @@ export const CarrousellSlideCard = styled.img`
 `;
 
 export const CarrouselSlideCardText = styled(Link)`
-    
     display: none;
     @media only screen and (${devices.sm}) {
         width: 40%;

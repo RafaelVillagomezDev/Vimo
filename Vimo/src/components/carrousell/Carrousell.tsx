@@ -1,10 +1,9 @@
 import Navbar from '../navbar/Navbar';
 import { CarrousellContainer, CarrousellPicture, CarrousellTitle } from './styles/CarrousellStyle';
 
-import Portada_576 from '../../assets/pictures/japan/tokio_576.jpg'; 
-import Portada_768 from '../../assets/pictures/japan/tokio_768.jpg'; 
-import Portada_1200 from '../../assets/pictures/japan/tokio_1200.jpg';
-import CarrousellSlide from '../carrousellSlide/CarrousellSlide';
+import Portada_576 from '../../assets/pictures/spain/banco_españa_576.jpg'; 
+import Portada_768 from '../../assets/pictures/spain/banco_españa_768.jpg'; 
+import Portada_1200 from '../../assets/pictures/spain/banco_españa_1200.jpg';
 
 
 function Carrousell() {
@@ -22,12 +21,12 @@ function Carrousell() {
                         (max-width: 768px) 80vw,
                         (max-width: 1200px) 60vw,
                     `}
-                    alt="Vista de Tokio, Japón"
+                    alt="Banco de españa "
                     loading="lazy"
                 />
                 <Navbar />
-                <CarrousellTitle>JAPÓN</CarrousellTitle>
-                <CarrousellSlide/>
+                <CarrousellTitle>MADRID</CarrousellTitle>
+                
             </CarrousellContainer>
         </>
     );

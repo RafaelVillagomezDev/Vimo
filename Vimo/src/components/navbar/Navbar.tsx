@@ -20,13 +20,12 @@ function Navbar() {
                 <NavLinks>
                     <NavList>
                         <NavLinker to={'/history'}>Historia</NavLinker>
-                        <NavLinker to={'experiences'}>Restaurantes</NavLinker>
-                        <NavLinker to={'destinations'}>Discotecas</NavLinker>
-                        <NavLinker to={'destinations'}>Sitios</NavLinker>
+                        <NavLinker to={'/restaurants'}>Restaurantes</NavLinker>
+                        <NavLinker to={'/destinations'}>Discotecas</NavLinker>
+                        <NavLinker to={'sites'}>Sitios</NavLinker>
                         <NavLinker to={'destinations'}>Transporte</NavLinker>
                     </NavList>
                 </NavLinks>
-           
             </Nav>
         </>
     );

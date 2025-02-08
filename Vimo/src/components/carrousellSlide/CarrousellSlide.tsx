@@ -8,13 +8,13 @@ import {
     CarrousellSlideTitle,
 } from './styles/CarrousellSlide';
 
-import icon_kyoto from "../../assets/pictures/japan/icons/icon_kyoto.png";
-import icon_nara from "../../assets/pictures/japan/icons/icon_nara.png";
-import icon_osaka from "../../assets/pictures/japan/icons/icon_osaka.png";
-import icon_tokio from "../../assets/pictures/japan/icons/icon_tokio.png";
+import icon_kyoto from '../../assets/pictures/japan/icons/icon_kyoto.png';
+import icon_nara from '../../assets/pictures/japan/icons/icon_nara.png';
+import icon_osaka from '../../assets/pictures/japan/icons/icon_osaka.png';
+import icon_tokio from '../../assets/pictures/japan/icons/icon_tokio.png';
 
 const CarrousellSlide: React.FC = () => {
-    const carouselRef = useRef<HTMLDivElement | null>(null); 
+    const carouselRef = useRef<HTMLDivElement | null>(null);
     const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
     const [startX, setStartX] = useState<number>(0);
     const [scrollLeft, setScrollLeft] = useState<number>(0);

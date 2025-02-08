@@ -23,7 +23,7 @@ export const CarrousellPicture = styled.img`
 
 export const CarrousellTitle = styled.h1`
     font-family: 'Rokkitt', serif;
-    font-size: 15vw; 
+    font-size: 15vw;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -32,5 +32,4 @@ export const CarrousellTitle = styled.h1`
     top: 12rem;
     flex-direction: column;
     justify-content: center;
-  
 `;

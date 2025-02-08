@@ -85,22 +85,17 @@ export const PostBoardBox = styled.div`
     }
 `;
 
-export const PostQuote=styled.q`
+export const PostQuote = styled.q`
     font-weight: 600;
     font-style: oblique;
-`
-export const PostList = styled.ul`
-    
-    
 `;
+export const PostList = styled.ul``;
 
-export const PostListItem = styled.li`
+export const PostListItem = styled.li``;
 
-`;
-
-export const PostSpan=styled.span`
+export const PostSpan = styled.span`
     display: inline-flex;
     column-gap: 12px;
-    font-family: 'Rokkitt',serif;
+    font-family: 'Rokkitt', serif;
     font-size: 25px;
-`
+`;

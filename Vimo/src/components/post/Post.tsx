@@ -24,22 +24,25 @@ function Post() {
                 <PostSubtitle>Historia</PostSubtitle>
                 <PostContainer>
                     <PostFigure>
-                        <PostImg src={alcazar} alt="Alcazar de Madrid" loading='lazy' />
+                        <PostImg src={alcazar} alt="Alcazar de Madrid" loading="lazy" />
                         <PostFigcaption>Alcazar de Madrid </PostFigcaption>
                     </PostFigure>
 
                     <PostBoardBox>
-                        
                         <PostText>
                             En las orillas del Manzanares, donde el agua fluía generosa, los árabes
                             erigieron en el año 865 una fortaleza a la que llamaron 'Mayrit', que
                             significa 'abundancia de ríos de agua'. Este nombre, tan evocador,
                             reflejaba la esencia de aquel lugar, un oasis en la meseta castellana.
-                            Su primer escudo, con el lema <PostQuote cite='https://caminandopormadrid.com/fui-sobre-agua-edificada-mis-muros-de'>Fui sobre agua edificada / Mis muros de
-                            fuego son / Esta es mi insignia y mi blasón</PostQuote>, era un canto a su origen
-                            acuático y a la fortaleza que la protegería a lo largo de los siglos. En
-                            1083, la ciudad cambió de manos con la conquista de Alfonso VI,
-                            iniciando un nuevo capítulo en su milenaria historia
+                            Su primer escudo, con el lema{' '}
+                            <PostQuote cite="https://caminandopormadrid.com/fui-sobre-agua-edificada-mis-muros-de">
+                                Fui sobre agua edificada / Mis muros de fuego son / Esta es mi
+                                insignia y mi blasón
+                            </PostQuote>
+                            , era un canto a su origen acuático y a la fortaleza que la protegería a
+                            lo largo de los siglos. En 1083, la ciudad cambió de manos con la
+                            conquista de Alfonso VI, iniciando un nuevo capítulo en su milenaria
+                            historia
                         </PostText>
                         <PostText>
                             En 1561, la historia de Madrid dio un giro trascendental. Felipe II, con
@@ -57,7 +60,7 @@ function Post() {
                 <PostSubtitle>Simbolos</PostSubtitle>
                 <PostContainer>
                     <PostFigure>
-                        <PostImg src={bandera} alt="Bandera de Comunidad Madrid"  loading='lazy'  />
+                        <PostImg src={bandera} alt="Bandera de Comunidad Madrid" loading="lazy" />
                         <PostFigcaption>Bandera Comunidad de Madrid </PostFigcaption>
                     </PostFigure>
 
@@ -87,7 +90,7 @@ function Post() {
                 <PostSubtitle>Ubicación</PostSubtitle>
                 <PostContainer>
                     <PostFigure>
-                        <PostImg src={mapa_madrid} alt="Mapa Comunidad Madrid"  loading='lazy'  />
+                        <PostImg src={mapa_madrid} alt="Mapa Comunidad Madrid" loading="lazy" />
                         <PostFigcaption>Mapa Comunidad de Madrid </PostFigcaption>
                     </PostFigure>
 

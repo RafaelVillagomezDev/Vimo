@@ -30,7 +30,6 @@ export const NavLinks = styled(NavContainer)`
     }
 `;
 
-
 export const NavContact = styled(NavContainer)`
     display: flex;
 `;
@@ -59,8 +58,6 @@ export const NavLinker = styled(Link)`
         color: #fff;
     }
 `;
-
-
 
 export const NavButton = styled.button`
     width: 160px;

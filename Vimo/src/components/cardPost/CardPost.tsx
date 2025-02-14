@@ -29,11 +29,30 @@ function CardPost() {
     const handleVerMas = () => setVerMas(true);
     const handleVerMenos = () => setVerMas(false);
 
+    interface MenuOption {
+        label: string;
+        subOptions: string[];
+        
+    }
+    const menuOptions: MenuOption[] = [
+        {
+            label: 'Tipo de comida ',
+            subOptions: ['Mediterranea', 'Japonesa', 'Mexicana','China','Turca'],
+        },
+        {
+            label: 'Precio',
+            subOptions: ['Menos de 15€ por persona.', 'Entre 15€ y 30€ por persona.','Más de 30€ por persona.'],
+        },
+        {
+            label: 'Guía Michelin',
+            subOptions: ['Guía MICHELIN', '3 estrellas MICHELIN', '2 estrellas MICHELIN','1 estrella MICHELIN'],
+        },
+    ];
     return (
         <MainCard>
             <SectionCard>
                 <CardOption>
-                    <Configurator/>
+                    <Configurator menuOptions={menuOptions}/>
                 </CardOption>
 
                 <BoxCard>

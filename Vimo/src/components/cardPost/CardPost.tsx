@@ -5,6 +5,7 @@ import {
     Card,
     CardBox,
     CardBoxFlex,
+    CardIcons,
     CardImage,
     CardOption,
     CardSection,
@@ -13,11 +14,14 @@ import {
     CardTitle,
     CardtTextFlex,
     Icon,
+    LinkIcon,
     MainCard,
     SectionCard,
+    TelLink,
 } from './styles/CardPostStyle';
 import Portada_restaurante from '../../assets/pictures/restaurant/Portada_restaurant _1200.jpg';
 import { useState } from 'react';
+import Configurator from '../configurator/Configurator';
 
 function CardPost() {
     const [verMas, setVerMas] = useState(false);
@@ -29,11 +33,11 @@ function CardPost() {
         <MainCard>
             <SectionCard>
                 <CardOption>
-                    <h1>lista</h1>
+                    <Configurator/>
                 </CardOption>
 
                 <BoxCard>
-                    <Card>
+                <Card>
                         <CardSection>
                             <CardImage src={Portada_restaurante} />
                         </CardSection>
@@ -72,6 +76,17 @@ function CardPost() {
                                     {verMas ? 'Ver menos' : 'Ver más'}
                                 </ButtonVerMas>
                             </CardBoxFlex>
+                            <CardIcons>
+                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
+                                    <Icon>language</Icon>Web
+                                </LinkIcon>
+                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
+                                    <Icon>menu_book</Icon>Menu
+                                </LinkIcon>
+                                <TelLink href={`tel:${'618152241'}`}>
+                                    <Icon>call_quality</Icon>618152241
+                                </TelLink>
+                            </CardIcons>
                         </CardSection>
                     </Card>
                     <Card>
@@ -113,6 +128,17 @@ function CardPost() {
                                     {verMas ? 'Ver menos' : 'Ver más'}
                                 </ButtonVerMas>
                             </CardBoxFlex>
+                            <CardIcons>
+                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
+                                    <Icon>language</Icon>Web
+                                </LinkIcon>
+                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
+                                    <Icon>menu_book</Icon>Menu
+                                </LinkIcon>
+                                <TelLink href={`tel:${'618152241'}`}>
+                                    <Icon>call_quality</Icon>618152241
+                                </TelLink>
+                            </CardIcons>
                         </CardSection>
                     </Card>
                 </BoxCard>

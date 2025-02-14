@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
+import { Link } from 'react-router-dom';
 
 export const MainCard = styled.div`
     margin: 2rem;
@@ -13,7 +14,7 @@ export const SectionCard = styled.div`
     display: grid;
     @media only screen and (${devices.sm}) {
         display: grid;
-        grid-template-columns: 210px auto;
+        grid-template-columns: 275px auto;
         gap: 2rem;
         width: 100%;
     }
@@ -81,6 +82,14 @@ export const CardBoxFlex = styled(CardBox)`
     flex-direction: column;
 `;
 
+export const CardIcons = styled(CardBox)`
+    flex-direction: row;
+    flex-wrap: wrap;
+    @media only screen and (${devices.sm}) {
+        padding: 0.1rem;
+    }
+`;
+
 export const CardTitle = styled.h3`
     font-family: 'Rokkitt', serif;
     font-size: 16px;
@@ -133,6 +142,26 @@ export const Icon = styled.span`
         'opsz' 24;
 `;
 
+export const LinkIcon = styled(Link)`
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 400;
+    gap: 0.25rem;
+`;
+
+export const TelLink = styled.a`
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    gap: 0.25rem;
+`;
+
 export const ButtonVerMas = styled.button`
     padding: 12px 10px;
     border: none;
@@ -141,4 +170,5 @@ export const ButtonVerMas = styled.button`
     background-color: #ff3d00;
     color: white;
     font-weight: 400;
+    cursor: pointer;
 `;

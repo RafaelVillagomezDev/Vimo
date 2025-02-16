@@ -8,7 +8,7 @@ import {
     MainFooter,
 } from './styles/FooterStyle';
 import icon from '../../assets/icons/icon_page.png';
-import { LinkIcon, LinkIconWhite } from '../cardPost/styles/CardPostStyle';
+import { LinkIconWhite } from '../cardPost/styles/CardPostStyle';
 
 function Footer() {
     return (

@@ -23,13 +23,9 @@ export const PostSubtitle = styled.h2`
 
 export const PostContainer = styled.div`
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 2rem;
     padding-bottom: 3rem;
-    @media only screen and (${devices.sm}) {
-        flex-direction: row;
-    }
 `;
 
 export const PostFigure = styled.figure``;

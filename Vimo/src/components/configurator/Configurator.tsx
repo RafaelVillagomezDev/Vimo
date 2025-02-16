@@ -30,11 +30,11 @@ function Configurator({ menuOptions }: { menuOptions: MenuOption[] }) {
                 {menuOptions.map((option, index) => (
                     <ul key={index}>
                         <MenuItem onClick={() => toggleMenu(index)} open={openIndex === index}>
-                            <CardTitle>{option.label}</CardTitle> 
+                            <CardTitle>{option.label}</CardTitle>
                             <Arrow open={openIndex === index}>▼</Arrow>
                         </MenuItem>
                         <SubMenu open={openIndex === index}>
-                            {option.subOptions.map((sub, subIndex) => (  
+                            {option.subOptions.map((sub, subIndex) => (
                                 <SubMenuItem key={subIndex}>
                                     <Checkbox type="checkbox" />
                                     {sub}

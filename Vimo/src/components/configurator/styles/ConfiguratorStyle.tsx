@@ -14,7 +14,6 @@ export const MenuContainer = styled.ul`
     list-style: none;
     border-radius: 8px;
     overflow: hidden;
-   
 `;
 
 export const MenuItem = styled.li<{ open: boolean }>`
@@ -25,7 +24,6 @@ export const MenuItem = styled.li<{ open: boolean }>`
     align-items: center;
     background-color: ${(props) => (props.open ? '#fff' : 'inherit')};
     transition: background-color 0.3s ease-in-out;
-    
 `;
 
 export const SubMenu = styled.ul<{ open: boolean }>`
@@ -51,36 +49,35 @@ export const SubMenuItem = styled.li`
 `;
 
 export const Checkbox = styled.input`
-    width: 20px;          /* Tamaño más grande */
-    height: 20px;         /* Tamaño más grande */
+    width: 20px; /* Tamaño más grande */
+    height: 20px; /* Tamaño más grande */
     margin-right: 5px;
     cursor: pointer;
-    appearance: none;     /* Elimina el estilo por defecto del checkbox */
-    border-radius: 4px;   /* Borde redondeado */
-    border: 2px solid #2c3e50;  /* Borde de color */
-    background-color: #fff;  /* Fondo blanco */
+    appearance: none; /* Elimina el estilo por defecto del checkbox */
+    border-radius: 4px; /* Borde redondeado */
+    border: 2px solid #2c3e50; /* Borde de color */
+    background-color: #fff; /* Fondo blanco */
     position: relative;
 
     &:checked {
-        background-color: black;  /* Color de fondo cuando está marcado */
-        border-color: gray;      /* Cambio de color del borde cuando está marcado */
+        background-color: black; /* Color de fondo cuando está marcado */
+        border-color: gray; /* Cambio de color del borde cuando está marcado */
     }
 
     &:checked::after {
-        content: '✔';  /* Símbolo del visto */
+        content: '✔'; /* Símbolo del visto */
         position: absolute;
         top: 50%;
         left: 50%;
-        color: white;  /* Color del check */
-        font-size: 16px;  /* Tamaño del check */
-        transform: translate(-50%, -50%);  /* Centra el check dentro del checkbox */
+        color: white; /* Color del check */
+        font-size: 16px; /* Tamaño del check */
+        transform: translate(-50%, -50%); /* Centra el check dentro del checkbox */
     }
 
     &:hover {
         border-color: black; /* Color de borde al pasar el mouse */
     }
 `;
-
 
 export const Arrow = styled.span<{ open: boolean }>`
     transition: transform 0.3s ease-in-out;

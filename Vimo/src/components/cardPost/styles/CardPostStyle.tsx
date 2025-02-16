@@ -30,15 +30,10 @@ export const BoxCard = styled.div`
 
 export const Card = styled.div`
     border-radius: 20px;
-    background: #fff;
     padding: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    @media only screen and (${devices.sm}) {
-        flex-direction: column;
-    }
-    @media only screen and (${devices.md}) {
+    @media only screen and (${devices.xl}) {
         flex-direction: row;
     }
 `;
@@ -53,10 +48,8 @@ export const CardOption = styled.div`
 export const CardSection = styled.div`
     width: 100%;
     padding: 10px;
-    @media only screen and (${devices.sm}) {
-        width: 100%;
-    }
-    @media only screen and (${devices.md}) {
+    width: 100%;
+    @media only screen and (${devices.xl}) {
         width: 50%;
     }
 `;
@@ -150,6 +143,15 @@ export const LinkIcon = styled(Link)`
     border-radius: 4px;
     font-weight: 400;
     gap: 0.25rem;
+`;
+
+export const LinkIconWhite = styled(LinkIcon)`
+   color: white;
+   font-size: 12px;
+   padding: 0rem;
+   @media only screen and (${devices.sm}) {
+        font-size: 15px;
+    }
 `;
 
 export const TelLink = styled.a`

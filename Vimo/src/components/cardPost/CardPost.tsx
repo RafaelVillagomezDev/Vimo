@@ -32,31 +32,39 @@ function CardPost() {
     interface MenuOption {
         label: string;
         subOptions: string[];
-        
     }
     const menuOptions: MenuOption[] = [
         {
             label: 'Tipo de comida ',
-            subOptions: ['Mediterranea', 'Japonesa', 'Mexicana','China','Turca'],
+            subOptions: ['Mediterranea', 'Japonesa', 'Mexicana', 'China', 'Turca'],
         },
         {
             label: 'Precio',
-            subOptions: ['Menos de 15€ por persona.', 'Entre 15€ y 30€ por persona.','Más de 30€ por persona.'],
+            subOptions: [
+                'Menos de 15€ por persona.',
+                'Entre 15€ y 30€ por persona.',
+                'Más de 30€ por persona.',
+            ],
         },
         {
             label: 'Guía Michelin',
-            subOptions: ['Guía MICHELIN', '3 estrellas MICHELIN', '2 estrellas MICHELIN','1 estrella MICHELIN'],
+            subOptions: [
+                'Guía MICHELIN',
+                '3 estrellas MICHELIN',
+                '2 estrellas MICHELIN',
+                '1 estrella MICHELIN',
+            ],
         },
     ];
     return (
         <MainCard>
             <SectionCard>
                 <CardOption>
-                    <Configurator menuOptions={menuOptions}/>
+                    <Configurator menuOptions={menuOptions} />
                 </CardOption>
 
                 <BoxCard>
-                <Card>
+                    <Card>
                         <CardSection>
                             <CardImage src={Portada_restaurante} />
                         </CardSection>

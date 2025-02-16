@@ -33,3 +33,19 @@ export const CarrousellTitle = styled.h1`
     flex-direction: column;
     justify-content: center;
 `;
+
+export const CarrousellSubtitle = styled.h1`
+    font-family: 'Rokkitt', serif;
+    font-size: 5vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: absolute;
+    color: white;
+    top: 16rem;
+    flex-direction: column;
+    justify-content: center;
+    @media only screen and (${devices.sm}) {
+        top:26rem
+    }
+`;

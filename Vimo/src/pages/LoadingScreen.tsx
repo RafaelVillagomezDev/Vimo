@@ -13,7 +13,7 @@ const LoadingScreen = () => {
                 left: 0,
                 width: '100vw', // Cubre todo el ancho de la pantalla
                 height: '100vh', // Cubre todo el alto de la pantalla
-                backgroundColor: 'black', // Fondo negro
+                backgroundColor: 'white',
                 zIndex: 1, // Asegúrate de que esté por encima de otros elementos
             }}>
             <Lottie

@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["chunks/components.DRLX7UBb.js","chunks/vendor.uuDm3zIX.js"])))=>i.map(i=>d[i]);
+import{_ as s}from"../index.D5JRFc3s.js";import{r as o,j as r}from"./vendor.uuDm3zIX.js";import{F as n}from"./components.DRLX7UBb.js";const t=o.lazy((()=>s((()=>import("./components.DRLX7UBb.js").then((s=>s.c))),__vite__mapDeps([0,1]))));function e(){return r.jsxs(r.Fragment,{children:[r.jsx(t,{}),r.jsx(n,{})]})}export{e as default};

@@ -46,6 +46,6 @@ export const CarrousellSubtitle = styled.h1`
     flex-direction: column;
     justify-content: center;
     @media only screen and (${devices.sm}) {
-        top:26rem
+        top: 26rem;
     }
 `;

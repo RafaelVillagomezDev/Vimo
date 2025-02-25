@@ -31,10 +31,10 @@ function Post() {
                     <PostBoardBox>
                         <PostText>
                             En las orillas del Manzanares, donde el agua fluía generosa, los árabes
-                            erigieron en el año 865 una fortaleza a la que llamaron 'Mayrit', que
-                            significa 'abundancia de ríos de agua'. Este nombre, tan evocador,
+                            erigieron en el año 865 una fortaleza a la que llamaron {'Mayrit'}, que
+                            significa {'abundancia de ríos de agua'}. Este nombre, tan evocador,
                             reflejaba la esencia de aquel lugar, un oasis en la meseta castellana.
-                            Su primer escudo, con el lema{' '}
+                            Su primer escudo, con el lema
                             <PostQuote cite="https://caminandopormadrid.com/fui-sobre-agua-edificada-mis-muros-de">
                                 Fui sobre agua edificada / Mis muros de fuego son / Esta es mi
                                 insignia y mi blasón
@@ -98,18 +98,18 @@ function Post() {
                         <PostList>
                             <PostListItem>
                                 <PostSpan>
-                                    {' '}
                                     <TfiMapAlt /> Ubicación
                                 </PostSpan>
                                 <PostText>
                                     Madrid se encuentra casi en el centro geográfico de la Península
-                                    Ibérica, a una latitud de 40º 25' Norte, y una longitud de 3º
-                                    42' Oeste.
+                                    Ibérica, a una latitud de {'40º 25'} Norte, y una longitud de{' '}
+                                    {`3º
+                                    42`}{' '}
+                                    Oeste.
                                 </PostText>
                             </PostListItem>
                             <PostListItem>
                                 <PostSpan>
-                                    {' '}
                                     <TiWeatherPartlySunny /> Tiempo
                                 </PostSpan>
                                 <PostText>

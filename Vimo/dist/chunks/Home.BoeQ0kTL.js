@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["chunks/components.DRLX7UBb.js","chunks/vendor.uuDm3zIX.js"])))=>i.map(i=>d[i]);
+import{_ as a}from"../index.D5JRFc3s.js";import{r as s,j as e}from"./vendor.uuDm3zIX.js";import{P as o,a as t,b as r}from"./banco_españa_1200.DxMurPYN.js";const m=s.lazy((()=>a((()=>import("./components.DRLX7UBb.js").then((a=>a.C))),__vite__mapDeps([0,1]))));function n(){return e.jsx(e.Fragment,{children:e.jsx(m,{image576:o,image768:t,image1200:r,altText:"Banco de España",subtitle:"Home"})})}export{n as default};

@@ -1,15 +1,20 @@
 import Navbar from '../navbar/Navbar';
-import { CarrousellContainer, CarrousellPicture, CarrousellSubtitle, CarrousellTitle } from './styles/CarrousellStyle';
+import {
+    CarrousellContainer,
+    CarrousellPicture,
+    CarrousellSubtitle,
+    CarrousellTitle,
+} from './styles/CarrousellStyle';
 
 interface CarrousellProps {
     image576: string;
     image768: string;
     image1200: string;
     altText: string;
-    subtitle:string;
+    subtitle: string;
 }
 
-function Carrousell({ image576, image768, image1200, altText,subtitle }: CarrousellProps) {
+function Carrousell({ image576, image768, image1200, altText, subtitle }: CarrousellProps) {
     return (
         <>
             <CarrousellContainer>

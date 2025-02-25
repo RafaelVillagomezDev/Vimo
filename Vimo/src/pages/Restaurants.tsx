@@ -15,10 +15,10 @@ function Restaurants() {
                 image768={Portada_768}
                 image1200={Portada_1200}
                 altText="Restaurante Madrid"
-                subtitle='Restaurantes'
+                subtitle="Restaurantes"
             />
             <CardPost />
-            <Footer/>
+            <Footer />
         </>
     );
 }

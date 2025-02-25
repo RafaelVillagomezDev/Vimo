@@ -6,7 +6,7 @@ const CardGallery = lazy(() => import('../components/cardGallery/cardGallery'));
 function Restaurant() {
     return (
         <>
-            <CardGallery/>
+            <CardGallery />
             <Footer />
         </>
     );

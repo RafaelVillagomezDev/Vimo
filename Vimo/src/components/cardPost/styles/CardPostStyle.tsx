@@ -84,7 +84,7 @@ export const CardIcons = styled(CardBox)`
 `;
 
 export const CardTitle = styled.h3`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Roboto', serif;
     font-size: 16px;
     font-weight: bold;
     @media only screen and (${devices.sm}) {
@@ -97,7 +97,7 @@ export const CardSubtitle = styled(CardTitle)`
 `;
 
 export const CardText = styled.p`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Roboto', serif;
 
     font-size: 12px;
     padding-bottom: 6px;
@@ -123,6 +123,7 @@ export const ButtonOption = styled.button`
     border: none;
     margin-left: 10px;
     border-radius: 10px;
+    font-size: 'Roboto',serif;
 `;
 
 export const Icon = styled.span`
@@ -146,10 +147,10 @@ export const LinkIcon = styled(Link)`
 `;
 
 export const LinkIconWhite = styled(LinkIcon)`
-   color: white;
-   font-size: 12px;
-   padding: 0rem;
-   @media only screen and (${devices.sm}) {
+    color: white;
+    font-size: 12px;
+    padding: 0rem;
+    @media only screen and (${devices.sm}) {
         font-size: 15px;
     }
 `;

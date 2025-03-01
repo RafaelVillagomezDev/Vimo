@@ -34,7 +34,7 @@ function Carrousell({ image576, image768, image1200, altText, subtitle }: Carrou
                 />
                 <Navbar />
                 <CarrousellTitle>MADRID</CarrousellTitle>
-                <CarrousellSubtitle>({subtitle})</CarrousellSubtitle>
+                <CarrousellSubtitle>{subtitle}</CarrousellSubtitle>
             </CarrousellContainer>
         </>
     );

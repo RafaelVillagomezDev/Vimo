@@ -33,8 +33,10 @@ export const Card = styled.div`
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     @media only screen and (${devices.xl}) {
         flex-direction: row;
+        box-shadow: none;
     }
 `;
 
@@ -98,8 +100,7 @@ export const CardSubtitle = styled(CardTitle)`
 
 export const CardText = styled.p`
     font-family: 'Roboto', serif;
-
-    font-size: 12px;
+    font-size: 16px;
     padding-bottom: 6px;
     display: flex;
     align-items: baseline;
@@ -129,6 +130,7 @@ export const ButtonOption = styled.button`
 export const Icon = styled.span`
     font-family: 'Material Symbols Outlined';
     font-size: 22px;
+    padding-right: 10px;
     font-variation-settings:
         'FILL' 1,
         'wght' 400,
@@ -166,10 +168,11 @@ export const TelLink = styled.a`
 `;
 
 export const ButtonVerMas = styled.button`
+    font-family: 'Roboto', serif;
+    font-size: 12px;
     padding: 12px 10px;
     border: none;
     border-radius: 10px;
-    font-size: 10px;
     background-color: #ff3d00;
     color: white;
     font-weight: 400;

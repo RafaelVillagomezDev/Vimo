@@ -13,7 +13,7 @@ function History() {
                 image768={Portada_768}
                 image1200={Portada_1200}
                 altText="Banco de España"
-                subtitle="Hisroy"
+                subtitle="Historia"
             />
             <Post />
         </>

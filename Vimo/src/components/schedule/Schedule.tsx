@@ -1,42 +1,48 @@
-import { Card, ScheduleItem, Title } from "./styles/ScheduleStyle"
+import {
+    Card,
+    ScheduleDay,
+    ScheduleItem,
+    ScheduleText,
+    ScheduleTime,
+    Title,
+} from './styles/ScheduleStyle';
 
-function Schedule(){
-
+function Schedule() {
     return (
         <Card>
-            <Title>
-                Horario                
-            </Title>
+            <Title>Horario</Title>
             <ScheduleItem>
-            <span>SABADO a domingo</span>
-            <span>12:00</span>
+                <ScheduleText>
+                    <ScheduleDay>Lunes</ScheduleDay>
+                    <ScheduleTime>11:00pm - 12:00pm</ScheduleTime>
+                </ScheduleText>
             </ScheduleItem>
             <ScheduleItem>
-            <span>SABADO</span>
-            <span>12:00</span>
+                <ScheduleText>
+                    <ScheduleDay>Lunes</ScheduleDay>
+                    <ScheduleTime>11:00pm - 12:00pm</ScheduleTime>
+                </ScheduleText>
             </ScheduleItem>
             <ScheduleItem>
-            <span>SABADO</span>
-            <span>12:00</span>
+                <ScheduleText>
+                    <ScheduleDay>Lunes</ScheduleDay>
+                    <ScheduleTime>11:00pm - 12:00pm</ScheduleTime>
+                </ScheduleText>
             </ScheduleItem>
             <ScheduleItem>
-            <span>SABADO</span>
-            <span>12:00</span>
+                <ScheduleText>
+                    <ScheduleDay>Lunes</ScheduleDay>
+                    <ScheduleTime>11:00pm - 12:00pm</ScheduleTime>
+                </ScheduleText>
             </ScheduleItem>
             <ScheduleItem>
-            <span>SABADO</span>
-            <span>12:00</span>
-            </ScheduleItem>
-            <ScheduleItem>
-            <span>SABADO</span>
-            <span>12:00</span>
-            </ScheduleItem>
-            <ScheduleItem>
-            <span>SABADO</span>
-            <span>12:00</span>
+                <ScheduleText>
+                    <ScheduleDay>Lunes</ScheduleDay>
+                    <ScheduleTime>11:00pm - 12:00pm</ScheduleTime>
+                </ScheduleText>
             </ScheduleItem>
         </Card>
-    )
+    );
 }
 
-export default Schedule
+export default Schedule;

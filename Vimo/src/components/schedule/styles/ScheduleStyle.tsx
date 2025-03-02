@@ -4,7 +4,6 @@ import { devices } from '../../../styles/mixin_styledComponent';
 
 export const Card = styled.div`
   width: 100%;
-  max-width: 400px;
   padding: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
@@ -20,8 +19,26 @@ export const Title = styled.h2`
 
 export const ScheduleItem = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   border-bottom: 1px solid #ddd;
   padding-bottom: 8px;
   margin-bottom: 8px;
+  column-gap: 1rem;
 `;
+
+export const ScheduleText=styled.p`
+
+`
+
+export const ScheduleDay=styled.span`
+  font-family:  'Roboto', serif;;
+  font-size: 16px;
+  font-weight: bold;
+  padding-right: 6px;
+  
+`
+export const ScheduleTime=styled.span`
+  font-family:  'Roboto', serif;;
+  font-size: 14px;
+ 
+`

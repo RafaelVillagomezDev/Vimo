@@ -22,7 +22,7 @@ import {
     TextLine,
     TitleInfo,
 } from './styles/cardGalleryStyles';
-import { useState,lazy } from 'react';
+import { useState, lazy } from 'react';
 const Schedule = lazy(() => import('../schedule/Schedule'));
 
 function CardGallery() {
@@ -104,15 +104,43 @@ function CardGallery() {
                             <NavLink to="">Contenido</NavLink>
                         </NavLinks>
                     </NavbarRestaurant>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati consequatur incidunt beatae illo sed a sequi. Laudantium, ipsam? Repellendus autem obcaecati animi at voluptatibus tenetur aperiam esse, rerum dolores molestias?</p>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit amet perferendis expedita commodi similique quibusdam accusantium, sed magni reprehenderit recusandae eum, debitis veritatis dolores laudantium eius dicta praesentium autem ex?</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quam facere, sapiente debitis maiores placeat rem veritatis ipsum tenetur rerum nulla corrupti asperiores id inventore similique. At libero sed modi.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati consequatur incidunt beatae illo sed a sequi. Laudantium, ipsam? Repellendus autem obcaecati animi at voluptatibus tenetur aperiam esse, rerum dolores molestias?</p>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit amet perferendis expedita commodi similique quibusdam accusantium, sed magni reprehenderit recusandae eum, debitis veritatis dolores laudantium eius dicta praesentium autem ex?</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quam facere, sapiente debitis maiores placeat rem veritatis ipsum tenetur rerum nulla corrupti asperiores id inventore similique. At libero sed modi.</p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                        consequatur incidunt beatae illo sed a sequi. Laudantium, ipsam? Repellendus
+                        autem obcaecati animi at voluptatibus tenetur aperiam esse, rerum dolores
+                        molestias?
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit amet
+                        perferendis expedita commodi similique quibusdam accusantium, sed magni
+                        reprehenderit recusandae eum, debitis veritatis dolores laudantium eius
+                        dicta praesentium autem ex?
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quam
+                        facere, sapiente debitis maiores placeat rem veritatis ipsum tenetur rerum
+                        nulla corrupti asperiores id inventore similique. At libero sed modi.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                        consequatur incidunt beatae illo sed a sequi. Laudantium, ipsam? Repellendus
+                        autem obcaecati animi at voluptatibus tenetur aperiam esse, rerum dolores
+                        molestias?
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit amet
+                        perferendis expedita commodi similique quibusdam accusantium, sed magni
+                        reprehenderit recusandae eum, debitis veritatis dolores laudantium eius
+                        dicta praesentium autem ex?
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quam
+                        facere, sapiente debitis maiores placeat rem veritatis ipsum tenetur rerum
+                        nulla corrupti asperiores id inventore similique. At libero sed modi.
+                    </p>
                 </GridContent>
                 <GridShedule>
-                    <Schedule/>
+                    <Schedule />
                 </GridShedule>
             </GridRestaurant>
         </>
@@ -120,3 +148,7 @@ function CardGallery() {
 }
 
 export default CardGallery;
+/*
+
+
+ */

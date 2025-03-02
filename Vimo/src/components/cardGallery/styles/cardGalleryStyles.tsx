@@ -5,16 +5,15 @@ import { Link } from 'react-router-dom';
 export const GridCarrousell = styled.div`
     display: grid;
     gap: 16px;
-    padding: 0rem 2rem 2rem;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    grid-column: 2 / 10;
+    grid-column: 2 / 7;
     grid-row: 1;
-     
+
+    @media only screen and (${devices.md}) {
+        grid-column: 2 / 7;
+    }
     @media only screen and (${devices.lg}) {
-        grid-template-columns: 840px auto;
-        
+        grid-template-columns: auto auto;
     }
 `;
 
@@ -177,13 +176,13 @@ export const NavbarRestaurant = styled.nav`
 export const NavLinks = styled.ul`
     list-style: none;
     display: flex;
-    gap: 1rem;
 `;
 
 export const NavLink = styled(Link)`
-    font-family: 'Roboto';
+    font-family: 'Rokkitt', serif;
     font-size: 16px;
     color: black;
+    font-weight: bold;
     cursor: pointer;
     line-height: 10px;
     padding: 0.5rem 1rem;
@@ -191,6 +190,11 @@ export const NavLink = styled(Link)`
     &:hover {
         border-bottom: solid 2px orange;
     }
+
+    @media only screen and (${devices.lg}) {
+        font-size: 20px;
+    }
+
 `;
 
 export const GridRestaurant = styled.div`
@@ -198,43 +202,42 @@ export const GridRestaurant = styled.div`
     flex-direction: column;
     gap: 1rem;
     padding: 2rem;
-    
+
+
     @media only screen and (${devices.sm}) {
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        grid-template-rows: auto auto ;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: minmax(100px, auto);
     }
 `;
 
 export const GridContent = styled.div`
     display: grid;
     gap: 16px;
-    padding: 0rem 2rem 2rem;
-    justify-content: center;
     width: 100%;
     grid-area: content;
-    grid-column: 2 / 6;
+    grid-column: 2 / 5;
     grid-row: 2;
-
     @media only screen and (${devices.sm}) {
-        grid-column: 2 / 8;
-        grid-row: 2;
+        grid-column: 2 / 3;
     }
-   
+
+    @media only screen and (${devices.md}) {
+        grid-column: 2 / 5;
+    }
 `;
 
 export const GridShedule = styled.div`
-    display: inline-table;
+    display: grid;
     gap: 16px;
-    padding: 0rem 2rem 2rem;
-    justify-content: center;
     width: 100%;
-    grid-column: 6 / 9;
+    grid-column: 5 / 7;
     grid-row: 2;
+    max-height: 300px;
     @media only screen and (${devices.sm}) {
-        grid-column:  8/ 10;
-        grid-row: 2 ;
+        grid-column: 3 / 7;
     }
-
-   
+    @media only screen and (${devices.md}) {
+        grid-column: 5 / 7;
+    }
 `;

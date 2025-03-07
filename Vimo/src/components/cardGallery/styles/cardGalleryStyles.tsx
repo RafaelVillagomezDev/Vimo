@@ -86,6 +86,14 @@ export const TitleInfo = styled.h3`
         font-size: 32px;
     }
 `;
+export const SubtitleInfo = styled.h4`
+    font-family: 'Rokkitt', serif;
+    font-size: 20px;
+    font-weight: bold;
+    @media only screen and (${devices.sm}) {
+        font-size: 24px;
+    }
+`;
 
 export const TextInfo = styled.p`
     font-family: 'Roboto';
@@ -152,6 +160,7 @@ export const Text = styled.p`
     justify-content: flex-start;
     column-gap: 1rem;
     flex-direction: column;
+    align-items: center;
     @media only screen and (${devices.sm}) {
         flex-direction: row;
     }
@@ -194,7 +203,6 @@ export const NavLink = styled(Link)`
     @media only screen and (${devices.lg}) {
         font-size: 20px;
     }
-
 `;
 
 export const GridRestaurant = styled.div`
@@ -202,7 +210,7 @@ export const GridRestaurant = styled.div`
     flex-direction: column;
     gap: 1rem;
     padding: 2rem;
-
+    grid-gap: 2rem;
 
     @media only screen and (${devices.sm}) {
         display: grid;
@@ -239,5 +247,29 @@ export const GridShedule = styled.div`
     }
     @media only screen and (${devices.md}) {
         grid-column: 5 / 7;
+    }
+`;
+
+export const GridInfo = styled.div`
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    grid-area: content;
+    grid-column: 2 / 5;
+    grid-row: 3;
+    @media only screen and (${devices.sm}) {
+        grid-column: 2 / 3;
+    }
+
+    @media only screen and (${devices.md}) {
+        grid-column: 2 / 5;
+    }
+`;
+
+export const Box = styled(BoxInfo)`
+    flex-direction: column;
+    justify-content: start;
+    @media only screen and (${devices.sm}) {
+        row-gap: 1rem;
     }
 `;

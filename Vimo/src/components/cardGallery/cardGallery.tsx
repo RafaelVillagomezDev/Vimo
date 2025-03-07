@@ -1,5 +1,6 @@
 import Portada_restaurante from '../../assets/pictures/restaurant/Portada_restaurant _1200.jpg';
 import {
+    Box,
     BoxInfo,
     BoxShare,
     BoxText,
@@ -8,6 +9,7 @@ import {
     ButtonText,
     GridCarrousell,
     GridContent,
+    GridInfo,
     GridRestaurant,
     GridShedule,
     IconInfo,
@@ -142,6 +144,29 @@ function CardGallery() {
                 <GridShedule>
                     <Schedule />
                 </GridShedule>
+                <GridInfo>
+                    <TitleInfo>Caracteristicas</TitleInfo>
+                    <Box>
+                        <Text>
+                            <IconInfo color='black'>
+                                credit_card
+                            </IconInfo>
+                            Aceptan tarjetas de credito
+                        </Text>
+                        <Text>
+                            <IconInfo color='black'>
+                                check_circle
+                            </IconInfo>
+                            Comidas, Cenas, Brunch y Bebidas
+                        </Text>
+                        <Text>
+                            <IconInfo color='black'>
+                                chef_hat
+                            </IconInfo>
+                            Tiene opciones veganas y celiacas
+                        </Text>
+                    </Box>
+                </GridInfo>
             </GridRestaurant>
         </>
     );

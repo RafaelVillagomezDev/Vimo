@@ -49,8 +49,8 @@ export const SubMenuItem = styled.li`
 `;
 
 export const Checkbox = styled.input`
-    width: 20px; /* Tamaño más grande */
-    height: 20px; /* Tamaño más grande */
+    width: 15px; /* Tamaño más grande */
+    height: 15px; /* Tamaño más grande */
     margin-right: 5px;
     cursor: pointer;
     appearance: none; /* Elimina el estilo por defecto del checkbox */

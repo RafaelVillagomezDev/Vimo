@@ -3,18 +3,18 @@ import {
     BoxLink,
     BoxList,
     ContainerFooter,
-    Icon,
     IconMaterialWhite,
+    IconText,
     MainFooter,
 } from './styles/FooterStyle';
-import icon from '../../assets/icons/icon_page.png';
+
 import { LinkIconWhite } from '../cardPost/styles/CardPostStyle';
 
 function Footer() {
     return (
         <ContainerFooter>
             <MainFooter>
-                <Icon src={icon} sizes="60px" />
+                <IconText>ZappyMap</IconText>
                 <BoxFooter>
                     <BoxList>
                         <BoxLink to="./legales">¿Quienes somos?</BoxLink>
@@ -32,9 +32,10 @@ function Footer() {
                         </LinkIconWhite>
                         <LinkIconWhite to="https://yandrydev.es/">
                             <IconMaterialWhite>copyright</IconMaterialWhite>
-                            MADRIDVIBES TODOS LOS DERECHOS RESERVADOS
+                            ZappyMap Inc
                         </LinkIconWhite>
                     </BoxList>
+                    <BoxList></BoxList>
                 </BoxFooter>
             </MainFooter>
         </ContainerFooter>

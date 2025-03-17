@@ -33,7 +33,9 @@ export const Card = styled.div`
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
     @media only screen and (${devices.xl}) {
         flex-direction: row;
         box-shadow: none;
@@ -50,7 +52,10 @@ export const CardOption = styled.div`
 export const CardSection = styled.div`
     width: 100%;
     padding: 10px;
-    width: 100%;
+    display: flex;
+    align-self: self-start;
+    flex-direction: column;
+    gap: 0.25rem;
     @media only screen and (${devices.xl}) {
         width: 50%;
     }
@@ -75,6 +80,7 @@ export const CardBox = styled.div`
 
 export const CardBoxFlex = styled(CardBox)`
     flex-direction: column;
+    padding: 10px 0px;
 `;
 
 export const CardIcons = styled(CardBox)`
@@ -89,13 +95,19 @@ export const CardTitle = styled.h3`
     font-family: 'Roboto', serif;
     font-size: 16px;
     font-weight: bold;
-    @media only screen and (${devices.sm}) {
-        font-size: 22px;
-    }
+`;
+export const CardTitleText = styled.h3`
+    font-family: 'Roboto', serif;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px 0px;
 `;
 
-export const CardSubtitle = styled(CardTitle)`
+export const CardSubtitle = styled.h3`
     font-weight: 400;
+    font-family: 'Roboto', serif;
+    font-size: 20px;
+    font-weight: bold;
 `;
 
 export const CardText = styled.p`
@@ -104,32 +116,26 @@ export const CardText = styled.p`
     padding-bottom: 6px;
     display: flex;
     align-items: baseline;
-    @media only screen and (${devices.sm}) {
-        font-size: 20px;
-        padding-bottom: 10px;
-    }
 `;
 
 export const CardtTextFlex = styled(CardText)`
     display: flex;
     align-items: end;
     font-size: 16px;
-    @media only screen and (${devices.sm}) {
-        font-size: 18px;
-    }
 `;
 
 export const ButtonOption = styled.button`
-    padding: 10px 10px;
+    padding: 6px 6px;
     border: none;
     margin-left: 10px;
     border-radius: 10px;
-    font-size: 'Roboto',serif;
+    font-family: 'Roboto', serif;
+    font-size: 18px;
 `;
 
 export const Icon = styled.span`
     font-family: 'Material Symbols Outlined';
-    font-size: 22px;
+    font-size: 16px;
     padding-right: 10px;
     font-variation-settings:
         'FILL' 1,
@@ -150,11 +156,8 @@ export const LinkIcon = styled(Link)`
 
 export const LinkIconWhite = styled(LinkIcon)`
     color: white;
-    font-size: 12px;
+    font-size: 16px;
     padding: 0rem;
-    @media only screen and (${devices.sm}) {
-        font-size: 15px;
-    }
 `;
 
 export const TelLink = styled.a`
@@ -170,7 +173,7 @@ export const TelLink = styled.a`
 export const ButtonVerMas = styled.button`
     font-family: 'Roboto', serif;
     font-size: 12px;
-    padding: 12px 10px;
+    padding: 12px 6px;
     border: none;
     border-radius: 10px;
     background-color: #ff3d00;

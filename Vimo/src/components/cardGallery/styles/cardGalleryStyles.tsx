@@ -33,7 +33,6 @@ export const RightColumn = styled.div`
         grid-template-columns: 1fr;
         grid-row-gap: 1rem;
         grid-template-rows: repeat(3, 175px);
-        height: 558px;
     }
 `;
 
@@ -58,7 +57,6 @@ export const InfoContainer = styled.div`
 
 export const IconInfo = styled.span`
     font-family: 'Material Symbols Outlined';
-    font-size: 22px;
     color: ${({ color }) => color || 'orange'};
     font-weight: 400;
     font-variation-settings:
@@ -80,18 +78,18 @@ export const BoxText = styled.div`
 
 export const TitleInfo = styled.h3`
     font-family: 'Rokkitt', serif;
-    font-size: 24px;
+    font-size: 25px;
     font-weight: bold;
     @media only screen and (${devices.sm}) {
-        font-size: 32px;
+        font-size: 35px;
     }
 `;
-export const SubtitleInfo = styled.h4`
+export const SubtitleInfo = styled.h3`
     font-family: 'Rokkitt', serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     @media only screen and (${devices.sm}) {
-        font-size: 24px;
+        font-size: 22px;
     }
 `;
 
@@ -101,7 +99,7 @@ export const TextInfo = styled.p`
 `;
 export const BoxShare = styled.div`
     font-family: 'Rokkitt', serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     display: flex;
     flex-direction: row;
@@ -142,7 +140,7 @@ export const ButtonText = styled.span.attrs<{
     $borderBottom: props.$borderBottom || 'solid 1px black',
 }))`
     font-family: 'Roboto';
-    font-size: 16px;
+
     border-bottom: ${(props) => props.$borderBottom};
     line-height: 22px;
     display: none;
@@ -152,10 +150,10 @@ export const ButtonText = styled.span.attrs<{
     }
 `;
 
-export const Text = styled.p`
-    font-family: 'Roboto';
+export const Text = styled.div`
+    font-family: 'Roboto', serif;
     font-size: 16px;
-    padding: 12px 0px;
+    padding: 6px 0px;
     display: flex;
     justify-content: flex-start;
     column-gap: 1rem;
@@ -166,7 +164,11 @@ export const Text = styled.p`
     }
 `;
 
-export const TextLine = styled.span`
+export const TextLine = styled.p`
+    display: flex;
+    align-items: center;
+
+    column-gap: 1rem;
     border-bottom: none;
     padding: 10px 0px;
     @media only screen and (${devices.sm}) {
@@ -196,13 +198,15 @@ export const NavLink = styled(Link)`
     line-height: 10px;
     padding: 0.5rem 1rem;
     border-right: solid 2px gray;
-    &:hover {
-        border-bottom: solid 2px orange;
-    }
 
-    @media only screen and (${devices.lg}) {
-        font-size: 20px;
+    @media only screen and (${devices.sm}) {
+        font-size: 22px;
     }
+`;
+
+export const TextCard = styled.p`
+    font-family: 'Roboto';
+    font-size: 16px;
 `;
 
 export const GridRestaurant = styled.div`
@@ -223,14 +227,14 @@ export const GridContent = styled.div`
     display: grid;
     gap: 16px;
     width: 100%;
-    grid-area: content;
+
     grid-column: 2 / 5;
     grid-row: 2;
     @media only screen and (${devices.sm}) {
         grid-column: 2 / 3;
     }
 
-    @media only screen and (${devices.md}) {
+    @media only screen and (${devices.lg}) {
         grid-column: 2 / 5;
     }
 `;
@@ -238,14 +242,12 @@ export const GridContent = styled.div`
 export const GridShedule = styled.div`
     display: grid;
     gap: 16px;
-    width: 100%;
     grid-column: 5 / 7;
     grid-row: 2;
-    max-height: 300px;
     @media only screen and (${devices.sm}) {
         grid-column: 3 / 7;
     }
-    @media only screen and (${devices.md}) {
+    @media only screen and (${devices.lg}) {
         grid-column: 5 / 7;
     }
 `;

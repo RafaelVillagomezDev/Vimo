@@ -3,6 +3,7 @@ import Portada_576 from '../assets/pictures/spain/banco_españa_576.jpg';
 import Portada_768 from '../assets/pictures/spain/banco_españa_768.jpg';
 import Portada_1200 from '../assets/pictures/spain/banco_españa_1200.jpg';
 import { lazy } from 'react';
+import Footer from '../components/footer/Footer';
 
 const Carrousell = lazy(() => import('../components/carrousell/Carrousell'));
 function History() {
@@ -16,6 +17,7 @@ function History() {
                 subtitle="Historia"
             />
             <Post />
+            <Footer />
         </>
     );
 }

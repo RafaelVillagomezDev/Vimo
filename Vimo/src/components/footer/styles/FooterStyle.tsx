@@ -7,7 +7,7 @@ export const ContainerFooter = styled.div`
     background-color: hsl(0, 0%, 0%);
     padding: 2rem;
     @media only screen and (${devices.sm}) {
-        height: 150px;
+        height: 200px;
     }
 `;
 
@@ -19,15 +19,23 @@ export const MainFooter = styled.div`
     width: 100%;
     row-gap: 2rem;
     column-gap: 2rem;
-    @media only screen and (${devices.sm}) {
-        flex-direction: row;
-    }
 `;
 
 export const BoxFooter = styled.div`
     display: flex;
     justify-content: space-evenly;
     column-gap: 2rem;
+    align-items: center;
+`;
+
+export const IconText = styled.h1`
+    font-family: 'Rokkitt', serif;
+    font-family: 24px;
+    font-weight: 500;
+    color: white;
+    @media only screen and (${devices.sm}) {
+        font-family: 35px;
+    }
 `;
 
 export const Icon = styled.img`
@@ -51,6 +59,7 @@ export const IconMaterialWhite = styled(IconMaterial)`
 export const BoxList = styled.ul`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
     @media only screen and (${devices.sm}) {
     }

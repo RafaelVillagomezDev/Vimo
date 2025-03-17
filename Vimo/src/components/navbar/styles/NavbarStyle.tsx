@@ -3,20 +3,17 @@ import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 
 export const Nav = styled.nav`
-    margin: 2rem;
-    height: 60px;
+    background-color: black;
+    height: 90px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
     gap: 0.5rem;
-    position: absolute;
-    top: 2rem;
     width: -webkit-fill-available;
 `;
 
 export const NavContainer = styled.div`
-    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -34,6 +31,15 @@ export const NavContact = styled(NavContainer)`
     display: flex;
 `;
 
+export const IconText = styled.h1`
+    font-family: 'Rokkitt', serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: white;
+    @media only screen and (${devices.sm}) {
+        font-size: 35px;
+    }
+`;
 export const NavList = styled.ul`
     display: flex;
     flex-direction: row;
@@ -57,23 +63,4 @@ export const NavLinker = styled(Link)`
         background-color: #6200ea; /* Color de fondo para el enlace activo */
         color: #fff;
     }
-`;
-
-export const NavButton = styled.button`
-    width: 160px;
-    height: 45px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    border-radius: 250px;
-    background: #ff3d00;
-    border: none;
-`;
-
-export const NavText = styled.p`
-    color: #fff;
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 `;

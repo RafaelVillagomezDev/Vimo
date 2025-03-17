@@ -20,7 +20,9 @@ import {
     NavLinks,
     NavbarRestaurant,
     RightColumn,
+    SubtitleInfo,
     Text,
+    TextCard,
     TextLine,
     TitleInfo,
 } from './styles/cardGalleryStyles';
@@ -106,63 +108,41 @@ function CardGallery() {
                             <NavLink to="">Contenido</NavLink>
                         </NavLinks>
                     </NavbarRestaurant>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-                        consequatur incidunt beatae illo sed a sequi. Laudantium, ipsam? Repellendus
-                        autem obcaecati animi at voluptatibus tenetur aperiam esse, rerum dolores
-                        molestias?
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit amet
-                        perferendis expedita commodi similique quibusdam accusantium, sed magni
-                        reprehenderit recusandae eum, debitis veritatis dolores laudantium eius
-                        dicta praesentium autem ex?
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quam
-                        facere, sapiente debitis maiores placeat rem veritatis ipsum tenetur rerum
-                        nulla corrupti asperiores id inventore similique. At libero sed modi.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-                        consequatur incidunt beatae illo sed a sequi. Laudantium, ipsam? Repellendus
-                        autem obcaecati animi at voluptatibus tenetur aperiam esse, rerum dolores
-                        molestias?
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit amet
-                        perferendis expedita commodi similique quibusdam accusantium, sed magni
-                        reprehenderit recusandae eum, debitis veritatis dolores laudantium eius
-                        dicta praesentium autem ex?
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quam
-                        facere, sapiente debitis maiores placeat rem veritatis ipsum tenetur rerum
-                        nulla corrupti asperiores id inventore similique. At libero sed modi.
-                    </p>
+                    <TextCard>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores corrupti
+                        omnis, cupiditate officiis vitae autem culpa praesentium incidunt eligendi
+                        nostrum doloribus, tenetur at ad. Expedita error repudiandae hic iste
+                        laudantium.
+                    </TextCard>
+                    <TextCard>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores corrupti
+                        omnis, cupiditate officiis vitae autem culpa praesentium incidunt eligendi
+                        nostrum doloribus, tenetur at ad. Expedita error repudiandae hic iste
+                        laudantium.
+                    </TextCard>
+                    <TextCard>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores corrupti
+                        omnis, cupiditate officiis vitae autem culpa praesentium incidunt eligendi
+                        nostrum doloribus, tenetur at ad. Expedita error repudiandae hic iste
+                        laudantium.
+                    </TextCard>
                 </GridContent>
                 <GridShedule>
                     <Schedule />
                 </GridShedule>
                 <GridInfo>
-                    <TitleInfo>Caracteristicas</TitleInfo>
+                    <SubtitleInfo>Caracteristicas</SubtitleInfo>
                     <Box>
                         <Text>
-                            <IconInfo color='black'>
-                                credit_card
-                            </IconInfo>
+                            <IconInfo color="black">credit_card</IconInfo>
                             Aceptan tarjetas de credito
                         </Text>
                         <Text>
-                            <IconInfo color='black'>
-                                check_circle
-                            </IconInfo>
+                            <IconInfo color="black">check_circle</IconInfo>
                             Comidas, Cenas, Brunch y Bebidas
                         </Text>
                         <Text>
-                            <IconInfo color='black'>
-                                chef_hat
-                            </IconInfo>
+                            <IconInfo color="black">chef_hat</IconInfo>
                             Tiene opciones veganas y celiacas
                         </Text>
                     </Box>

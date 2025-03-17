@@ -1,21 +1,11 @@
-import {
-    Nav,
-    NavButton,
-    NavContact,
-    NavLinker,
-    NavLinks,
-    NavList,
-    NavText,
-} from './styles/NavbarStyle';
+import { IconText, Nav, NavContact, NavLinker, NavLinks, NavList } from './styles/NavbarStyle';
 
 function Navbar() {
     return (
         <>
             <Nav>
                 <NavContact>
-                    <NavButton>
-                        <NavText>Contacto</NavText>
-                    </NavButton>
+                    <IconText>ZappyMap</IconText>
                 </NavContact>
                 <NavLinks>
                     <NavList>

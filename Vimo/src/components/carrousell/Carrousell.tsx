@@ -17,6 +17,7 @@ interface CarrousellProps {
 function Carrousell({ image576, image768, image1200, altText, subtitle }: CarrousellProps) {
     return (
         <>
+            <Navbar />
             <CarrousellContainer>
                 <CarrousellPicture
                     srcSet={`
@@ -32,7 +33,7 @@ function Carrousell({ image576, image768, image1200, altText, subtitle }: Carrou
                     alt={altText}
                     loading="lazy"
                 />
-                <Navbar />
+
                 <CarrousellTitle>MADRID</CarrousellTitle>
                 <CarrousellSubtitle>{subtitle}</CarrousellSubtitle>
             </CarrousellContainer>

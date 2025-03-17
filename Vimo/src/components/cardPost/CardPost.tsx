@@ -11,7 +11,7 @@ import {
     CardSection,
     CardSubtitle,
     CardText,
-    CardTitle,
+    CardTitleText,
     CardtTextFlex,
     Icon,
     LinkIcon,
@@ -76,7 +76,7 @@ function CardPost() {
                                 <ButtonOption>Michelin</ButtonOption>
                             </CardBox>
                             <CardBox>
-                                <CardTitle>1. Restaurante Carmen</CardTitle>
+                                <CardTitleText>1. Restaurante Carmen</CardTitleText>
                             </CardBox>
                             <CardBox>
                                 <CardtTextFlex>
@@ -128,7 +128,7 @@ function CardPost() {
                                 <ButtonOption>Michelin</ButtonOption>
                             </CardBox>
                             <CardBox>
-                                <CardTitle>1. Restaurante Carmen</CardTitle>
+                                <CardTitleText>1. Restaurante Carmen</CardTitleText>
                             </CardBox>
                             <CardBox>
                                 <CardtTextFlex>

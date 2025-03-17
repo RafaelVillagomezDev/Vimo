@@ -3,8 +3,7 @@ import { devices } from '../../../styles/mixin_styledComponent';
 
 export const Card = styled.div`
     width: 100%;
-    max-width: 300px;
-    padding: 16px;
+    padding: 12px;
     margin: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
@@ -12,10 +11,13 @@ export const Card = styled.div`
 `;
 
 export const Title = styled.h2`
-    font-size: 1.25rem;
+    font-size: 16px;
     font-weight: 600;
     text-align: center;
     margin-bottom: 16px;
+    @media only screen and (${devices.sm}) {
+        font-size: 22px;
+    }
 `;
 
 export const ScheduleItem = styled.div`
@@ -33,15 +35,24 @@ export const ScheduleItem = styled.div`
     }
 `;
 
-export const ScheduleText = styled.p``;
-
-export const ScheduleDay = styled.span`
+export const ScheduleText = styled.p`
     font-family: 'Roboto', serif;
     font-size: 16px;
+    display: flex;
+
+    flex-direction: row;
+    @media only screen and (${devices.sm}) {
+        flex-direction: column;
+    }
+
+    @media only screen and (${devices.lg}) {
+        flex-direction: row;
+    }
+`;
+
+export const ScheduleDay = styled.span`
     font-weight: bold;
-    padding-right: 6px;
 `;
 export const ScheduleTime = styled.span`
-    font-family: 'Roboto', serif;
-    font-size: 14px;
+    padding-left: 6px;
 `;

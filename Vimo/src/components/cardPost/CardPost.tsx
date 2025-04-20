@@ -20,8 +20,11 @@ import {
     TelLink,
 } from './styles/CardPostStyle';
 import Portada_restaurante from '../../assets/pictures/restaurant/Portada_restaurant _1200.jpg';
-import { useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import Configurator from '../configurator/Configurator';
+import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
+import { getRestaurant } from '../../slices/restaurant/restaurant-api';
+import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
 
 function CardPost() {
     const [verMas, setVerMas] = useState(false);
@@ -29,6 +32,16 @@ function CardPost() {
     const handleVerMas = () => setVerMas(true);
     const handleVerMenos = () => setVerMas(false);
 
+    // APi Get 
+
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+      startTransition(() => {
+         dispatch(getRestaurant())
+      });
+    }, [dispatch]);
+
+    const {loading,restaurant,status}=useAppSelector((state) => state.restaurant)
     interface MenuOption {
         label: string;
         subOptions: string[];
@@ -57,13 +70,17 @@ function CardPost() {
         },
     ];
     return (
+     
         <MainCard>
+               <>
+        {console.log(restaurant)}</>
             <SectionCard>
                 <CardOption>
                     <Configurator menuOptions={menuOptions} />
                 </CardOption>
 
                 <BoxCard>
+                    
                     <Card>
                         <CardSection>
                             <CardImage src={Portada_restaurante} />

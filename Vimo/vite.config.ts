@@ -72,7 +72,7 @@ export default defineConfig({
 
   // Configuración del servidor de desarrollo
   server: {
-    port: 3000,  // Puerto para el servidor de desarrollo
+    port: 3007,  // Puerto para el servidor de desarrollo
     open: true,  // Abrir automáticamente el navegador
     hmr: true,   // Habilitar Hot Module Replacement
   },

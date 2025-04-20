@@ -1,11 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useFetch } from "../../custom/hooks/call/useFetch";
+import { customFetch } from "../../utils/call/customFetch";
+
 
 
 export const getRestaurant=createAsyncThunk(
     "restaurant/fetchRestaurant",
     async()=>{
        
-       
+       const data = customFetch({api_url:"http://localhost:3000/api/v1/restaurant",method:"GET"})
+       return data;
     }
 )

@@ -30,10 +30,13 @@ import {
     TextSpan,
     TitleInfo,
 } from './styles/cardGalleryStyles';
-import { useState, lazy } from 'react';
+import { useState, lazy} from 'react';
+
 const Schedule = lazy(() => import('../schedule/Schedule'));
 
 function CardGallery() {
+
+    
     const [copied, setCopied] = useState(false);
 
     const handleShare = async () => {
@@ -52,6 +55,7 @@ function CardGallery() {
     const imagesRight = [Portada_restaurante, Portada_restaurante, Portada_restaurante];
 
     return (
+        
         <>
             <InfoContainer>
                 <BoxInfo>

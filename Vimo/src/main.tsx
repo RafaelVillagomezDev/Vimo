@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import LoadingScreen from './pages/LoadingScreen';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
@@ -39,8 +41,10 @@ if (rootElement) {
     const router = createBrowserRouter(routes);
 
     root.render(
-        <Suspense fallback={<LoadingScreen />}>
-            <RouterProvider router={router} />
-        </Suspense>
+        <Provider store={store}>
+            <Suspense fallback={<LoadingScreen />}>
+                <RouterProvider router={router} />
+            </Suspense>
+        </Provider>
     );
 }

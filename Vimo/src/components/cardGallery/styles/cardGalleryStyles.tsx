@@ -32,7 +32,7 @@ export const RightColumn = styled.div`
         display: grid;
         grid-template-columns: 1fr;
         grid-row-gap: 1rem;
-        grid-template-rows: repeat(3, 175px);
+        grid-template-rows: repeat(3, 210px);
     }
 `;
 
@@ -86,7 +86,7 @@ export const TitleInfo = styled.h3`
 `;
 export const SubtitleInfo = styled.h3`
     font-family: 'Rokkitt', serif;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     @media only screen and (${devices.sm}) {
         font-size: 22px;
@@ -191,7 +191,7 @@ export const NavLinks = styled.ul`
 
 export const NavLink = styled(Link)`
     font-family: 'Rokkitt', serif;
-    font-size: 16px;
+    font-size: 18px;
     color: black;
     font-weight: bold;
     cursor: pointer;
@@ -268,6 +268,10 @@ export const GridInfo = styled.div`
     }
 `;
 
+export const GridMenu=styled(GridInfo)`
+    grid-row: 4;
+`
+
 export const Box = styled(BoxInfo)`
     flex-direction: column;
     justify-content: start;
@@ -275,3 +279,23 @@ export const Box = styled(BoxInfo)`
         row-gap: 1rem;
     }
 `;
+
+export const ContainerRow=styled.div`
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    @media only screen and (${devices.sm}) {
+        row-gap: 3rem;
+    }
+`
+export const TextMenu=styled.p`
+    cursor: pointer;
+   
+    &:hover{
+        text-decoration: line-through;
+    }
+`
+export const TextSpan=styled.span`
+   font-weight: bold;
+   padding-right: 2px;
+`

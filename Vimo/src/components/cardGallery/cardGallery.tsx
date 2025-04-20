@@ -7,9 +7,11 @@ import {
     ButtonInfo,
     ButtonLike,
     ButtonText,
+    ContainerRow,
     GridCarrousell,
     GridContent,
     GridInfo,
+    GridMenu,
     GridRestaurant,
     GridShedule,
     IconInfo,
@@ -24,6 +26,8 @@ import {
     Text,
     TextCard,
     TextLine,
+    TextMenu,
+    TextSpan,
     TitleInfo,
 } from './styles/cardGalleryStyles';
 import { useState, lazy } from 'react';
@@ -147,6 +151,62 @@ function CardGallery() {
                         </Text>
                     </Box>
                 </GridInfo>
+                <GridMenu>
+                    <SubtitleInfo>Menu</SubtitleInfo>
+                    <ContainerRow>
+                        <Box>
+                            <Text>
+                                <TextMenu>
+                                    Albondigas <TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                            <Text>
+                                <TextMenu>
+                                    Huevos Rotos<TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                            <Text>
+                                <TextMenu>
+                                    Arroz tres delicias<TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                        </Box>
+                        <Box>
+                            <Text>
+                                <TextMenu>
+                                    Albondigas <TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                            <Text>
+                                <TextMenu>
+                                    Huevos Rotos <TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                            <Text>
+                                <TextMenu>
+                                    Arroz tres delicias <TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                        </Box>
+                        <Box>
+                            <Text>
+                                <TextMenu>
+                                    Albondigas <TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                            <Text>
+                                <TextMenu>
+                                    Huevos Rotos <TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                            <Text>
+                                <TextMenu>
+                                    Arroz tres delicias<TextSpan>22$</TextSpan>
+                                </TextMenu>
+                            </Text>
+                        </Box>
+                    </ContainerRow>
+                </GridMenu>
             </GridRestaurant>
         </>
     );

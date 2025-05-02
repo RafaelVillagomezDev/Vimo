@@ -32,16 +32,17 @@ function CardPost() {
     const handleVerMas = () => setVerMas(true);
     const handleVerMenos = () => setVerMas(false);
 
-    // APi Get 
+    // APi Get
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     useEffect(() => {
-      startTransition(() => {
-         dispatch(getRestaurant())
-      });
+        startTransition(() => {
+            dispatch(getRestaurant());
+        });
     }, [dispatch]);
 
-    const {loading,restaurant,status}=useAppSelector((state) => state.restaurant)
+    const { loading, restaurant} = useAppSelector((state) => state.restaurant);
+    const {data}=restaurant
     interface MenuOption {
         label: string;
         subOptions: string[];
@@ -70,10 +71,7 @@ function CardPost() {
         },
     ];
     return (
-     
         <MainCard>
-               <>
-        {console.log(restaurant)}</>
             <SectionCard>
                 <CardOption>
                     <Configurator menuOptions={menuOptions} />
@@ -81,110 +79,73 @@ function CardPost() {
 
                 <BoxCard>
                     
-                    <Card>
-                        <CardSection>
-                            <CardImage src={Portada_restaurante} />
-                        </CardSection>
-                        <CardSection>
-                            <CardBox>
-                                <CardSubtitle>
-                                    Top 1 <Icon>editor_choice</Icon>
-                                </CardSubtitle>
-                                <ButtonOption>Michelin</ButtonOption>
-                            </CardBox>
-                            <CardBox>
-                                <CardTitleText>1. Restaurante Carmen</CardTitleText>
-                            </CardBox>
-                            <CardBox>
-                                <CardtTextFlex>
-                                    <Icon>kid_star</Icon> Puntuación (9,6)
-                                </CardtTextFlex>
-                            </CardBox>
-                            <CardBox>
-                                <CardtTextFlex>
-                                    <Icon>location_on</Icon>C. Santa Barbara, 6, 28609, Madrid
-                                </CardtTextFlex>
-                            </CardBox>
-                            <CardBox>
-                                <CardtTextFlex>
-                                    <Icon>restaurant</Icon>Mediterráneo . Precio medio: 20€
-                                </CardtTextFlex>
-                            </CardBox>
-                            <CardBoxFlex>
-                                <CardText>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.{' '}
-                                    {verMas &&
-                                        'Consequuntur ipsa corrupti quisquam aperiam amet adipisci, impedit similique maiores nam numquam, commodi ab, odit rem eum saepe ut sed. Deserunt, minus. '}
-                                </CardText>
-                                <ButtonVerMas onClick={verMas ? handleVerMenos : handleVerMas}>
-                                    {verMas ? 'Ver menos' : 'Ver más'}
-                                </ButtonVerMas>
-                            </CardBoxFlex>
-                            <CardIcons>
-                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
-                                    <Icon>language</Icon>Web
-                                </LinkIcon>
-                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
-                                    <Icon>menu_book</Icon>Menu
-                                </LinkIcon>
-                                <TelLink href={`tel:${'618152241'}`}>
-                                    <Icon>call_quality</Icon>618152241
-                                </TelLink>
-                            </CardIcons>
-                        </CardSection>
-                    </Card>
-                    <Card>
-                        <CardSection>
-                            <CardImage src={Portada_restaurante} />
-                        </CardSection>
-                        <CardSection>
-                            <CardBox>
-                                <CardSubtitle>
-                                    Top 1 <Icon>editor_choice</Icon>
-                                </CardSubtitle>
-                                <ButtonOption>Michelin</ButtonOption>
-                            </CardBox>
-                            <CardBox>
-                                <CardTitleText>1. Restaurante Carmen</CardTitleText>
-                            </CardBox>
-                            <CardBox>
-                                <CardtTextFlex>
-                                    <Icon>kid_star</Icon> Puntuación (9,6)
-                                </CardtTextFlex>
-                            </CardBox>
-                            <CardBox>
-                                <CardtTextFlex>
-                                    <Icon>location_on</Icon>C. Santa Barbara, 6, 28609, Madrid
-                                </CardtTextFlex>
-                            </CardBox>
-                            <CardBox>
-                                <CardtTextFlex>
-                                    <Icon>restaurant</Icon>Mediterráneo . Precio medio: 20€
-                                </CardtTextFlex>
-                            </CardBox>
-                            <CardBoxFlex>
-                                <CardText>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.{' '}
-                                    {verMas &&
-                                        'Consequuntur ipsa corrupti quisquam aperiam amet adipisci, impedit similique maiores nam numquam, commodi ab, odit rem eum saepe ut sed. Deserunt, minus. '}
-                                </CardText>
-                                <ButtonVerMas onClick={verMas ? handleVerMenos : handleVerMas}>
-                                    {verMas ? 'Ver menos' : 'Ver más'}
-                                </ButtonVerMas>
-                            </CardBoxFlex>
-                            <CardIcons>
-                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
-                                    <Icon>language</Icon>Web
-                                </LinkIcon>
-                                <LinkIcon to={'https://losmontesdegalicia.es/menu-select/'}>
-                                    <Icon>menu_book</Icon>Menu
-                                </LinkIcon>
-                                <TelLink href={`tel:${'618152241'}`}>
-                                    <Icon>call_quality</Icon>618152241
-                                </TelLink>
-                            </CardIcons>
-                        </CardSection>
-                    </Card>
+                    { restaurant.count>0 && loading ? (
+                        data.map((restaurant: any, index: number) => {
+                            const urls_images=JSON.parse(restaurant.image_url)
+                            return (
+                                <Card key={index}>
+                                    
+                                    <CardSection>
+                                        <CardImage  alt={restaurant.restaurant_name} src={urls_images}  loading="lazy" />
+                                    </CardSection>
+                                    <CardSection>
+                                        <CardBox>
+                                            <CardSubtitle>
+                                                Top 1 <Icon>editor_choice</Icon>
+                                            </CardSubtitle>
+                                            <ButtonOption>Michelin</ButtonOption>
+                                        </CardBox>
+                                        <CardBox>
+                                            <CardTitleText>{index}. {restaurant.restaurant_name}</CardTitleText>
+                                        </CardBox>
+                                        <CardBox>
+                                            <CardtTextFlex>
+                                                <Icon>kid_star</Icon> Puntuación (9,6)
+                                            </CardtTextFlex>
+                                        </CardBox>
+                                        <CardBox>
+                                            <CardtTextFlex>
+                                                <Icon>location_on</Icon>{restaurant.location_address}
+                                            </CardtTextFlex>
+                                        </CardBox>
+                                        <CardBox>
+                                            <CardtTextFlex>
+                                                <Icon>restaurant</Icon>Mediterráneo . Precio medio:
+                                                20€
+                                            </CardtTextFlex>
+                                        </CardBox>
+                                        <CardBoxFlex>
+                                            <CardText>
+                                                {restaurant.restaurant_description}{' '}
+                                                {verMas && restaurant.restaurant_description}
+                                            </CardText>
+                                            <ButtonVerMas
+                                                onClick={verMas ? handleVerMenos : handleVerMas}>
+                                                {verMas ? 'Ver menos' : 'Ver más'}
+                                            </ButtonVerMas>
+                                        </CardBoxFlex>
+                                        <CardIcons>
+                                            <LinkIcon
+                                                to={'https://losmontesdegalicia.es/menu-select/'}>
+                                                <Icon>language</Icon>Web
+                                            </LinkIcon>
+                                            <LinkIcon
+                                                to={'https://losmontesdegalicia.es/menu-select/'}>
+                                                <Icon>menu_book</Icon>Menu
+                                            </LinkIcon>
+                                            <TelLink href={`tel:${'618152241'}`}>
+                                                <Icon>call_quality</Icon>618152241
+                                            </TelLink>
+                                        </CardIcons>
+                                    </CardSection>
+                                </Card>
+                            );
+                        })
+                    ) : (
+                        <CardBox>
+                            <CardText>No hay resturantes disponibles </CardText>
+                        </CardBox>
+                    )}
                 </BoxCard>
             </SectionCard>
         </MainCard>

@@ -1,6 +1,6 @@
-import Portada_576 from '../assets/pictures/restaurant/Portada_restaurant _576.jpg';
-import Portada_768 from '../assets/pictures/restaurant/Portada_restaurant _768.jpg';
-import Portada_1200 from '../assets/pictures/restaurant/Portada_restaurant _1200.jpg';
+import Portada_576 from '../assets/pictures/restaurant/Portada_restaurant _576.webp';
+import Portada_768 from '../assets/pictures/restaurant/Portada_restaurant _768.webp';
+import Portada_1200 from '../assets/pictures/restaurant/Portada_restaurant _1200.webp';
 import { lazy } from 'react';
 import Footer from '../components/footer/Footer';
 

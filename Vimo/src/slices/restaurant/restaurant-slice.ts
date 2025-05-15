@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getRestaurant } from "./restaurant-api";
 import { UUID } from "crypto";
 
-interface RestaurantItem {
+export interface RestaurantItem {
   image_id:UUID
   image_url:string 
   location_address:string  
@@ -16,10 +16,12 @@ interface RestaurantItem {
   restaurant_email :string 
   restaurant_id :UUID
   restaurant_name :string
-  
+  restaurant_type_food:string,
+  restaurant_web:string,
+  restaurant_phone:string
 }
 
-interface Restaurant {
+export interface Restaurant {
   code: string;
   count: number;
   data: RestaurantItem[];
@@ -59,7 +61,7 @@ export const restaurantSlice=createSlice({
           builder.addCase(getRestaurant.fulfilled, (state, action) => {
             state.status = "success";
             state.loading=true;
-            state.restaurant = action.payload.data;
+            state.restaurant = action.payload.data as unknown  as Restaurant;
           });
           builder.addCase(getRestaurant.rejected, (state) => {
             state.status = "failed";

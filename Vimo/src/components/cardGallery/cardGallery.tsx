@@ -1,4 +1,4 @@
-import Portada_restaurante from '../../assets/pictures/restaurant/Portada_restaurant _1200.jpg';
+import Portada_restaurante from '../../assets/pictures/restaurant/Portada_restaurant _1200.webp';
 import {
     Box,
     BoxInfo,

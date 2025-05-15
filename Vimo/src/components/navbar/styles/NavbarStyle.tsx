@@ -54,11 +54,6 @@ export const NavLinker = styled(Link)`
     border-radius: 4px;
     transition: background-color 0.3s ease;
     font-weight: bold;
-    &:hover {
-        border-bottom: 5px solid black;
-        font-size: 25px;
-    }
-
     &.active {
         background-color: #6200ea; /* Color de fondo para el enlace activo */
         color: #fff;

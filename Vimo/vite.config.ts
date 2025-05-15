@@ -3,15 +3,14 @@ import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import imagemin from 'vite-plugin-imagemin';
 
+
 export default defineConfig({
   plugins: [
     // Plugin para React con SWC
     react({
       jsxImportSource: 'react',
     }),
-
   
-
     // Plugin para optimización de imágenes
     imagemin({
       gifsicle: { optimizationLevel: 7, interlaced: false },

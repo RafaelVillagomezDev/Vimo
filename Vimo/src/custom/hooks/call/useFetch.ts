@@ -3,18 +3,18 @@ import { useState, useEffect } from 'react';
 interface DataFetch {
   api_url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  body?: Record<string, any>;
-  headers?: Record<string, any>;
+  body?: Record<string, unknown>;
+  headers?: Record<string, unknown>;
   token?: string;
 }
 
-interface UseFetchReturn<T = any> {
+interface UseFetchReturn<T = unknown> {
   data: T | null;
   loading: boolean;
   error: string | null;
 }
 
-export const useFetch = <T = any>({
+export const useFetch = <T = DataFetch>({
   api_url,
   method = 'GET',
   body,
@@ -48,10 +48,12 @@ export const useFetch = <T = any>({
 
       const result = await response.json();
       setData(result);
-    } catch (error: any) {
-      setError(error.message || 'Error desconocido');
-    } finally {
-      setLoading(false);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Error desconocido');
+      }
     }
   };
 

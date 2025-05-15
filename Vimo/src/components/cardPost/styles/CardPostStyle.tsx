@@ -28,6 +28,10 @@ export const BoxCard = styled.div`
     row-gap: 2rem;
 `;
 
+export const LinkCard=styled(Link)`
+    
+`;
+
 export const Card = styled.div`
     border-radius: 20px;
     padding: 1rem;
@@ -39,6 +43,7 @@ export const Card = styled.div`
     @media only screen and (${devices.xl}) {
         flex-direction: row;
         box-shadow: none;
+        align-items: center;
     }
 `;
 
@@ -53,7 +58,6 @@ export const CardSection = styled.div`
     width: 100%;
     padding: 10px;
     display: flex;
-    align-self: self-start;
     flex-direction: column;
     gap: 0.25rem;
     @media only screen and (${devices.xl}) {

@@ -1,17 +1,17 @@
 interface DataFetch {
     api_url: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    body?: Record<string, any>;
-    headers?: Record<string, any>;
+    body?: Record<string, unknown>;
+    headers?: Record<string, unknown>;
     token?: string;
   }
   
-  interface CustomFetchReturn<T = any> {
+  interface CustomFetchReturn<T = unknown> {
     data: T | null;
     error: string | null;
   }
   
-  export const customFetch = async <T = any>({
+  export const customFetch = async <T = unknown>({
     api_url,
     method = 'GET',
     body,
@@ -37,8 +37,11 @@ interface DataFetch {
   
       const result = await response.json();
       return { data: result, error: null }; 
-    } catch (error: any) {
-      return { data: null, error: error.message || 'Error desconocido' }; 
+    } catch (error: unknown) {
+      if(error instanceof Error){
+        return { data: null, error: error.message || 'Error desconocido' }; 
+      }
+      return { data: null, error: 'Error desconocido' }; 
     }
   };
   

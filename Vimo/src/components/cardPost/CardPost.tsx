@@ -25,7 +25,7 @@ import Configurator from '../configurator/Configurator';
 import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
 import { getRestaurant } from '../../slices/restaurant/restaurant-api';
 import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
-import { RestaurantItem } from '../../slices/restaurant/restaurant-slice';
+import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
 
 function CardPost() {
     const [verMas, setVerMas] = useState(false);
@@ -33,7 +33,7 @@ function CardPost() {
     const handleVerMas = () => setVerMas(true);
     const handleVerMenos = () => setVerMas(false);
 
-    const { loading, restaurant } = useAppSelector((state) => state.restaurant);
+    const { restaurant } = useAppSelector((state) => state.restaurant);
     const { data } = restaurant;
 
     // APi Get
@@ -82,21 +82,22 @@ function CardPost() {
                 </CardOption>
 
                 <BoxCard>
-                    {restaurant.count > 0 && loading ? (
-                        data.map((restaurant: RestaurantItem, index: number) => {
-                            const urls_images = JSON.parse(restaurant.image_url);
+                    {restaurant.count > 0 ? (
+                        data.map((restaurant: RestaurantDTO, index: number) => {
                             return (
-                                <Card key={index}>
+                                <Card key={restaurant.id}>
                                     <CardSection>
-                                        <LinkCard to={restaurant.restaurant_id}>
+                                        <LinkCard to={restaurant.id}>
                                             <CardImage
-                                                alt={restaurant.restaurant_name}
-                                                src={urls_images}
+                                                alt={restaurant.name}
+                                                src={restaurant.images[index].url}
                                                 loading="lazy"
                                             />
+                                            
                                         </LinkCard>
                                     </CardSection>
 
+                                    {/* resto de la tarjeta */}
                                     <CardSection>
                                         <CardBox>
                                             <CardSubtitle>
@@ -104,51 +105,54 @@ function CardPost() {
                                             </CardSubtitle>
                                             <ButtonOption>Michelin</ButtonOption>
                                         </CardBox>
+
                                         <CardBox>
-                                            <LinkCard to={restaurant.restaurant_id}>
-                                                <CardTitleText>
-                                                    {index}. {restaurant.restaurant_name}
-                                                </CardTitleText>
+                                            <LinkCard to={restaurant.id}>
+                                                <CardTitleText>{restaurant.name}</CardTitleText>
                                             </LinkCard>
                                         </CardBox>
+
                                         <CardBox>
                                             <CardtTextFlex>
                                                 <Icon>kid_star</Icon> Puntuación (9,6)
                                             </CardtTextFlex>
                                         </CardBox>
+
                                         <CardBox>
                                             <CardtTextFlex>
                                                 <Icon>location_on</Icon>
-                                                {restaurant.location_address}
+                                                {restaurant.location.address}
                                             </CardtTextFlex>
                                         </CardBox>
+
                                         <CardBox>
                                             <CardtTextFlex>
                                                 <Icon>restaurant</Icon>
-                                                {restaurant.restaurant_type_food} . Precio medio:
-                                                20€
+                                                {restaurant.type_food} . Precio medio: 20€
                                             </CardtTextFlex>
                                         </CardBox>
+
                                         <CardBoxFlex>
                                             <CardText>
-                                                {restaurant.restaurant_description}{' '}
-                                                {verMas && restaurant.restaurant_description}
+                                                {restaurant.description}{' '}
+                                                {verMas && restaurant.description}
                                             </CardText>
                                             <ButtonVerMas
                                                 onClick={verMas ? handleVerMenos : handleVerMas}>
                                                 {verMas ? 'Ver menos' : 'Ver más'}
                                             </ButtonVerMas>
                                         </CardBoxFlex>
+
                                         <CardIcons>
-                                            <LinkIcon to={restaurant.restaurant_web}>
-                                                <Icon>language</Icon>Web
+                                            <LinkIcon to={restaurant.web}>
+                                                <Icon>language</Icon> Web
                                             </LinkIcon>
-                                            <LinkIcon to={restaurant.restaurant_web}>
-                                                <Icon>menu_book</Icon>Menu
+                                            <LinkIcon to={restaurant.web}>
+                                                <Icon>menu_book</Icon> Menú
                                             </LinkIcon>
-                                            <TelLink href={`tel:${restaurant.restaurant_phone}`}>
+                                            <TelLink href={`tel:${restaurant.phone}`}>
                                                 <Icon>call_quality</Icon>
-                                                {restaurant.restaurant_phone}
+                                                {restaurant.phone}
                                             </TelLink>
                                         </CardIcons>
                                     </CardSection>
@@ -157,7 +161,7 @@ function CardPost() {
                         })
                     ) : (
                         <CardBox>
-                            <CardText>No hay resturantes disponibles </CardText>
+                            <CardText>No hay restaurantes disponibles</CardText>
                         </CardBox>
                     )}
                 </BoxCard>

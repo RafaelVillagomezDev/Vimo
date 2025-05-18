@@ -1,4 +1,5 @@
-import Portada_restaurante from '../../assets/pictures/restaurant/Portada_restaurant _1200.webp';
+import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
+import React from 'react';
 import {
     Box,
     BoxInfo,
@@ -30,14 +31,23 @@ import {
     TextSpan,
     TitleInfo,
 } from './styles/cardGalleryStyles';
-import { useState, lazy} from 'react';
+import { useState, lazy } from 'react';
 
 const Schedule = lazy(() => import('../schedule/Schedule'));
 
 function CardGallery() {
-
-    
     const [copied, setCopied] = useState(false);
+
+    const { restaurant } = useAppSelector((state) => state.restaurant);
+   
+
+    if (!restaurant || !restaurant.data || restaurant.data.length === 0) {
+        return (
+            <Box>
+                <Text>No hay restaurantes</Text>
+            </Box>
+        );
+    }
 
     const handleShare = async () => {
         try {
@@ -50,12 +60,7 @@ function CardGallery() {
         }
     };
 
-    const imagesLeft = [Portada_restaurante];
-
-    const imagesRight = [Portada_restaurante, Portada_restaurante, Portada_restaurante];
-
     return (
-        
         <>
             <InfoContainer>
                 <BoxInfo>
@@ -79,138 +84,136 @@ function CardGallery() {
                     </BoxShare>
                 </BoxInfo>
             </InfoContainer>
+
             <GridRestaurant>
-                <GridCarrousell>
-                    <LeftColumn>
-                        {imagesLeft.map((src, index) => (
-                            <ImageItem
-                                key={index}
-                                src={src}
-                                alt={`Imagen izquierda ${index + 1}`}
-                            />
-                        ))}
-                    </LeftColumn>
-                    <RightColumn>
-                        {imagesRight.map((src, index) => (
-                            <ImageItem key={index} src={src} alt={`Imagen derecha ${index + 1}`} />
-                        ))}
-                    </RightColumn>
-                    <Text>
-                        <TextLine>
-                            <IconInfo color="black">restaurant</IconInfo>Internacional ,
-                            Mediterranea
-                        </TextLine>
-                        <TextLine>
-                            <IconInfo color="black">map</IconInfo>España , Madrid
-                        </TextLine>
-                        <TextLine>
-                            <IconInfo color="black">euro</IconInfo>Precio medio 20 euros
-                        </TextLine>
-                    </Text>
-                </GridCarrousell>
-                <GridContent>
-                    <NavbarRestaurant>
-                        <NavLinks>
-                            <NavLink to="">Horario</NavLink>
-                            <NavLink to="">Descripcion</NavLink>
-                            <NavLink to="">Contenido</NavLink>
-                        </NavLinks>
-                    </NavbarRestaurant>
-                    <TextCard>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores corrupti
-                        omnis, cupiditate officiis vitae autem culpa praesentium incidunt eligendi
-                        nostrum doloribus, tenetur at ad. Expedita error repudiandae hic iste
-                        laudantium.
-                    </TextCard>
-                    <TextCard>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores corrupti
-                        omnis, cupiditate officiis vitae autem culpa praesentium incidunt eligendi
-                        nostrum doloribus, tenetur at ad. Expedita error repudiandae hic iste
-                        laudantium.
-                    </TextCard>
-                    <TextCard>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores corrupti
-                        omnis, cupiditate officiis vitae autem culpa praesentium incidunt eligendi
-                        nostrum doloribus, tenetur at ad. Expedita error repudiandae hic iste
-                        laudantium.
-                    </TextCard>
-                </GridContent>
-                <GridShedule>
-                    <Schedule />
-                </GridShedule>
-                <GridInfo>
-                    <SubtitleInfo>Caracteristicas</SubtitleInfo>
+                {restaurant.count >0 ? (
+                    restaurant.data.map((rest, index) => {
+                        return (
+                            <React.Fragment  key={index}>
+                                <GridCarrousell >
+                                    <LeftColumn>
+                                        <ImageItem
+                                            src={rest.images[0].url}
+                                            alt={rest.images[0].id}
+                                            key={rest.images[0].id}
+                                        />
+                                    </LeftColumn>
+                                    <RightColumn>
+                                        {rest.images.map((image) => (
+                                            <ImageItem src={image.url} alt={image.id}   key={image.id}/>
+                                        ))}
+                                    </RightColumn>
+                                    <Text>
+                                        <TextLine>
+                                            <IconInfo color="black">restaurant</IconInfo>
+                                            {rest.type_food}
+                                        </TextLine>
+                                        <TextLine>
+                                            <IconInfo color="black">map</IconInfo>España , Madrid
+                                        </TextLine>
+                                        <TextLine>
+                                            <IconInfo color="black">euro</IconInfo>Precio medio 20
+                                            euros
+                                        </TextLine>
+                                    </Text>
+                                </GridCarrousell>
+                                <GridContent>
+                                    <NavbarRestaurant>
+                                        <NavLinks>
+                                            <NavLink to="">Horario</NavLink>
+                                            <NavLink to="">Descripcion</NavLink>
+                                            <NavLink to="">Contenido</NavLink>
+                                        </NavLinks>
+                                    </NavbarRestaurant>
+                                    <TextCard>
+                                      {rest.description}
+                                    </TextCard>
+                                   
+                                </GridContent>
+                                <GridShedule>
+                                    <Schedule />
+                                </GridShedule>
+                                <GridInfo>
+                                    <SubtitleInfo>Caracteristicas</SubtitleInfo>
+                                    <Box>
+                                        <Text>
+                                            <IconInfo color="black">credit_card</IconInfo>
+                                            Aceptan tarjetas de credito
+                                        </Text>
+                                        <Text>
+                                            <IconInfo color="black">check_circle</IconInfo>
+                                            Comidas, Cenas, Brunch y Bebidas
+                                        </Text>
+                                        <Text>
+                                            <IconInfo color="black">chef_hat</IconInfo>
+                                            Tiene opciones veganas y celiacas
+                                        </Text>
+                                    </Box>
+                                </GridInfo>
+                                <GridMenu>
+                                    <SubtitleInfo>Menu</SubtitleInfo>
+                                    <ContainerRow>
+                                        <Box>
+                                            <Text>
+                                                <TextMenu>
+                                                    Albondigas <TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                            <Text>
+                                                <TextMenu>
+                                                    Huevos Rotos<TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                            <Text>
+                                                <TextMenu>
+                                                    Arroz tres delicias<TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                        </Box>
+                                        <Box>
+                                            <Text>
+                                                <TextMenu>
+                                                    Albondigas <TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                            <Text>
+                                                <TextMenu>
+                                                    Huevos Rotos <TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                            <Text>
+                                                <TextMenu>
+                                                    Arroz tres delicias <TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                        </Box>
+                                        <Box>
+                                            <Text>
+                                                <TextMenu>
+                                                    Albondigas <TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                            <Text>
+                                                <TextMenu>
+                                                    Huevos Rotos <TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                            <Text>
+                                                <TextMenu>
+                                                    Arroz tres delicias<TextSpan>22$</TextSpan>
+                                                </TextMenu>
+                                            </Text>
+                                        </Box>
+                                    </ContainerRow>
+                                </GridMenu>
+                                </React.Fragment >
+                        );
+                    })
+                ) : (
                     <Box>
-                        <Text>
-                            <IconInfo color="black">credit_card</IconInfo>
-                            Aceptan tarjetas de credito
-                        </Text>
-                        <Text>
-                            <IconInfo color="black">check_circle</IconInfo>
-                            Comidas, Cenas, Brunch y Bebidas
-                        </Text>
-                        <Text>
-                            <IconInfo color="black">chef_hat</IconInfo>
-                            Tiene opciones veganas y celiacas
-                        </Text>
+                        <Text>No hay restaurantes</Text>
                     </Box>
-                </GridInfo>
-                <GridMenu>
-                    <SubtitleInfo>Menu</SubtitleInfo>
-                    <ContainerRow>
-                        <Box>
-                            <Text>
-                                <TextMenu>
-                                    Albondigas <TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                            <Text>
-                                <TextMenu>
-                                    Huevos Rotos<TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                            <Text>
-                                <TextMenu>
-                                    Arroz tres delicias<TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                        </Box>
-                        <Box>
-                            <Text>
-                                <TextMenu>
-                                    Albondigas <TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                            <Text>
-                                <TextMenu>
-                                    Huevos Rotos <TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                            <Text>
-                                <TextMenu>
-                                    Arroz tres delicias <TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                        </Box>
-                        <Box>
-                            <Text>
-                                <TextMenu>
-                                    Albondigas <TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                            <Text>
-                                <TextMenu>
-                                    Huevos Rotos <TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                            <Text>
-                                <TextMenu>
-                                    Arroz tres delicias<TextSpan>22$</TextSpan>
-                                </TextMenu>
-                            </Text>
-                        </Box>
-                    </ContainerRow>
-                </GridMenu>
+                )}
             </GridRestaurant>
         </>
     );

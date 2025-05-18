@@ -9,7 +9,8 @@ import {
 import { Suspense, lazy } from 'react';
 import LoadingScreen from './pages/LoadingScreen';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { persistor, store } from './store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
@@ -42,9 +43,11 @@ if (rootElement) {
 
     root.render(
         <Provider store={store}>
-            <Suspense fallback={<LoadingScreen />}>
-                <RouterProvider router={router} />
-            </Suspense>
+            <PersistGate loading={null} persistor={persistor}>
+                <Suspense fallback={<LoadingScreen />}>
+                    <RouterProvider router={router} />
+                </Suspense>
+            </PersistGate>
         </Provider>
     );
 }

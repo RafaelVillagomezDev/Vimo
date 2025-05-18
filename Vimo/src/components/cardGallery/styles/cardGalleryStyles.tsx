@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 import { Link } from 'react-router-dom';
 
+
+
 export const GridCarrousell = styled.div`
     display: grid;
     gap: 16px;
@@ -25,14 +27,11 @@ export const LeftColumn = styled.div`
 export const RightColumn = styled.div`
     display: none;
 
-    @media only screen and (${devices.sm}) {
-        display: none;
-    }
     @media only screen and (${devices.lg}) {
         display: grid;
-        grid-template-columns: 1fr;
-        grid-row-gap: 1rem;
-        grid-template-rows: repeat(3, 210px);
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        grid-auto-rows: 210px;
     }
 `;
 

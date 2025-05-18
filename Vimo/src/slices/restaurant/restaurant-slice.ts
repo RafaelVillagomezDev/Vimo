@@ -1,30 +1,56 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getRestaurant } from "./restaurant-api";
-import { UUID } from "crypto";
 
-export interface RestaurantItem {
-  image_id:UUID
-  image_url:string 
-  location_address:string  
-  location_country :string 
-  location_county :string
-  location_id :UUID
-  location_latitude:string  
-  location_longitude :string
-  restaurant_address :string 
-  restaurant_description :string
-  restaurant_email :string 
-  restaurant_id :UUID
-  restaurant_name :string
-  restaurant_type_food:string,
-  restaurant_web:string,
-  restaurant_phone:string
+
+export interface ImageDTO {
+  id: string;
+  url: string; 
 }
+
+export interface LocationDTO {
+  id: string;
+  address: string;
+  latitude: string;
+  longitude: string;
+  country: string;
+  county: string | null;
+}
+
+export interface DishDTO {
+  id: string;
+  name: string;
+  description: string | null;
+  price: string; // O número si prefieres, pero el JSON lo tiene como string
+  category: string;
+}
+
+export interface MenuDTO {
+  id: string;
+  name: string;
+  description: string | null;
+  dishes: DishDTO[];
+}
+
+export interface RestaurantDTO {
+  id: string;
+  name: string;
+  email: string;
+  address: string;
+  description: string;
+  phone: string;
+  type_food: string;
+  web: string;
+  images: ImageDTO[];
+  location: LocationDTO;
+  menus: MenuDTO[];
+}
+
+
 
 export interface Restaurant {
   code: string;
   count: number;
-  data: RestaurantItem[];
+  data: RestaurantDTO[];
   message: string;
 }
 

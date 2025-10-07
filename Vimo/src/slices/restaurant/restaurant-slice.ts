@@ -54,14 +54,14 @@ export interface Restaurant {
   message: string;
 }
 
-interface interfaceState {
+export interface interfaceState {
   restaurant: Restaurant; 
   status: string;
   loading: boolean;
 }
 
 // Estado inicial Redux
-const initialState: interfaceState = {
+export const initialState: interfaceState = {
   restaurant: {
     code: '',
     count: 0,

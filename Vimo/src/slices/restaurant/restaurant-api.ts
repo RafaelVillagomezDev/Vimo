@@ -9,6 +9,7 @@ export const getRestaurant=createAsyncThunk(
     async()=>{
        
        const data = customFetch({api_url:"http://localhost:3000/api/v1/restaurant",method:"GET"})
+       console.log(data);
        return data as unknown  as Restaurant;
     }
 )

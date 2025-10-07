@@ -34,19 +34,22 @@ function CardPost() {
     const handleVerMenos = () => setVerMas(false);
 
     const { restaurant } = useAppSelector((state) => state.restaurant);
-    const { data } = restaurant;
+    const { data } = restaurant ?? {};
 
     // APi Get
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+
         if (!data || data.length === 0) {
             startTransition(() => {
                 dispatch(getRestaurant());
+
             });
         }
     }, [data, dispatch]);
+    
     interface MenuOption {
         label: string;
         subOptions: string[];
@@ -82,7 +85,7 @@ function CardPost() {
                 </CardOption>
 
                 <BoxCard>
-                    {restaurant.count > 0 ? (
+                    {restaurant?.count > 0 ? (
                         data.map((restaurant: RestaurantDTO, index: number) => {
                             return (
                                 <Card key={restaurant.id}>
@@ -90,7 +93,7 @@ function CardPost() {
                                         <LinkCard to={restaurant.id}>
                                             <CardImage
                                                 alt={restaurant.name}
-                                                src={restaurant.images[index].url}
+                                                src={restaurant.images[index]?.url}
                                                 loading="lazy"
                                             />
                                             
@@ -121,7 +124,7 @@ function CardPost() {
                                         <CardBox>
                                             <CardtTextFlex>
                                                 <Icon>location_on</Icon>
-                                                {restaurant.location.address}
+                                                {restaurant.location?.address}
                                             </CardtTextFlex>
                                         </CardBox>
 

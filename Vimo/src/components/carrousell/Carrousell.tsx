@@ -31,7 +31,8 @@ function Carrousell({ image576, image768, image1200, altText, subtitle }: Carrou
                         (max-width: 1200px) 60vw,
                     `}
                     alt={altText}
-                    loading="lazy"
+                    loading="eager"
+                    fetchPriority='high'
                 />
 
                 <CarrousellTitle>MADRID</CarrousellTitle>

@@ -13,6 +13,7 @@ function Home() {
                 image1200={Portada_1200}
                 altText="Banco de España"
                 subtitle=""
+                
             />
         </>
     );

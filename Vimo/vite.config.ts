@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import imagemin from 'vite-plugin-imagemin';
-
+import autoprefixer from 'autoprefixer'; // Importamos Autoprefixer
 
 export default defineConfig({
   plugins: [
@@ -11,7 +11,7 @@ export default defineConfig({
       jsxImportSource: 'react',
     }),
   
-    // Plugin para optimización de imágenes
+    // Plugin para optimización de imágenes (reduce peso de assets)
     imagemin({
       gifsicle: { optimizationLevel: 7, interlaced: false },
       optipng: { optimizationLevel: 7 },
@@ -20,6 +20,8 @@ export default defineConfig({
       webp: { quality: 75 },     // Convertir imágenes a WebP con calidad 75%
     }),
   ],
+  
+  // Configuración de alias para rutas de importación limpias
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, './src/components'),
@@ -27,16 +29,27 @@ export default defineConfig({
       '@styles':path.resolve(__dirname, './src/styles'),
     },
   },
+  
+  // Configuración de PostCSS para añadir prefijos CSS automáticamente
+  css: {
+    postcss: {
+      plugins: [
+       autoprefixer()
+      ],
+    },
+  },
+
   build: {
     // Usar Terser para minificar el código
     minify: 'terser',
 
+    // Opciones agresivas de minificación para producción
     terserOptions: {
       compress: {
-        drop_console: true,  // Eliminar `console.log` y otros console.*
-        drop_debugger: true,  // Eliminar `debugger` en producción
-        pure_getters: true,   // Eliminar propiedades no utilizadas
-        passes: 2,            // Realizar múltiples pasadas para optimizar más
+        drop_console: true,  // Eliminar `console.log`
+        drop_debugger: true,  // Eliminar `debugger`
+        pure_getters: true,   
+        passes: 2,            // Realizar múltiples pasadas para mayor optimización
       },
       mangle: {
         toplevel: true,  // Mangle los nombres de las variables globales
@@ -49,7 +62,7 @@ export default defineConfig({
     // Limitar el tamaño de los chunks (en KB)
     chunkSizeWarningLimit: 500,
 
-    // Dividir el código en chunks más pequeños (code splitting avanzado)
+    // Configuración avanzada de Rollup para Code Splitting (división de código)
     rollupOptions: {
       output: {
         // Nombrar los archivos de salida
@@ -57,12 +70,19 @@ export default defineConfig({
         chunkFileNames: 'chunks/[name].[hash].js',
         entryFileNames: '[name].[hash].js',
 
+        // Lógica de división de chunks (manualChunks)
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            return 'vendor';  // Agrupar dependencias de `node_modules` en un solo archivo
+            // 1. Separar React y ReactDOM en su propio chunk para mejor caché
+            if (id.includes('/react') || id.includes('/react-dom')) {
+                return 'react-vendor';
+            }
+            // 2. El resto de dependencias va a 'vendor'
+            return 'vendor';
           }
           if (id.includes('src/components')) {
-            return 'components'; // Dividir los componentes en un archivo separado
+            // 3. Agrupar todos los componentes internos
+            return 'components'; 
           }
         },
       },
@@ -71,8 +91,8 @@ export default defineConfig({
 
   // Configuración del servidor de desarrollo
   server: {
-    port: 3007,  // Puerto para el servidor de desarrollo
-    open: true,  // Abrir automáticamente el navegador
-    hmr: true,   // Habilitar Hot Module Replacement
+    port: 3007, 
+    open: true,  
+    hmr: true,   
   },
 });

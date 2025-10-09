@@ -1,7 +1,7 @@
 import animationData from '../assets/lottie/lottie_load.json';
 import Lottie from 'react-lottie-player';
 
-const LoadingScreen = () => {
+function LoadingScreen () {
     return (
         <div
             style={{

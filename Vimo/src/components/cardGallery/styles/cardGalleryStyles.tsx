@@ -22,11 +22,14 @@ export const GridCarrousell = styled.div`
 export const LeftColumn = styled.div`
     display: flex;
     flex-direction: column;
+     
+     aspect-ratio: 4 / 3; 
 `;
 
 export const RightColumn = styled.div`
     display: none;
-
+   
+aspect-ratio: 4 / 3; 
     @media only screen and (${devices.lg}) {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

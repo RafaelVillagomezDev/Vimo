@@ -93,14 +93,14 @@ function CardGallery() {
                                 <GridCarrousell >
                                     <LeftColumn>
                                         <ImageItem
-                                            src={rest.images[0].url}
-                                            alt={rest.images[0].id}
-                                            key={rest.images[0].id}
+                                            src={rest.images[0]?.url}
+                                            alt={rest.images[0]?.id || "portada"}
+                                            key={rest.images[0]?.id}
                                         />
                                     </LeftColumn>
                                     <RightColumn>
                                         {rest.images.map((image) => (
-                                            <ImageItem src={image.url} alt={image.id}   key={image.id}/>
+                                            <ImageItem src={image?.url} alt={image?.id}   key={image?.id}/>
                                         ))}
                                     </RightColumn>
                                     <Text>

@@ -13,17 +13,19 @@ import {
 import storage from 'redux-persist/lib/storage'; // usa localStorage
 import { migrate } from './state/migrate';
 
-// ✅ Definimos el ID del build aquí donde process.env funciona.
-const APP_BUILD_ID : string = import.meta.env.REACT_APP_BUILD_VERSION ;
+// ✅ CONVERSIÓN A NUMBER: Usamos Number() para convertir la cadena de Vite a un número.
+// Es crucial asegurarse de que VITE_APP_BUILD_VERSION en tu .env sea solo un número (ej: "123").
+const APP_BUILD_ID: number = Number(import.meta.env.VITE_APP_BUILD_VERSION);
 
 
 const restaurantPersistConfig = {
   key: 'restaurant',
   storage,
   whitelist: ['restaurant'], // solo persistimos el campo restaurant
-  migrate:async(state:Record<string, any> | undefined | null , version:number) => migrate(state, version, APP_BUILD_ID),
+  // Nota: El tipo 'version' en 'redux-persist' es number por defecto,
+  // por lo que es mejor asegurar que la versión de persistencia sea numérica si usas este campo.
+  migrate: async(state:Record<string, any> | undefined | null , version:number) => migrate(state, version, APP_BUILD_ID),
 };
-
 
 
 const persistedRestaurantReducer = persistReducer(restaurantPersistConfig, restaurantReducer);

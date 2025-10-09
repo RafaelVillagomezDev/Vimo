@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["chunks/components.Bj1plwWX.js","chunks/react-vendor.CQ6JsRZM.js","chunks/vendor.R82MykO4.js"])))=>i.map(i=>d[i]);
-import{N as s,F as o,_ as r}from"./components.Bj1plwWX.js";import{j as t,r as n}from"./react-vendor.CQ6JsRZM.js";import"./vendor.R82MykO4.js";const e=n.lazy(()=>r(()=>import("./components.Bj1plwWX.js").then(s=>s.c),__vite__mapDeps([0,1,2])));function a(){return t.jsxs(t.Fragment,{children:[t.jsx(s,{}),t.jsx(e,{}),t.jsx(o,{})]})}export{a as default};

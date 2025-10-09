@@ -73,17 +73,28 @@ export default defineConfig({
         // Lógica de división de chunks (manualChunks)
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            // 1. Separar React y ReactDOM en su propio chunk para mejor caché
+            
+            // ************ NUEVA REGLA CRÍTICA ************
+            // 1. Separar react-lottie-player en su propio chunk.
+            if (id.includes('react-lottie-player')) {
+                return 'lottie-player';
+            }
+            // ********************************************
+
+            // 2. Separar React y ReactDOM en su propio chunk para mejor caché
             if (id.includes('/react') || id.includes('/react-dom')) {
                 return 'react-vendor';
             }
-            // 2. El resto de dependencias va a 'vendor'
+            // 3. El resto de dependencias va a 'vendor'
             return 'vendor';
           }
           if (id.includes('src/components')) {
-            // 3. Agrupar todos los componentes internos
+            // 4. Agrupar todos los componentes internos
             return 'components'; 
           }
+          
+          // Regla por defecto para el resto de archivos
+          return null;
         },
       },
     },

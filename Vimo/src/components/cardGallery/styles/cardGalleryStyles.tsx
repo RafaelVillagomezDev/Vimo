@@ -28,8 +28,7 @@ export const LeftColumn = styled.div`
 
 export const RightColumn = styled.div`
     display: none;
-   
-aspect-ratio: 4 / 3; 
+    aspect-ratio: 3 / 4; 
     @media only screen and (${devices.lg}) {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -270,7 +269,7 @@ export const GridInfo = styled.div`
     }
 `;
 
-export const GridMenu=styled(GridInfo)`
+export const GridMenu = styled(GridInfo)`
     grid-row: 4;
 `
 
@@ -282,7 +281,7 @@ export const Box = styled(BoxInfo)`
     }
 `;
 
-export const ContainerRow=styled.div`
+export const ContainerRow = styled.div`
     display: flex;
     flex-direction: row;
     column-gap: 1rem;
@@ -290,14 +289,14 @@ export const ContainerRow=styled.div`
         row-gap: 3rem;
     }
 `
-export const TextMenu=styled.p`
+export const TextMenu = styled.p`
     cursor: pointer;
    
     &:hover{
         text-decoration: line-through;
     }
 `
-export const TextSpan=styled.span`
+export const TextSpan = styled.span`
    font-weight: bold;
    padding-right: 2px;
 `

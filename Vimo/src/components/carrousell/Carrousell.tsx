@@ -32,7 +32,7 @@ function Carrousell({ image576, image768, image1200, altText, subtitle }: Carrou
                     `}
                     alt={altText}
                     loading="eager"
-                    fetchPriority='high'
+              
                 />
 
                 <CarrousellTitle>MADRID</CarrousellTitle>

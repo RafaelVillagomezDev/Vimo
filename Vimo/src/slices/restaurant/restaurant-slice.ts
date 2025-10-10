@@ -76,9 +76,13 @@ export const initialState: interfaceState = {
 
 
 export const restaurantSlice=createSlice({
-    name:"taskreducer",
+    name:"restaurant",
     initialState,
-    reducers:{},
+    // Funciones sincronas 
+    reducers:{
+
+    },
+    // Funciones asincronas
     extraReducers:(builder)=> {
         builder.addCase(getRestaurant.pending, (state) => {
             state.status = "loading";
@@ -94,9 +98,28 @@ export const restaurantSlice=createSlice({
             state.loading=false;
           });
     },
+
+    selectors:{
+       /**
+         * Selector para extraer un RestaurantDTO por ID.
+         * * Los selectores creados con createSelector (debajo del capó) pueden tomar argumentos.
+         * El segundo argumento (id) se pasa al selector en el componente.
+         * * @param sliceState El estado local de este slice (interfaceState).
+         * @param id El ID del restaurante a buscar.
+         * @returns El objeto RestaurantDTO encontrado o undefined.
+         */
+       selectRestaurantById: (state, id: string) => {
+            // Buscamos directamente en el array de datos de este slice.
+            const sliceState = state.restaurant.data; 
+    
+        // Ahora accedemos al array de datos dentro del estado local del slice:
+         return sliceState.find(restaurant => restaurant.id === id);
+            
+        },
+    }
     
     
 })
 
-
+export const { selectRestaurantById } = restaurantSlice.selectors;
 export default restaurantSlice.reducer;

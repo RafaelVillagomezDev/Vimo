@@ -32,12 +32,14 @@ import {
     TitleInfo,
 } from './styles/cardGalleryStyles';
 import { useState, lazy } from 'react';
+import { useParams } from 'react-router-dom';
+import { selectRestaurantById } from '../../slices/restaurant/restaurant-slice';
 
 const Schedule = lazy(() => import('../schedule/Schedule'));
 
 function CardGallery() {
     const [copied, setCopied] = useState(false);
-
+    const { id } = useParams<{ id: string }>();
     const { restaurant } = useAppSelector((state) => state.restaurant);
    
 
@@ -48,6 +50,11 @@ function CardGallery() {
             </Box>
         );
     }
+
+    const selectedRestaurant = useAppSelector((state) =>
+
+        id ? selectRestaurantById(state, id) : undefined
+    );
 
     const handleShare = async () => {
         try {
@@ -60,12 +67,15 @@ function CardGallery() {
         }
     };
 
+
     return (
         <>
             <InfoContainer>
                 <BoxInfo>
                     <BoxText>
-                        <TitleInfo>Casa Carmen</TitleInfo>
+                        <TitleInfo>
+                            {selectedRestaurant?.name}
+                        </TitleInfo>
                         <IconInfo>verified</IconInfo>
                     </BoxText>
                     <BoxShare>
@@ -86,27 +96,27 @@ function CardGallery() {
             </InfoContainer>
 
             <GridRestaurant>
-                {restaurant.count >0 ? (
-                    restaurant.data.map((rest, index) => {
-                        return (
-                            <React.Fragment  key={index}>
+                {
+                   
+                        
+                            <React.Fragment key={selectedRestaurant?.id}>
                                 <GridCarrousell >
                                     <LeftColumn>
                                         <ImageItem
-                                            src={rest.images[0]?.url}
-                                            alt={rest.images[0]?.id || "portada"}
-                                            key={rest.images[0]?.id}
+                                            src={selectedRestaurant?.images[0]?.url}
+                                            alt={selectedRestaurant?.images[0]?.id|| "portada"}
+                                            key={selectedRestaurant?.images[0]?.id}
                                         />
                                     </LeftColumn>
                                     <RightColumn>
-                                        {rest.images.map((image) => (
-                                            <ImageItem src={image?.url} alt={image?.id}   key={image?.id}/>
-                                        ))}
+                                        
+                                            <ImageItem src={selectedRestaurant?.images[0]?.url} alt={selectedRestaurant?.images[0]?.id || "portada"} key={selectedRestaurant?.images[0]?.id} />
+                                        
                                     </RightColumn>
                                     <Text>
                                         <TextLine>
                                             <IconInfo color="black">restaurant</IconInfo>
-                                            {rest.type_food}
+                                            {selectedRestaurant?.type_food}
                                         </TextLine>
                                         <TextLine>
                                             <IconInfo color="black">map</IconInfo>España , Madrid
@@ -126,9 +136,9 @@ function CardGallery() {
                                         </NavLinks>
                                     </NavbarRestaurant>
                                     <TextCard>
-                                      {rest.description}
+                                        {selectedRestaurant?.description}
                                     </TextCard>
-                                   
+
                                 </GridContent>
                                 <GridShedule>
                                     <Schedule />
@@ -206,14 +216,10 @@ function CardGallery() {
                                         </Box>
                                     </ContainerRow>
                                 </GridMenu>
-                                </React.Fragment >
-                        );
-                    })
-                ) : (
-                    <Box>
-                        <Text>No hay restaurantes</Text>
-                    </Box>
-                )}
+                            </React.Fragment >
+                        
+                   
+                }
             </GridRestaurant>
         </>
     );

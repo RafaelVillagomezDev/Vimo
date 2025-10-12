@@ -32,7 +32,7 @@ export const NavContact = styled(NavContainer)`
 `;
 
 export const IconText = styled.h1`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 25px;
     font-weight: 500;
     color: white;

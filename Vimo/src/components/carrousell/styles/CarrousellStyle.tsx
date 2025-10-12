@@ -22,7 +22,7 @@ export const CarrousellPicture = styled.img`
 `;
 
 export const CarrousellTitle = styled.h1`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15vw;
     font-style: normal;
     font-weight: 700;
@@ -35,7 +35,7 @@ export const CarrousellTitle = styled.h1`
 `;
 
 export const CarrousellSubtitle = styled.h1`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 5vw;
     font-style: normal;
     font-weight: 700;

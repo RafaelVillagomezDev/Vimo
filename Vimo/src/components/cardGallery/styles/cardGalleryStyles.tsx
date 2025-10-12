@@ -78,7 +78,7 @@ export const BoxText = styled.div`
 `;
 
 export const TitleInfo = styled.h3`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 25px;
     font-weight: bold;
     @media only screen and (${devices.sm}) {
@@ -86,7 +86,7 @@ export const TitleInfo = styled.h3`
     }
 `;
 export const SubtitleInfo = styled.h3`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: bold;
     @media only screen and (${devices.sm}) {
@@ -95,7 +95,7 @@ export const SubtitleInfo = styled.h3`
 `;
 
 export const TextInfo = styled.p`
-    font-family: 'Roboto';
+    font-family: 'Inter', sans-serif';
     font-size: 16px;
 `;
 export const BoxShare = styled.div`
@@ -206,7 +206,7 @@ export const NavLink = styled(Link)`
 `;
 
 export const TextCard = styled.p`
-    font-family: 'Roboto';
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
 `;
 

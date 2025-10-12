@@ -96,26 +96,27 @@ export const CardIcons = styled(CardBox)`
 `;
 
 export const CardTitle = styled.h3`
-    font-family: 'Roboto', serif;
+    font-family:  'Poppins', sans-serif;
     font-size: 16px;
     font-weight: bold;
 `;
 export const CardTitleText = styled.h3`
-    font-family: 'Roboto', serif;
+    font-family:  'Poppins', sans-serif;
     font-size: 22px;
     font-weight: bold;
     padding: 10px 0px;
 `;
 
 export const CardSubtitle = styled.h3`
+    font-family:  'Poppins', sans-serif;
     font-weight: 400;
-    font-family: 'Roboto', serif;
+    font-family: 
     font-size: 20px;
     font-weight: bold;
 `;
 
 export const CardText = styled.p`
-    font-family: 'Roboto', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     padding-bottom: 6px;
     display: flex;
@@ -133,7 +134,7 @@ export const ButtonOption = styled.button`
     border: none;
     margin-left: 10px;
     border-radius: 10px;
-    font-family: 'Roboto', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
 `;
 
@@ -175,7 +176,7 @@ export const TelLink = styled.a`
 `;
 
 export const ButtonVerMas = styled.button`
-    font-family: 'Roboto', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     padding: 12px 6px;
     border: none;

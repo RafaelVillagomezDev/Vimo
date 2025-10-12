@@ -10,7 +10,7 @@ export const PostMain = styled.div`
 `;
 
 export const PostSubtitle = styled.h2`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 5vw;
     font-weight: 500;
     color: black;
@@ -46,7 +46,7 @@ export const PostImg = styled.img`
 
 export const PostTitle = styled.h2`
     color: black;
-    font-family: 'Roboto';
+    font-family: 'Poppins', sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -59,7 +59,7 @@ export const PostTitle = styled.h2`
 export const PostText = styled.p`
     color: black;
     word-wrap: break-word;
-    font-family: 'Roboto';
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 200;
     line-height: normal;

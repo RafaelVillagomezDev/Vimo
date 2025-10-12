@@ -36,7 +36,7 @@ export const ScheduleItem = styled.div`
 `;
 
 export const ScheduleText = styled.p`
-    font-family: 'Roboto', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     display: flex;
 

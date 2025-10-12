@@ -53,7 +53,7 @@ export const CarrouselSlideCardText = styled(Link)`
 
 export const CarrousellSlideText = styled.p`
     color: #fff;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 700;

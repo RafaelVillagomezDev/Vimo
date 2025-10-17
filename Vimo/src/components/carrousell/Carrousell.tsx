@@ -1,42 +1,24 @@
+import Seeker from '../../atoms/seeker/Seeker';
 import Navbar from '../navbar/Navbar';
 import {
     CarrousellContainer,
-    CarrousellPicture,
-    CarrousellSubtitle,
-    CarrousellTitle,
+    CarrousellMain,
+    CarrousellText,
 } from './styles/CarrousellStyle';
 
 interface CarrousellProps {
-    image576: string;
-    image768: string;
-    image1200: string;
-    altText: string;
-    subtitle: string;
+    hands_map: string;
 }
 
-function Carrousell({ image576, image768, image1200, altText, subtitle }: CarrousellProps) {
+function Carrousell({ }: CarrousellProps) {
     return (
         <>
             <Navbar />
             <CarrousellContainer>
-                <CarrousellPicture
-                    srcSet={`
-                        ${image576} 576w,
-                        ${image768} 768w,
-                        ${image1200} 1200w,
-                    `}
-                    sizes={`
-                        (max-width: 576px) 100vw,
-                        (max-width: 768px) 80vw,
-                        (max-width: 1200px) 60vw,
-                    `}
-                    alt={altText}
-                    loading="eager"
-              
-                />
-
-                <CarrousellTitle>MADRID</CarrousellTitle>
-                <CarrousellSubtitle>{subtitle}</CarrousellSubtitle>
+                <CarrousellMain>
+                    <CarrousellText>Planea y reserva en cualquiera de nuestras ilimitadas opciones</CarrousellText>
+                    <Seeker />
+                </CarrousellMain>
             </CarrousellContainer>
         </>
     );

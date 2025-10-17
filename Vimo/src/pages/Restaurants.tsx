@@ -1,6 +1,5 @@
-import Portada_576 from '../assets/pictures/restaurant/Portada_restaurant _576.webp';
-import Portada_768 from '../assets/pictures/restaurant/Portada_restaurant _768.webp';
-import Portada_1200 from '../assets/pictures/restaurant/Portada_restaurant _1200.webp';
+import hands_map from '../assets/pictures/banner/hands_map.png';
+
 import { lazy } from 'react';
 import Footer from '../components/footer/Footer';
 
@@ -11,11 +10,7 @@ function Restaurants() {
     return (
         <>
             <Carrousell
-                image576={Portada_576}
-                image768={Portada_768}
-                image1200={Portada_1200}
-                altText="Restaurante Madrid"
-                subtitle="Restaurantes"
+                hands_map={hands_map}
             />
             <CardPost />
             <Footer />

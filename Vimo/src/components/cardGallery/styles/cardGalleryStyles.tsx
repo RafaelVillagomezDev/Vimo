@@ -95,11 +95,12 @@ export const SubtitleInfo = styled.h3`
 `;
 
 export const TextInfo = styled.p`
-    font-family: 'Inter', sans-serif';
-    font-size: 16px;
+    font-family: 'Inter', 'sans-serif';
+    font-size:16px;
 `;
+
 export const BoxShare = styled.div`
-    font-family: 'Rokkitt', serif;
+    font-family: 'Poppins',sans-serif;
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -152,7 +153,7 @@ export const ButtonText = styled.span.attrs<{
 `;
 
 export const Text = styled.div`
-    font-family: 'Roboto', serif;
+    font-family: 'Poppins',sans-serif;
     font-size: 16px;
     padding: 6px 0px;
     display: flex;
@@ -168,7 +169,6 @@ export const Text = styled.div`
 export const TextLine = styled.p`
     display: flex;
     align-items: center;
-
     column-gap: 1rem;
     border-bottom: none;
     padding: 10px 0px;

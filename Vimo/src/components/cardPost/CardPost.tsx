@@ -59,7 +59,7 @@ function CardPost() {
 
     useEffect(() => {
 
-        if (!data || data.length === 0) {
+        if (apiUrl) {
             startTransition(() => {
                 dispatch(getRestaurant({
                     api_url: apiUrl, // URL construida con useSiteUrlBuilder
@@ -68,7 +68,7 @@ function CardPost() {
                 }));
             });
         }
-    }, [data, dispatch]);
+    }, [id,apiUrl, dispatch]);
 
     interface MenuOption {
         label: string;

@@ -17,6 +17,8 @@ export const SeekerMain = styled.div`
 `;
 
 
+
+
 export const InputSeeker = styled.input`
     width: 100%;
     height: 100%;
@@ -28,7 +30,7 @@ export const InputSeeker = styled.input`
 `;
 
 export const BtnSearch=styled.button`
-    
+    cursor: pointer;
     display: flex; 
     align-items: center; 
     justify-content: center; 

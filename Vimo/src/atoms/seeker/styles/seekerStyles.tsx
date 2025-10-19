@@ -36,7 +36,7 @@ export const BtnSearch=styled.button`
     height: 100%; 
     border: none;
     outline: none;
-    background-color: black;
+    background-color: ${(props) => props.theme.colors.redAlert};
     color: white;
     font-family: 'Poppins', sans-serif; 
 `

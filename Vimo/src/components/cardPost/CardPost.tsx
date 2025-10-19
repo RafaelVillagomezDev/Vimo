@@ -9,6 +9,7 @@ import {
     CardImage,
     CardOption,
     CardSection,
+    CardSectionText,
     CardSubtitle,
     CardText,
     CardTitleText,
@@ -26,6 +27,8 @@ import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
 import { getRestaurant } from '../../slices/restaurant/restaurant-api';
 import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
 import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
+import { useSiteUrlBuilder } from '../../custom/hooks/render/useSiteUrlBuilder';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 function CardPost() {
     const [verMas, setVerMas] = useState(false);
@@ -35,21 +38,38 @@ function CardPost() {
 
     const { restaurant } = useAppSelector((state) => state.restaurant);
     const { data } = restaurant ?? {};
+    const { id } = useParams<{ id: string }>();
 
+    const [searchParams] = useSearchParams();
     // APi Get
-
     const dispatch = useAppDispatch();
+
+
+    const customFilters = {
+        name: searchParams.get("name"),
+        address: searchParams.get("address"),
+
+    };
+    const apiUrl = useSiteUrlBuilder({
+        pathId: id, // El ID capturado de la URL de la ruta
+        baseURL: "http://localhost:3000/api/v1/restaurant/",
+        filters: customFilters, // El objeto de filtros genéricos
+    });
+
 
     useEffect(() => {
 
         if (!data || data.length === 0) {
             startTransition(() => {
-                dispatch(getRestaurant());
-
+                dispatch(getRestaurant({
+                    api_url: apiUrl, // URL construida con useSiteUrlBuilder
+                    method: 'GET',  
+                    body: { id: id }
+                }));
             });
         }
     }, [data, dispatch]);
-    
+
     interface MenuOption {
         label: string;
         subOptions: string[];
@@ -96,12 +116,12 @@ function CardPost() {
                                                 src={restaurant.images[index]?.url}
                                                 loading="lazy"
                                             />
-                                            
+
                                         </LinkCard>
                                     </CardSection>
 
                                     {/* resto de la tarjeta */}
-                                    <CardSection>
+                                    <CardSectionText>
                                         <CardBox>
                                             <CardSubtitle>
                                                 Top 1 <Icon>editor_choice</Icon>
@@ -158,7 +178,8 @@ function CardPost() {
                                                 {restaurant.phone}
                                             </TelLink>
                                         </CardIcons>
-                                    </CardSection>
+                                    </CardSectionText>
+
                                 </Card>
                             );
                         })

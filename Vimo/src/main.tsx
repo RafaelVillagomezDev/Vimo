@@ -11,7 +11,11 @@ import LoadingScreen from './pages/LoadingScreen';
 import { Provider } from 'react-redux';
 import { persistor, store } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
-
+import { ThemeProvider } from 'styled-components';
+import { theme, ThemeType } from './styles/themeProvider';
+declare module 'styled-components' {
+    export interface DefaultTheme extends ThemeType { }
+}
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Destination = lazy(() => import('./pages/Destination'));
@@ -44,9 +48,12 @@ if (rootElement) {
     root.render(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <Suspense fallback={<LoadingScreen />}>
-                    <RouterProvider router={router} />
-                </Suspense>
+                <ThemeProvider theme={theme}>
+                    <Suspense fallback={<LoadingScreen />}>
+                        <RouterProvider router={router} />
+                    </Suspense>
+                </ThemeProvider>
+
             </PersistGate>
         </Provider>
     );

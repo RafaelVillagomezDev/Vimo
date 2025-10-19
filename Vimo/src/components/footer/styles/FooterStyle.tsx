@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 import { Link } from 'react-router-dom';
 
+
 export const ContainerFooter = styled.div`
     height: 250px;
-    background-color: hsl(0, 0%, 0%);
+    background-color:${(props) => props.theme.colors.blueDeep};
     padding: 2rem;
     @media only screen and (${devices.sm}) {
         height: 200px;

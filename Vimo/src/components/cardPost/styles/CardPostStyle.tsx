@@ -28,22 +28,25 @@ export const BoxCard = styled.div`
     row-gap: 2rem;
 `;
 
-export const LinkCard=styled(Link)`
+export const LinkCard = styled(Link)`
     
 `;
 
 export const Card = styled.div`
-    border-radius: 20px;
-    padding: 1rem;
+
+    margin: 1rem;
     display: flex;
     flex-direction: column;
     box-shadow:
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 12px; 
+    overflow: hidden;
+    
     @media only screen and (${devices.xl}) {
         flex-direction: row;
-        box-shadow: none;
         align-items: center;
+       
     }
 `;
 
@@ -56,21 +59,27 @@ export const CardOption = styled.div`
 
 export const CardSection = styled.div`
     width: 100%;
-    padding: 10px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+       border-radius: 12px;
+
     @media only screen and (${devices.xl}) {
         width: 50%;
     }
 `;
+
+export const CardSectionText = styled(CardSection)`
+    padding:1rem;
+`;
+
 
 export const CardImage = styled.img.attrs(({ src }) => ({
     src: src,
     alt: 'Imagen card ',
 }))`
     width: fit-content;
-    border-radius: 15px;
+  
 `;
 
 export const CardBox = styled.div`
@@ -110,7 +119,6 @@ export const CardTitleText = styled.h3`
 export const CardSubtitle = styled.h3`
     font-family:  'Poppins', sans-serif;
     font-weight: 400;
-    font-family: 
     font-size: 20px;
     font-weight: bold;
 `;

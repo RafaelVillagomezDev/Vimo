@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import hands_map from "../../../assets/pictures/banner/hands_map.png"
+import { devices } from '../../../styles/mixin_styledComponent';
+
+
 export const CarrousellContainer = styled.div`
     width: 100%;
     height: 450px;
@@ -15,15 +18,12 @@ export const CarrousellMain = styled.div`
     /* Dimensiones y espacio */
     width: -webkit-fill-available; 
     height: 100%;
-
     max-height: 600px;
-    margin: 4rem;
     padding: 2rem;
-    border-radius: 12px;
     object-fit: cover; /* No tiene efecto directo en un <div>, se mantiene por si se usa en otro contexto */
 
     /* Diseño visual y Flexbox */
-    background-color: #ff3d00;
+    background-color: ${(props) => props.theme.colors.blueGray};
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -33,6 +33,12 @@ export const CarrousellMain = styled.div`
     background-position: right center; 
     background-repeat: no-repeat; 
     background-size: contain; 
+
+    @media only screen and (${devices.sm}) {
+        margin: 4rem;
+        padding: 2rem;
+        border-radius: 12px;
+    }
 `;
 
 
@@ -52,13 +58,17 @@ export const CarrousellTitle = styled.h1`
 
 
 
-export const CarrousellText=styled.p`
-    font-size: 30px;
+export const CarrousellText = styled.p`
+    font-size: 22px;
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
     line-height: normal;
     word-spacing: 3px;
     padding-bottom:2rem;
     color: white;
+
+     @media only screen and (${devices.sm}) {
+        font-size: 30px;
+    }
 
 `

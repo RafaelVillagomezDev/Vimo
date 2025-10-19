@@ -91,7 +91,7 @@ export const restaurantSlice=createSlice({
           builder.addCase(getRestaurant.fulfilled, (state, action) => {
             state.status = "success";
             state.loading=true;
-            state.restaurant = action.payload.data as unknown  as Restaurant;
+            state.restaurant = action.payload as unknown  as Restaurant;
           });
           builder.addCase(getRestaurant.rejected, (state) => {
             state.status = "failed";

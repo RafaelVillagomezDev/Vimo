@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 
+
+
+
 export const Nav = styled.nav`
-    background-color: black;
+    background-color: ${(props) => props.theme.colors.blueDeep};
     height: 90px;
     display: flex;
     justify-content: space-around;

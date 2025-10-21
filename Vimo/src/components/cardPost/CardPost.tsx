@@ -41,21 +41,32 @@ function CardPost() {
     const { id } = useParams<{ id: string }>();
 
     const [searchParams] = useSearchParams();
+
+    // 💡 Constante para la URL Base (debe ser el origen de la API)
+    const API_BASE_URL = "http://localhost:3000/api/v1/restaurant/";
+
     // APi Get
     const dispatch = useAppDispatch();
 
-
+    const getApiPath = (fullUrl: string, baseURL: string): string => {
+        //  Asegura que el path empiece con el '/' para coincidir con req.originalUrl.
+        const path = fullUrl.replace(baseURL, '');
+        return baseURL.endsWith('/') ? '/' + path : path;
+    };
     const customFilters = {
         name: searchParams.get("name"),
         address: searchParams.get("address"),
 
     };
+
     const apiUrl = useSiteUrlBuilder({
         pathId: id, // El ID capturado de la URL de la ruta
-        baseURL: "http://localhost:3000/api/v1/restaurant/",
+        baseURL: API_BASE_URL,
         filters: customFilters, // El objeto de filtros genéricos
     });
 
+
+    const apiPath = apiUrl ? getApiPath(apiUrl, API_BASE_URL) : '';
 
     useEffect(() => {
 
@@ -63,12 +74,12 @@ function CardPost() {
             startTransition(() => {
                 dispatch(getRestaurant({
                     api_url: apiUrl, // URL construida con useSiteUrlBuilder
-                    method: 'GET',  
-                    body: { id: id }
+                    api_path: apiPath,
+                    method: 'GET'
                 }));
             });
         }
-    }, [id,apiUrl, dispatch]);
+    }, [id, apiUrl, dispatch]);
 
     interface MenuOption {
         label: string;

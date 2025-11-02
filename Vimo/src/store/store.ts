@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import restaurantReducer from '../slices/restaurant/restaurant-slice';
+import authReducer from '../auth/auth-slice';
 import {
   persistStore,
   persistReducer,
@@ -25,16 +26,17 @@ const rootPersistConfig = {
   // Nota: El tipo 'version' en 'redux-persist' es number por defecto,
   // por lo que es mejor asegurar que la versión de persistencia sea numérica si usas este campo.
   migrate: async(state:Record<string, any> | undefined | null , version:number) => migrate(state, version, APP_BUILD_ID),
-  blacklist: ['restaurant']
+  blacklist: ['restaurant','auth']
 };
 
 
 const persistedRestaurantReducer = persistReducer(rootPersistConfig , restaurantReducer);
-
+const persistedAuthReducer = persistReducer(rootPersistConfig , authReducer);
 
 export const store = configureStore({
   reducer: {
-    restaurant: persistedRestaurantReducer
+    restaurant: persistedRestaurantReducer,
+    auth:persistedAuthReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -39,7 +39,7 @@ export const customFetch = async <T = unknown>({
     if (requiresSecurity) {
         try {
             // Usamos api_path, body y method para la firma
-            securityHeaders = await authHeadersGenerator(method, api_path, body);
+            securityHeaders = await  authHeadersGenerator(method, api_path, body);
         } catch (e: unknown) {
             const errorMessage = e instanceof Error 
                 ? e.message 

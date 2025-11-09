@@ -24,11 +24,13 @@ import {
 import { startTransition, useEffect, useState } from 'react';
 import Configurator from '../configurator/Configurator';
 import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
-import { getRestaurant } from '../../slices/restaurant/restaurant-api';
+import { fetchTokenAndRestaurant} from '../../slices/restaurant/restaurant-api';
 import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
 import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
 import { useSiteUrlBuilder } from '../../custom/hooks/render/useSiteUrlBuilder';
 import { useParams, useSearchParams } from 'react-router-dom';
+
+
 
 function CardPost() {
     const [verMas, setVerMas] = useState(false);
@@ -37,6 +39,7 @@ function CardPost() {
     const handleVerMenos = () => setVerMas(false);
 
     const { restaurant } = useAppSelector((state) => state.restaurant);
+    const { token } = useAppSelector((state) => state.auth);
     const { data } = restaurant ?? {};
     const { id } = useParams<{ id: string }>();
 
@@ -69,17 +72,17 @@ function CardPost() {
     const apiPath = apiUrl ? getApiPath(apiUrl, API_BASE_URL) : '';
 
     useEffect(() => {
-
-        if (apiUrl) {
+        if (id && apiUrl) { // 👈 Condición adicional: necesita el token
             startTransition(() => {
-                dispatch(getRestaurant({
-                    api_url: apiUrl, // URL construida con useSiteUrlBuilder
+                dispatch(fetchTokenAndRestaurant({
+                    api_url: apiUrl,
                     api_path: apiPath,
-                    method: 'GET'
+                    headers: { 'Authorization': `Bearer ${token}` },
+                   
                 }));
             });
         }
-    }, [id, apiUrl, dispatch]);
+    }, [id, apiUrl, apiPath, dispatch]);
 
     interface MenuOption {
         label: string;

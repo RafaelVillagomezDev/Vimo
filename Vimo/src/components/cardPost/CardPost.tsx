@@ -39,7 +39,6 @@ function CardPost() {
     const handleVerMenos = () => setVerMas(false);
 
     const { restaurant } = useAppSelector((state) => state.restaurant);
-    const { token } = useAppSelector((state) => state.auth);
     const { data } = restaurant ?? {};
     const { id } = useParams<{ id: string }>();
 
@@ -72,17 +71,15 @@ function CardPost() {
     const apiPath = apiUrl ? getApiPath(apiUrl, API_BASE_URL) : '';
 
     useEffect(() => {
-        if (id && apiUrl) { // 👈 Condición adicional: necesita el token
+        
             startTransition(() => {
                 dispatch(fetchTokenAndRestaurant({
                     api_url: apiUrl,
-                    api_path: apiPath,
-                    headers: { 'Authorization': `Bearer ${token}` },
-                   
+                    api_path: apiPath,  
                 }));
             });
-        }
-    }, [id, apiUrl, apiPath, dispatch]);
+        
+    }, [dispatch]);
 
     interface MenuOption {
         label: string;

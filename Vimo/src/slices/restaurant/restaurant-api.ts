@@ -57,14 +57,14 @@ export const getRestaurant = createAsyncThunk(
 type FetchArgs = {
     api_url: string;
     api_path: string;
-    headers: Record<string, string>;
+    headers?: Record<string, string>;
 };
 
 type RestaurantPayload = any;
 
-const API_BASE_URL_TOKEN = "http://localhost:3000/api/v1/auth/token"; // Ejemplo
-const API_PATH_TOKEN = "/auth/token";
-const API_KEY = "tu_clave_secreta";
+const API_BASE_URL_TOKEN = "http://localhost:3000/api/v1/anonymous/token"; // Ejemplo
+const API_PATH_TOKEN = "/anonymous/token";
+const API_KEY = import.meta.env.VITE_API_KEY_TOKEN;;
 
 
 export const fetchTokenAndRestaurant = createAsyncThunk<
@@ -86,9 +86,9 @@ export const fetchTokenAndRestaurant = createAsyncThunk<
                 headers: { 'x-api-key': API_KEY },
             })).unwrap() 
      
-            const token = tokenResult.token;
+            const token = tokenResult.data.user?.token;
 
-            if (!token || typeof token !== 'string') {
+            if (!token || typeof token !== 'string' || token===null) {
                 return rejectWithValue('Token no válido o ausente en la respuesta de autenticación.');
             }
 

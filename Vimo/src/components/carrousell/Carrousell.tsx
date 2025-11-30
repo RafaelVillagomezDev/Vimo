@@ -6,11 +6,9 @@ import {
     CarrousellText,
 } from './styles/CarrousellStyle';
 
-interface CarrousellProps {
-    hands_map: string;
-}
 
-function Carrousell({ }: CarrousellProps) {
+
+function Carrousell() {
     return (
         <>
             <Navbar />

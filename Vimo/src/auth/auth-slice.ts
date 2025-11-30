@@ -98,6 +98,8 @@ export const authSlice = createSlice({
         builder.addCase(getToken.fulfilled, (state, action: PayloadAction<GetTokenPayload>) => {
             if (action.payload.data.user) {
                 state.token = action.payload.data.user?.token;
+                state.isAuthenticated = true;
+                state.status = 'success';
             }
 
 

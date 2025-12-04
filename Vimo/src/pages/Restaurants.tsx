@@ -1,4 +1,4 @@
-import hands_map from '../assets/pictures/banner/hands_map.png';
+
 import { lazy} from 'react';
 import Footer from '../components/footer/Footer';
 
@@ -16,7 +16,7 @@ function Restaurants() {
     return (
         <>
             <Carrousell
-                hands_map={hands_map}
+               
             />
             <CardPost  />
             <Footer />

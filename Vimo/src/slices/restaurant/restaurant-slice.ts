@@ -113,6 +113,7 @@ export const restaurantSlice=createSlice({
             const sliceState = state.restaurant.data; 
     
         // Ahora accedemos al array de datos dentro del estado local del slice:
+         
          return sliceState.find(restaurant => restaurant.id === id);
             
         },

@@ -24,7 +24,7 @@ import {
 import { startTransition, useEffect, useState } from 'react';
 import Configurator from '../configurator/Configurator';
 import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
-import { fetchTokenAndRestaurant} from '../../slices/restaurant/restaurant-api';
+import { fetchTokenAndRestaurant } from '../../slices/restaurant/restaurant-api';
 import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
 import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
 import { useSiteUrlBuilder } from '../../custom/hooks/render/useSiteUrlBuilder';
@@ -71,15 +71,15 @@ function CardPost() {
     const apiPath = apiUrl ? getApiPath(apiUrl, API_BASE_URL) : '';
 
     useEffect(() => {
-        
-            startTransition(() => {
-                dispatch(fetchTokenAndRestaurant({
-                    api_url: apiUrl,
-                    api_path: apiPath,  
-                }));
-            });
-        
-    }, [dispatch]);
+
+        startTransition(() => {
+            dispatch(fetchTokenAndRestaurant({
+                api_url: apiUrl,
+                api_path: apiPath,
+            }));
+        });
+
+    }, [id, apiUrl, apiPath, dispatch]);
 
     interface MenuOption {
         label: string;
@@ -114,24 +114,28 @@ function CardPost() {
                 <CardOption>
                     <Configurator menuOptions={menuOptions} />
                 </CardOption>
-
                 <BoxCard>
                     {restaurant?.count > 0 ? (
-                        data.map((restaurant: RestaurantDTO, index: number) => {
+                        data.map((restaurant: RestaurantDTO) => {
+
                             return (
                                 <Card key={restaurant.id}>
-                                    <CardSection>
-                                        <LinkCard to={restaurant.id}>
-                                            <CardImage
-                                                alt={restaurant.name}
-                                                src={restaurant.images[index]?.url}
-                                                loading="lazy"
-                                            />
 
-                                        </LinkCard>
-                                    </CardSection>
 
-                                    {/* resto de la tarjeta */}
+                                    {restaurant.images.map((image, index) => (
+
+                                        <CardSection key={image.url || index}>
+                                            <LinkCard to={restaurant.id}>
+                                                <CardImage
+                                                    alt={`${restaurant.name} - Imagen ${index + 1}`}
+                                                    src={image.url}
+                                                    loading="lazy"
+                                                />
+                                            </LinkCard>
+                                        </CardSection>
+                                    ))}
+
+
                                     <CardSectionText>
                                         <CardBox>
                                             <CardSubtitle>

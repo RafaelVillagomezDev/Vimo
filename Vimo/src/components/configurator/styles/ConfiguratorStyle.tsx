@@ -28,9 +28,10 @@ export const MenuItem = styled.li<{ open: boolean }>`
 
 export const SubMenu = styled.ul<{ open: boolean }>`
     list-style: none;
-    max-height: ${(props) => (props.open ? '300px' : '0')};
+    max-height: ${(props) => (props.open ? '1000px' : '0')}; 
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+    opacity: ${({ open }) => (open ? '1' : '0')};
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; 
     background-color: #fff;
     padding-left: 10px;
     margin: 0;

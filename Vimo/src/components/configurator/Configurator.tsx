@@ -15,25 +15,43 @@ interface MenuOption {
     subOptions: string[];
 }
 
+// Define el tipo para el estado de apertura
+interface OpenStates {
+    [key: number]: boolean;
+}
+
 function Configurator({ menuOptions }: { menuOptions: MenuOption[] }) {
-    // Inicializa openIndex con 0 para que el primer submenú esté abierto por defecto
-    const [openIndex, setOpenIndex] = useState<number>(0);
+    
+ 
+    const [openStates, setOpenStates] = useState<OpenStates>(() => {
+        const initialStates: OpenStates = {};
+        menuOptions.forEach((_, index) => {
+            initialStates[index] = true; 
+        });
+        return initialStates;
+    });
 
     const toggleMenu = (index: number) => {
-        // Permite cerrar el submenú si ya está abierto, de lo contrario abrirlo
-        setOpenIndex(openIndex === index ? -1 : index);
+   
+        setOpenStates(prevStates => ({
+            ...prevStates,
+            [index]: !prevStates[index]
+        }));
     };
 
     return (
         <ContainerConfigurator>
             <MenuContainer>
                 {menuOptions.map((option, index) => (
-                    <ul key={index}>
-                        <MenuItem onClick={() => toggleMenu(index)} open={openIndex === index}>
+                    <ul key={option.label || index}> 
+                     
+                        <MenuItem onClick={() => toggleMenu(index)} open={openStates[index]}>
                             <CardTitle>{option.label}</CardTitle>
-                            <Arrow open={openIndex === index}>▼</Arrow>
+                            <Arrow open={openStates[index]}>▼</Arrow>
                         </MenuItem>
-                        <SubMenu open={openIndex === index}>
+                        
+                       
+                        <SubMenu open={openStates[index]}>
                             {option.subOptions.map((sub, subIndex) => (
                                 <SubMenuItem key={subIndex}>
                                     <Checkbox type="checkbox" />

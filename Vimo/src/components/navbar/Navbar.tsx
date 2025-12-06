@@ -9,7 +9,6 @@ function Navbar() {
                 </NavContact>
                 <NavLinks>
                     <NavList>
-                        <NavLinker to={'/history'}>Historia</NavLinker>
                         <NavLinker to={'/restaurants'}>Restaurantes</NavLinker>
                         <NavLinker to={'/destinations'}>Discotecas</NavLinker>
                         <NavLinker to={'sites'}>Sitios</NavLinker>

@@ -1,19 +1,25 @@
 import React, { useState, useRef } from 'react';
 import {
-    CarrouselSlideCardText,
     CarrousellSlideCard,
     CarrousellSlideContainer,
     CarrousellSlideItem,
     CarrousellSlideText,
-    CarrousellSlideTitle,
+    NavLinker,
 } from './styles/CarrousellSlide';
 
-import icon_kyoto from '../../assets/pictures/japan/icons/icon_kyoto.png';
-import icon_nara from '../../assets/pictures/japan/icons/icon_nara.png';
-import icon_osaka from '../../assets/pictures/japan/icons/icon_osaka.png';
-import icon_tokio from '../../assets/pictures/japan/icons/icon_tokio.png';
 
-const CarrousellSlide: React.FC = () => {
+interface SlideData {
+    to: string; // Ruta a la que enlaza
+    iconSrc: string; // Fuente del ícono
+    text: string; // Texto descriptivo
+}
+
+// Define la interfaz para las props del componente
+interface CarrousellSlideProps {
+    slidesData: SlideData[];
+}
+
+const CarrousellSlide: React.FC<CarrousellSlideProps> = ({ slidesData }) => {
     const carouselRef = useRef<HTMLDivElement | null>(null);
     const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
     const [startX, setStartX] = useState<number>(0);
@@ -89,34 +95,22 @@ const CarrousellSlide: React.FC = () => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}>
-            <CarrousellSlideItem>
-                <CarrousellSlideCard src={icon_kyoto} />
-                <CarrouselSlideCardText to="">
-                    <CarrousellSlideText>Disfura de los templos</CarrousellSlideText>
-                    <CarrousellSlideTitle>kYOTO</CarrousellSlideTitle>
-                </CarrouselSlideCardText>
-            </CarrousellSlideItem>
-            <CarrousellSlideItem>
-                <CarrousellSlideCard src={icon_tokio} />
-                <CarrouselSlideCardText to="">
-                    <CarrousellSlideText>La ciudad del futuro</CarrousellSlideText>
-                    <CarrousellSlideTitle>TOKIO</CarrousellSlideTitle>
-                </CarrouselSlideCardText>
-            </CarrousellSlideItem>
-            <CarrousellSlideItem>
-                <CarrousellSlideCard src={icon_nara} />
-                <CarrouselSlideCardText to="">
-                    <CarrousellSlideText>Un paraiso escondido</CarrousellSlideText>
-                    <CarrousellSlideTitle>NARA</CarrousellSlideTitle>
-                </CarrouselSlideCardText>
-            </CarrousellSlideItem>
-            <CarrousellSlideItem>
-                <CarrousellSlideCard src={icon_osaka} />
-                <CarrouselSlideCardText to="">
-                    <CarrousellSlideText>Una gastronomia unica</CarrousellSlideText>
-                    <CarrousellSlideTitle>OSAKA</CarrousellSlideTitle>
-                </CarrouselSlideCardText>
-            </CarrousellSlideItem>
+            {slidesData.map((slide, index) => (
+
+                <CarrousellSlideItem key={index}>
+                    <NavLinker to={slide.to}>
+                        <CarrousellSlideCard src={slide.iconSrc} />
+
+                        <CarrousellSlideText>{slide.text}</CarrousellSlideText>
+
+
+                    </NavLinker>
+
+                </CarrousellSlideItem>
+
+
+            ))}
+
         </CarrousellSlideContainer>
     );
 };

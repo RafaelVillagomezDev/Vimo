@@ -19,7 +19,6 @@ declare module 'styled-components' {
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Destination = lazy(() => import('./pages/Destination'));
-const History = lazy(() => import('./pages/History'));
 const Restaurants = lazy(() => import('./pages/Restaurants'));
 const Restaurant = lazy(() => import('./pages/Restaurant'));
 const rootElement = document.getElementById('root');
@@ -35,7 +34,6 @@ if (rootElement) {
                 <Route path="home" element={<Home />} />
                 <Route path="restaurants" element={<Restaurants />} />
                 <Route path="restaurants/:id" element={<Restaurant />} />
-                <Route path="history" element={<History />} />
                 <Route path="experiences" element={<Experience />} />
                 <Route path="destinations" element={<Destination />} />
             </Route>

@@ -4,29 +4,31 @@ import { Link } from 'react-router-dom';
 
 export const CarrousellSlideContainer = styled.div`
     display: flex;
-    overflow: hidden;
+   overflow-x: scroll; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+    &::-webkit-scrollbar {
+        display: none;
+    }
     width: 100%;
-    position: absolute;
     bottom: 3rem;
     cursor: grab;
-    @media only screen and (${devices.sm}) {
-        bottom: 5rem;
-    }
 `;
 
 export const CarrousellSlideItem = styled.div`
-    min-width: 33.3%;
-    width: 33%;
-    height: 90px;
+    min-width: 30%;
+    width: 30%;
+    height: 100%;
     transition: transform 0.5s ease;
     text-align: center;
     background-color: transparent;
     padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     @media only screen and (${devices.sm}) {
-        height: 120px;
+        min-width: 20%;
+        width: 20%;
     }
 `;
 
@@ -36,28 +38,22 @@ export const CarrousellSlideCard = styled.img`
     border-radius: 120px;
     object-fit: cover;
     object-position: center;
-
-    @media only screen and (${devices.sm}) {
-        height: 120px;
-        width: 120px;
-    }
 `;
 
-export const CarrouselSlideCardText = styled(Link)`
-    display: none;
-    @media only screen and (${devices.sm}) {
-        width: 40%;
-        display: block;
-    }
-`;
+
 
 export const CarrousellSlideText = styled.p`
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    color: black;
+    font-family: 'Poppins',sans-serif;
+    font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+     display: none;
+     @media only screen and (${devices.sm}) {
+           font-size: 18px;
+           display: block;
+    }
 `;
 
 export const CarrousellSlideTitle = styled(CarrousellSlideText)`
@@ -65,6 +61,15 @@ export const CarrousellSlideTitle = styled(CarrousellSlideText)`
     line-height: 30px;
     word-spacing: 5px;
     &:hover {
-        border-bottom: solid 3px white;
+        border-bottom: solid 3px blue;
     }
+`;
+
+
+export const NavLinker = styled(Link)`
+   display: flex;
+  flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   row-gap: 1rem;   
 `;

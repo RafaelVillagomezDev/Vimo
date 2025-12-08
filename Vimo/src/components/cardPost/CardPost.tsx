@@ -59,7 +59,7 @@ function CardPost() {
         name: searchParams.get("name"),
         address: searchParams.get("address"),
 
-    };
+    }; 
 
     const apiUrl = useSiteUrlBuilder({
         pathId: id, // El ID capturado de la URL de la ruta

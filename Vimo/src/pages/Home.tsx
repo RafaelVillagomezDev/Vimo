@@ -11,6 +11,7 @@ import transport_icon from '@assets/icons/transport_icon.webp';
 import place_icon from '@assets/icons/place_icon.webp';
 import restaurant_icon from '@assets/icons/restaurant_icon.webp';
 import CarrousellCard from '../atoms/carrousellCard/CarrousellCard';
+import { CarrousellTitle } from '../styles/commonStyles';
 
 
 
@@ -26,7 +27,9 @@ function Home() {
     return (
         <>
             <Carrousell/>
+            <CarrousellTitle>Categorias</CarrousellTitle>
             <CarrousellSlide slidesData={dataCarrousel}/>
+            <CarrousellTitle>Nuestras mejores ofertas</CarrousellTitle>
             <CarrousellCard/>
         </>
     );

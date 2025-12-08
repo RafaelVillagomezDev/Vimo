@@ -6,6 +6,7 @@ import {
     CarrousellSlideText,
     NavLinker,
 } from './styles/CarrousellSlide';
+import { CarrousellTitle } from '../../styles/commonStyles';
 
 
 interface SlideData {
@@ -86,6 +87,8 @@ const CarrousellSlide: React.FC<CarrousellSlideProps> = ({ slidesData }) => {
     };
 
     return (
+       <>
+        <CarrousellTitle></CarrousellTitle>
         <CarrousellSlideContainer
             ref={carouselRef}
             onMouseDown={handleMouseDown}
@@ -112,6 +115,7 @@ const CarrousellSlide: React.FC<CarrousellSlideProps> = ({ slidesData }) => {
             ))}
 
         </CarrousellSlideContainer>
+        </>
     );
 };
 

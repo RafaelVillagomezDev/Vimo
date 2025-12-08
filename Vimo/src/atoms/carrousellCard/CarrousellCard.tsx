@@ -1,89 +1,111 @@
-import CardSlide from "../../components/cardSlide/CardSlide"
-import { BtnNextSlide, BtnPrevSlide, CarrouselContainer } from "./styles/carrousellCard";
-import React, { useRef, useState } from 'react';
+import { Key, startTransition, useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+
+
+import { 
+    BtnNextSlide, 
+    BtnPrevSlide, 
+    CarrouselContainer, 
+    CarrousellSection,
+    EmblaContainerInner 
+} from "./styles/carrousellCard";
+
+import CardSlide from "../../components/cardSlide/CardSlide";
+import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
+import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
+import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
+import { fetchTokenAndRestaurant } from '../../slices/restaurant/restaurant-api';
 
 function CarrousellCard() {
 
-    const carouselRef = useRef<HTMLDivElement | null>(null);
-    const [isDragging, setIsDragging] = useState<boolean>(false);
-    const [startX, setStartX] = useState<number>(0);
-    const [scrollLeft, setScrollLeft] = useState<number>(0);
-    const scrollSpeedMultiplier = 3;
+     const { restaurant } = useAppSelector((state) => state.restaurant);
+    const { data} = restaurant ?? {};
+     const dispatch = useAppDispatch();
 
-    // --- Lógica de Manejo de Scroll por Arrastre (Drag) ---
+    // 1. Inicializa Embla Carousel
+    const [emblaRef, emblaApi] = useEmblaCarousel({ 
+        loop: false, // Desactiva loop para controlar mejor los botones de inicio/fin
+        align: 'start',
+        dragFree: false, 
+    });
 
-    // 1. Mouse Down (Inicio del Arrastre)
-    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (carouselRef.current) {
-            setIsDragging(true);
-            setStartX(e.pageX - carouselRef.current.offsetLeft);
-            setScrollLeft(carouselRef.current.scrollLeft);
-            carouselRef.current.style.cursor = 'grabbing';
-            e.preventDefault();
-        }
-    };
 
-    // 2. Mouse Move (Movimiento del Arrastre)
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!isDragging || !carouselRef.current) return;
 
-        const x = e.pageX - carouselRef.current.offsetLeft;
-        const walk = (x - startX) * scrollSpeedMultiplier;
+    // 2. Estado para el control de botones
+    const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
+    const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
 
-        carouselRef.current.scrollLeft = scrollLeft - walk;
-    };
+    // 3. Funciones de Navegación
+    const scrollPrev = useCallback(() => {
+        if (emblaApi) emblaApi.scrollPrev();
+    }, [emblaApi]);
 
-    // 3. Mouse Up / Mouse Leave (Fin del Arrastre)
-    const handleMouseUpOrLeave = () => {
-        if (carouselRef.current) {
-            setIsDragging(false);
-            carouselRef.current.style.cursor = 'grab';
-        }
-    };
+    const scrollNext = useCallback(() => {
+        if (emblaApi) emblaApi.scrollNext();
+    }, [emblaApi]);
 
-    // 4. Touch Start (Inicio Táctil)
-    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-        if (carouselRef.current) {
-            setIsDragging(true);
-            setStartX(e.touches[0].pageX - carouselRef.current.offsetLeft);
-            setScrollLeft(carouselRef.current.scrollLeft);
-        }
-    };
+    // 4. Función de Actualización (Desactivar/Activar botones)
+    const onSelect = useCallback((emblaApi: { canScrollPrev: () => any; canScrollNext: () => any; }) => {
+        setPrevBtnDisabled(!emblaApi.canScrollPrev());
+        setNextBtnDisabled(!emblaApi.canScrollNext());
+    }, []);
+    
 
-    // 5. Touch Move (Movimiento Táctil)
-    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-        if (!isDragging || !carouselRef.current) return;
-        const x = e.touches[0].pageX - carouselRef.current.offsetLeft;
-        const walk = (x - startX) * scrollSpeedMultiplier;
-        carouselRef.current.scrollLeft = scrollLeft - walk;
-    };
+    // 5. Conecta las funciones de actualización al ciclo de vida de Embla
+    useEffect(() => {
 
-    // 6. Touch End (Fin Táctil)
-    const handleTouchEnd = () => {
-        setIsDragging(false);
-    };
+       
+
+        if (!emblaApi) return;
+
+        // Ejecutar al inicio y cada vez que cambia la selección o se reinicia
+        onSelect(emblaApi);
+        emblaApi.on('reInit', onSelect);
+        emblaApi.on('select', onSelect);
+        
+        
+        return () => {
+            emblaApi.off('select', onSelect);
+        };
+    }, [emblaApi, onSelect]);
+
+
+    useEffect(()=>{
+         startTransition(() => {
+                    dispatch(fetchTokenAndRestaurant({
+                        api_url: "http://localhost:3000/api/v1/restaurant/",
+                        api_path: "",
+                    }));
+        });
+    },[])
+
+  
+
     return (
-        <>  
-        <BtnPrevSlide>+</BtnPrevSlide>ƒ
-            <CarrouselContainer
-                ref={carouselRef} // Aplicamos la referencia para manipular el scroll
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUpOrLeave}
-                onMouseLeave={handleMouseUpOrLeave}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-            >
-
-                <CardSlide />
-                <CardSlide />
-                <CardSlide />
-                <CardSlide />
+        <CarrousellSection>
+            
+            
+            <BtnPrevSlide onClick={scrollPrev} disabled={prevBtnDisabled}>
+                {'<'}
+            </BtnPrevSlide>
+            
+            {/* Viewport de Embla - Se aplica el ref */}
+            <CarrouselContainer ref={emblaRef}>
+                
+                {/* Contenedor Interno de Slides - Aplica los estilos flex */}
+                <EmblaContainerInner>
+                    { restaurant.count>0 ? data.map(( data:RestaurantDTO,index: Key | null | undefined) => (
+                        <CardSlide key={data.id+"-"+ index} data={data} />
+                    )):"No hay restaurantes"}
+                </EmblaContainerInner>
                 
             </CarrouselContainer>
-            <BtnNextSlide>p</BtnNextSlide>
-        </>
+            
+      
+            <BtnNextSlide onClick={scrollNext} disabled={nextBtnDisabled}>
+                {'>'}
+            </BtnNextSlide>
+        </CarrousellSection>
     );
 }
 

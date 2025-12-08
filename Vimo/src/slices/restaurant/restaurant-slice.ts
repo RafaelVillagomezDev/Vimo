@@ -32,6 +32,7 @@ export interface MenuDTO {
 }
 
 export interface RestaurantDTO {
+  src: string | undefined;
   id: string;
   name: string;
   email: string;

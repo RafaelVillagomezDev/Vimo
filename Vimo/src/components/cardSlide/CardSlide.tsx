@@ -1,5 +1,5 @@
 
-import {CardText , CardBox, CardBoxImage, CardBoxTitle, CardContainer, CardImage, CardSubtitle, LinkCard } from "./styles/cardSlide";
+import {CardText , CardBox, CardBoxImage, CardBoxTitle, CardContainer, CardImage, LinkCard } from "./styles/cardSlide";
 
 function CardSlide({data}:any) {
 
@@ -9,16 +9,16 @@ return (
     <>
        {
         data.images.map((image: { url: string | undefined; },index :number) => (
-           <LinkCard to={"restaurants/"+data.id}>
-        <CardContainer key={index}>
+           <LinkCard to={"restaurants/"+data.id} key={index}>
+        <CardContainer key={index+"**"+data.id}>
            
               <CardBoxImage>
               <CardImage  src={image.url} loading="lazy"></CardImage>
             </CardBoxImage>
             <CardBox>
                <CardBoxTitle>{name}</CardBoxTitle>
-               <CardText><CardSubtitle>{address}</CardSubtitle></CardText>
-              <CardText><CardSubtitle>{type_food}</CardSubtitle></CardText>
+               <CardText>{address}</CardText>
+              <CardText>{type_food}</CardText>
             </CardBox>
             
            

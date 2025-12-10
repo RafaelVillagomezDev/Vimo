@@ -9,7 +9,7 @@ export const CarrousellSection = styled.section`
     max-width: 1200px;
     padding: 1rem;
     @media only screen and (${devices.sm}){
-            padding: 3rem;
+      padding: 3rem;
     }
 `;
 
@@ -17,36 +17,36 @@ export const CarrousellSection = styled.section`
 export const CarrouselContainer = styled.div`
     overflow: hidden; 
     width: 100%;
-    padding: 0 10px; 
-   
+    padding: 2rem;
+    @media only screen and (${devices.sm}){
+         
+            padding: 0rem;
+    }
 `;
 
-// CRUCIAL 2: El Contenedor Interno de Slides - Define el layout
+
 export const EmblaContainerInner = styled.div`
-    display: flex; /* LAYOUT HORIZONTAL */
+    display: flex; 
     flex-direction: row;
-    
-    /* Configuración de Touch/Arrastre */
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
     
-    /* Margen para contrarrestar el padding-left de los slides */
+
     margin-left: -15px; 
        
     /* Estilos para CADA SLIDE dentro del contenedor (& > *) */
     & > * {
-        min-width: 0;
-        padding-left: 15px; /* Espaciado entre slides (gutter) */
+        //min-width: 0; Soluciona el flex en @media SM 
+        padding-left: 15px; 
         position: relative;
-  
-          flex: 0 0 100%;
+        flex: 0 0 100%;
       
 
         @media only screen and (${devices.sm}){
-            flex: 0 0 25.0%; 
+         
+            flex: 0 0 calc(25% - 3.75px); 
         }
 
-        
     }
 `;
 

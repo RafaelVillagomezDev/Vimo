@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 
 export const CardContainer = styled.div`
-    width: 258px;
-    height: 550px; 
+   
+    width: 100%;
+    height: 450px; 
     display: flex;
     flex-direction: column;
     overflow: hidden; 
@@ -15,8 +16,9 @@ export const CardContainer = styled.div`
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    
    @media only screen and (${devices.sm}) {
-      
+      width: 250px;
       height: 350px;
     }
     
@@ -27,9 +29,9 @@ export const CardBoxImage = styled.div`
     width: 100%;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    height: 250px;
+   
      @media only screen and (${devices.sm}) {
-        height: 170px; 
+        height: 166px; 
     }
 `;
 
@@ -61,9 +63,7 @@ export const CardText=styled.p`
        font-size: 16px;
     }
 `
-export const CardSubtitle=styled.h5`
-    font-weight: bold;
-`
+
 
 
 export const CardImage = styled.img.attrs(({ src }) => ({

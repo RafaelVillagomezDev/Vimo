@@ -106,11 +106,12 @@ function CardGallery() {
                                             src={selectedRestaurant?.images[0]?.url}
                                             alt={selectedRestaurant?.images[0]?.id|| "portada"}
                                             key={selectedRestaurant?.images[0]?.id}
+                                            loading='lazy'
                                         />
                                     </LeftColumn>
                                     <RightColumn>
                                         
-                                            <ImageItem src={selectedRestaurant?.images[0]?.url} alt={selectedRestaurant?.images[0]?.id || "portada"} key={selectedRestaurant?.images[0]?.id} />
+                                            <ImageItem loading='lazy' src={selectedRestaurant?.images[0]?.url} alt={selectedRestaurant?.images[0]?.id || "portada"} key={selectedRestaurant?.images[0]?.id} />
                                         
                                     </RightColumn>
                                     <Text>
@@ -140,6 +141,7 @@ function CardGallery() {
                                     </TextCard>
 
                                 </GridContent>
+                                
                                 <GridShedule>
                                     <Schedule />
                                 </GridShedule>

@@ -101,7 +101,7 @@ const CarrousellSlide: React.FC<CarrousellSlideProps> = ({ slidesData }) => {
 
                 <CarrousellSlideItem key={index}>
                     <NavLinker to={slide.to}>
-                        <CarrousellSlideCard src={slide.iconSrc} />
+                        <CarrousellSlideCard src={slide.iconSrc}  loading='lazy'/>
 
                         <CarrousellSlideText>{slide.text}</CarrousellSlideText>
 

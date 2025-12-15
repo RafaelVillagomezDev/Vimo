@@ -13,8 +13,12 @@ export const GridCarrousell = styled.div`
 
     @media only screen and (${devices.md}) {
         grid-column: 2 / 7;
+        
+        grid-template-columns: auto auto; 
     }
+    
     @media only screen and (${devices.lg}) {
+
         grid-template-columns: auto auto;
     }
 `;
@@ -29,11 +33,16 @@ export const LeftColumn = styled.div`
 export const RightColumn = styled.div`
     display: none;
     aspect-ratio: 3 / 4; 
-    @media only screen and (${devices.lg}) {
+
+     @media only screen and (${devices.sm}) {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 1rem;
-        grid-auto-rows: 210px;
+        grid-auto-rows: 200px;
+    }
+    @media only screen and (${devices.lg}) {
+        
+        grid-auto-rows: 242px;
     }
 `;
 

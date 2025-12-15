@@ -16,7 +16,7 @@ function Restaurant() {
         <> 
             <Navbar />
             <CardGallery />
-            <Footer />
+            
         </>
     );
 }

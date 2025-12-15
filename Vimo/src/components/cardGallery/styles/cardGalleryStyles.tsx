@@ -3,45 +3,80 @@ import { devices } from '../../../styles/mixin_styledComponent';
 import { Link } from 'react-router-dom';
 
 
-
 export const GridCarrousell = styled.div`
     display: grid;
     gap: 16px;
-    width: 100%;
+    /* Límite de ancho para controlar el número máximo de columnas visibles */
+    max-width: 1400px; 
+    width: 100%; 
+    
+    /* MANTENER: Posicionamiento dentro del Grid MÁS EXTERNO */
     grid-column: 2 / 7;
-    grid-row: 1;
+    grid-row: 3;
+
+    justify-self: center; 
+    
+    grid-auto-rows: minmax(min-content, max-content); 
+    
+    /* Define 7 columnas explícitas para posicionar a los hijos */
+    grid-template-columns: repeat(7, 1fr); 
 
     @media only screen and (${devices.md}) {
         grid-column: 2 / 7;
-        
-        grid-template-columns: auto auto; 
+    }
+`;
+
+export const GridContent = styled.div`
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    
+ 
+    grid-column: 2 / 7; 
+    grid-row: 2;
+   
+   
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+    
+    grid-auto-rows: auto;
+
+    @media only screen and (${devices.md}) {
+        grid-column: 2 / 7;
     }
     
-    @media only screen and (${devices.lg}) {
-
-        grid-template-columns: auto auto;
-    }
 `;
 
 export const LeftColumn = styled.div`
     display: flex;
     flex-direction: column;
-     
-     aspect-ratio: 4 / 3; 
+    /* Relación de aspecto para la imagen principal */
+    aspect-ratio: 4 / 3; 
+    
+    /* Ocupa 1 columna del grid interno por defecto */
+    grid-column: span 1; 
+
+    @media only screen and (${devices.md}) {
+        /* En pantallas medianas y grandes, ocupa 2 columnas */
+        grid-column: span 2; 
+    }
 `;
 
 export const RightColumn = styled.div`
     display: none;
+    /* Relación de aspecto para el collage */
     aspect-ratio: 3 / 4; 
 
      @media only screen and (${devices.sm}) {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* Ocupa el espacio restante del GridContent (span 1) */
+        grid-column: span 1; 
+        
+        /* Define su propia cuadrícula interna (2 columnas para las imágenes) */
+        grid-template-columns: repeat(2, 1fr); 
         gap: 1rem;
         grid-auto-rows: 200px;
     }
     @media only screen and (${devices.lg}) {
-        
         grid-auto-rows: 242px;
     }
 `;
@@ -63,6 +98,8 @@ export const InfoContainer = styled.div`
     padding: 2rem;
     background-color: whitesmoke;
     width: 100%;
+    grid-column: 1 / -1; 
+    grid-row: 1;
 `;
 
 export const IconInfo = styled.span`
@@ -90,9 +127,6 @@ export const TitleInfo = styled.h3`
     font-family: 'Poppins', sans-serif;
     font-size: 25px;
     font-weight: bold;
-    @media only screen and (${devices.sm}) {
-        font-size: 35px;
-    }
 `;
 export const SubtitleInfo = styled.h3`
     font-family: 'Poppins', sans-serif;
@@ -155,6 +189,7 @@ export const ButtonText = styled.span.attrs<{
     border-bottom: ${(props) => props.$borderBottom};
     line-height: 22px;
     display: none;
+    font-size: 16px;
 
     @media only screen and (${devices.sm}) {
         display: block;
@@ -173,6 +208,7 @@ export const Text = styled.div`
     @media only screen and (${devices.sm}) {
         flex-direction: row;
     }
+    grid-row: 3;
 `;
 
 export const TextLine = styled.p`
@@ -223,7 +259,7 @@ export const GridRestaurant = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 2rem;
+    margin: 2rem;
     grid-gap: 2rem;
 
     @media only screen and (${devices.sm}) {
@@ -233,21 +269,6 @@ export const GridRestaurant = styled.div`
     }
 `;
 
-export const GridContent = styled.div`
-    display: grid;
-    gap: 16px;
-    width: 100%;
-
-    grid-column: 2 / 5;
-    grid-row: 2;
-    @media only screen and (${devices.sm}) {
-        grid-column: 2 / 3;
-    }
-
-    @media only screen and (${devices.lg}) {
-        grid-column: 2 / 5;
-    }
-`;
 
 export const GridShedule = styled.div`
     display: grid;
@@ -267,8 +288,12 @@ export const GridInfo = styled.div`
     gap: 16px;
     width: 100%;
     grid-area: content;
-    grid-column: 2 / 5;
+    grid-column: 2 / 5; /* Ocupa las columnas 2, 3, y 4 de las 7 disponibles */
     grid-row: 3;
+    
+    /* AÑADIDO: Si deseas que el contenido interno de GridInfo se centre: */
+    justify-items: center; 
+
     @media only screen and (${devices.sm}) {
         grid-column: 2 / 3;
     }
@@ -280,6 +305,8 @@ export const GridInfo = styled.div`
 
 export const GridMenu = styled(GridInfo)`
     grid-row: 4;
+    /* Asegura que el contenido interno del menú también esté centrado si GridInfo lo está */
+    justify-items: center; 
 `
 
 export const Box = styled(BoxInfo)`

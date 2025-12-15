@@ -59,7 +59,7 @@ function CardPost() {
         name: searchParams.get("name"),
         address: searchParams.get("address"),
 
-    }; 
+    };
 
     const apiUrl = useSiteUrlBuilder({
         pathId: id, // El ID capturado de la URL de la ruta
@@ -122,18 +122,24 @@ function CardPost() {
                                 <Card key={restaurant.id}>
 
 
-                                    {restaurant.images.map((image, index) => (
-
-                                        <CardSection key={image.url || index}>
-                                            <LinkCard to={restaurant.id}>
-                                                <CardImage
-                                                    alt={`${restaurant.name} - Imagen ${index + 1}`}
-                                                    src={image.url}
-                                                    loading="lazy"
-                                                />
-                                            </LinkCard>
-                                        </CardSection>
-                                    ))}
+                                    {restaurant.images.map((image, index) => {
+                                        // Solo renderizar si es la primera imagen
+                                        if (index === 0) {
+                                            return (
+                                                <CardSection key={image.url || index}>
+                                                    <LinkCard to={restaurant.id}>
+                                                        <CardImage
+                                                            alt={`${restaurant.name} - Imagen ${index + 1}`}
+                                                            src={image.url}
+                                                            loading="lazy"
+                                                        />
+                                                    </LinkCard>
+                                                </CardSection>
+                                            );
+                                        }
+                                        // Para cualquier otro índice, no renderizar nada
+                                        return null;
+                                    })}
 
 
                                     <CardSectionText>

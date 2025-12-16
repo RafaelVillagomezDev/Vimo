@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 
 
 export const ContainerFooter = styled.div`
-    height: 250px;
     background-color:${(props) => props.theme.colors.blueDeep};
     padding: 2rem;
+    position:-webkit-sticky;
+    width: 100%;
+    bottom :0px;
     @media only screen and (${devices.sm}) {
         height: 200px;
     }

@@ -22,11 +22,11 @@ const APP_BUILD_ID: number = Number(import.meta.env.VITE_APP_BUILD_VERSION);
 const rootPersistConfig = {
   key: 'roott',
   storage,
-  whitelist: [], // solo persistimos el campo restaurant
+  whitelist: ['restaurant'], // solo persistimos el campo restaurant
   // Nota: El tipo 'version' en 'redux-persist' es number por defecto,
   // por lo que es mejor asegurar que la versión de persistencia sea numérica si usas este campo.
   migrate: async(state:Record<string, any> | undefined | null , version:number) => migrate(state, version, APP_BUILD_ID),
-  blacklist: ['restaurant','auth']
+  blacklist: ['auth']
 };
 
 

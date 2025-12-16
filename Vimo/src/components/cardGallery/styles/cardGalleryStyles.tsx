@@ -128,14 +128,7 @@ export const TitleInfo = styled.h3`
     font-size: 25px;
     font-weight: bold;
 `;
-export const SubtitleInfo = styled.h3`
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    @media only screen and (${devices.sm}) {
-        font-size: 22px;
-    }
-`;
+
 
 export const TextInfo = styled.p`
     font-family: 'Inter', 'sans-serif';
@@ -189,8 +182,8 @@ export const ButtonText = styled.span.attrs<{
     border-bottom: ${(props) => props.$borderBottom};
     line-height: 22px;
     display: none;
-    font-size: 16px;
-
+    font-size: 1;
+    
     @media only screen and (${devices.sm}) {
         display: block;
     }
@@ -222,33 +215,6 @@ export const TextLine = styled.p`
     }
 `;
 
-export const NavbarRestaurant = styled.nav`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0rem;
-    color: white;
-`;
-
-export const NavLinks = styled.ul`
-    list-style: none;
-    display: flex;
-`;
-
-export const NavLink = styled(Link)`
-    font-family: 'Rokkitt', serif;
-    font-size: 18px;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 10px;
-    padding: 0.5rem 1rem;
-    border-right: solid 2px gray;
-
-    @media only screen and (${devices.sm}) {
-        font-size: 22px;
-    }
-`;
 
 export const TextCard = styled.p`
     font-family: 'Inter', sans-serif;
@@ -270,44 +236,7 @@ export const GridRestaurant = styled.div`
 `;
 
 
-export const GridShedule = styled.div`
-    display: grid;
-    gap: 16px;
-    grid-column: 5 / 7;
-    grid-row: 2;
-    @media only screen and (${devices.sm}) {
-        grid-column: 3 / 7;
-    }
-    @media only screen and (${devices.lg}) {
-        grid-column: 5 / 7;
-    }
-`;
 
-export const GridInfo = styled.div`
-    display: grid;
-    gap: 16px;
-    width: 100%;
-    grid-area: content;
-    grid-column: 2 / 5; /* Ocupa las columnas 2, 3, y 4 de las 7 disponibles */
-    grid-row: 3;
-    
-    /* AÑADIDO: Si deseas que el contenido interno de GridInfo se centre: */
-    justify-items: center; 
-
-    @media only screen and (${devices.sm}) {
-        grid-column: 2 / 3;
-    }
-
-    @media only screen and (${devices.md}) {
-        grid-column: 2 / 5;
-    }
-`;
-
-export const GridMenu = styled(GridInfo)`
-    grid-row: 4;
-    /* Asegura que el contenido interno del menú también esté centrado si GridInfo lo está */
-    justify-items: center; 
-`
 
 export const Box = styled(BoxInfo)`
     flex-direction: column;

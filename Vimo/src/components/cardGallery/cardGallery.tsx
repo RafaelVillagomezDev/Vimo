@@ -1,4 +1,3 @@
-import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
 import {
     Box,
     BoxInfo,
@@ -7,64 +6,67 @@ import {
     ButtonInfo,
     ButtonLike,
     ButtonText,
-    ContainerRow,
     GridCarrousell,
     GridContent,
-    GridInfo,
-    GridMenu,
-    GridShedule,
     IconInfo,
     ImageItem,
     InfoContainer,
     LeftColumn,
-    NavLink,
-    NavLinks,
-    NavbarRestaurant,
     RightColumn,
-    SubtitleInfo,
     Text,
-    TextCard,
-    TextLine,
-    TextMenu,
-    TextSpan,
     TitleInfo,
 } from './styles/cardGalleryStyles';
-import { useState, lazy } from 'react';
-import { useParams } from 'react-router-dom';
-import { selectRestaurantById } from '../../slices/restaurant/restaurant-slice';
+import { useState } from 'react';
 
-const Schedule = lazy(() => import('../schedule/Schedule'));
+// 💡 Definición de tipos de datos esperados para hacer el componente robusto
+interface ImageType {
+    id: string;
+    url: string;
+}
 
-function CardGallery() {
+interface RestaurantDataType {
+    id: string;
+    name: string;
+    images: ImageType[];
+    // Puedes añadir más campos genéricos aquí si los usas
+}
+
+// 💡 Props que el componente aceptará
+interface CardGalleryProps {
+    data: RestaurantDataType | null | undefined; // La entidad a mostrar
+    onShare: (url: string) => void; // Función de compartir (se pasa desde el padre)
+    isVerified?: boolean; // Booleano para el icono de verificación
+}
+
+
+// El componente ahora acepta las props definidas
+function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
     const [copied, setCopied] = useState(false);
-    const { id } = useParams<{ id: string }>();
 
-    // 💡 SOLUCIÓN 1: Acceder al restaurante seleccionado de forma consistente
-    const selectedRestaurant = useAppSelector((state) =>
-        id ? selectRestaurantById(state, id) : undefined
-    );
-    
-    // Si no hay restaurante (o si la data está vacía), no renderizamos nada
-    if (!selectedRestaurant) {
+    // Si los datos no se han pasado, renderizamos el estado de carga/error
+    if (!data) {
         return (
             <Box>
-                <Text>No se encontró el restaurante o el ID no es válido.</Text>
+                <Text>Cargando datos o no se encontró la entidad.</Text>
             </Box>
         );
     }
-    
-    // Separación de imágenes para el layout
-    const allImages = selectedRestaurant.images || [];
+
+    // --- Lógica de Manejo de Datos ---
+    const allImages = data.images || [];
     const mainImage = allImages[0]; // La primera imagen para LeftColumn
     const otherImages = allImages.slice(1); // El resto de las imágenes para RightColumn
-
 
     const handleShare = async () => {
         try {
             const url = window.location.href;
             await navigator.clipboard.writeText(url);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // Oculta el mensaje después de 2s
+            
+            // 💡 Llamamos a la función onShare del padre
+            onShare(url); 
+
+            setTimeout(() => setCopied(false), 2000); 
         } catch (error) {
             console.error('Error al copiar la URL:', error);
         }
@@ -72,14 +74,15 @@ function CardGallery() {
 
 
     return (
-        <GridCarrousell key={selectedRestaurant.id}>
-            
+        <GridCarrousell key={data.id}>
+
             {/* 1. INFO CONTAINER */}
             <InfoContainer>
                 <BoxInfo>
                     <BoxText>
-                        <TitleInfo>{selectedRestaurant.name}</TitleInfo>
-                        <IconInfo>verified</IconInfo>
+                        {/* Usamos data.name en lugar de selectedRestaurant.name */}
+                        <TitleInfo>{data.name}</TitleInfo>
+                        {isVerified && <IconInfo>verified</IconInfo>} 
                     </BoxText>
                     <BoxShare>
                         <ButtonInfo onClick={handleShare}>
@@ -90,6 +93,7 @@ function CardGallery() {
                                 <ButtonText>Enlace copiado</ButtonText>
                             )}
                         </ButtonInfo>
+                        {/* El botón de 'Guardar' (Favorito) también debería manejar una prop/función */}
                         <ButtonLike $border="solid 1px black">
                             <IconInfo color="black">favorite</IconInfo>
                             <ButtonText $borderBottom="none">Guardar</ButtonText>
@@ -97,7 +101,7 @@ function CardGallery() {
                     </BoxShare>
                 </BoxInfo>
             </InfoContainer>
-            
+
             {/* 2. GRID CONTENT (IMÁGENES) */}
             <GridContent>
                 {/* LEFT COLUMN: Imagen principal */}
@@ -111,24 +115,21 @@ function CardGallery() {
                         />
                     </LeftColumn>
                 )}
-                
+
                 {/* RIGHT COLUMN: Collage de imágenes secundarias */}
                 {otherImages.length > 0 && (
                     <RightColumn>
-               
                         {otherImages.map((image) => (
-                            <ImageItem 
-                                loading='lazy' 
-                                src={image.url} 
-                                alt={image.id || "imagen secundaria"} 
-                                key={image.id} 
+                            <ImageItem
+                                loading='lazy'
+                                src={image.url}
+                                alt={image.id || "imagen secundaria"}
+                                key={image.id}
                             />
                         ))}
                     </RightColumn>
                 )}
             </GridContent>
-
-      
 
         </GridCarrousell>
     );

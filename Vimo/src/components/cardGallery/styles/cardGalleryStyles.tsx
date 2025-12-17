@@ -83,7 +83,7 @@ export const RightColumn = styled.div`
 
 export const ImageItem = styled.img`
     width: 100%;
-    height: 100%;
+    height: fit-content;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -264,4 +264,10 @@ export const TextMenu = styled.p`
 export const TextSpan = styled.span`
    font-weight: bold;
    padding-right: 2px;
+`
+
+export const AboutContent=styled.div`
+    width: 100%;
+    grid-column: 1/7;
+    grid-row: 3;
 `

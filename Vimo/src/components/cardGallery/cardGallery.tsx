@@ -1,4 +1,5 @@
 import {
+    AboutContent,
     Box,
     BoxInfo,
     BoxShare,
@@ -129,6 +130,10 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
                         ))}
                     </RightColumn>
                 )}
+
+                <AboutContent>
+                  <h1>pais</h1>
+                </AboutContent>
             </GridContent>
 
         </GridCarrousell>

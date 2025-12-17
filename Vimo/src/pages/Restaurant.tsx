@@ -1,7 +1,6 @@
 // src/pages/Restaurant.jsx (Versión Final)
 
 import { lazy,  } from 'react';
-import Footer from '../components/footer/Footer';
 import Navbar from '../components/navbar/Navbar';
 import { useAppSelector } from '../custom/hooks/call/useAppSelector';
 import { useParams } from 'react-router-dom';

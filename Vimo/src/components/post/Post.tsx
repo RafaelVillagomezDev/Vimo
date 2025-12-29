@@ -14,9 +14,9 @@ import {
 } from './styles/PostStyle';
 import { TfiMapAlt } from 'react-icons/tfi';
 import { TiWeatherPartlySunny } from 'react-icons/ti';
-import alcazar from '../../assets/pictures/spain/alcazar_madrid.jpg';
-import bandera from '../../assets/pictures/spain/bandera_madrid.png';
-import mapa_madrid from '../../assets/pictures/spain/mapa_madrid.webp';
+import alcazar from '@assets/pictures/spain/alcazar_madrid.jpg';
+import bandera from '@assets/pictures/spain/bandera_madrid.png';
+import mapa_madrid from '@assets/pictures/spain/mapa_madrid.webp';
 function Post() {
     return (
         <>

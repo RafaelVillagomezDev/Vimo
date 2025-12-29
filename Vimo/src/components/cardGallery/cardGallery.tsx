@@ -1,18 +1,21 @@
+
 import {
     AboutContent,
+    AboutSubTitle,
+    AboutText,
     Box,
     BoxInfo,
     BoxShare,
     BoxText,
     ButtonInfo,
     ButtonLike,
-    ButtonText,
     GridCarrousell,
     GridContent,
     IconInfo,
     ImageItem,
     InfoContainer,
     LeftColumn,
+    
     RightColumn,
     Text,
     TitleInfo,
@@ -26,6 +29,7 @@ interface ImageType {
 }
 
 interface RestaurantDataType {
+    address: string;
     id: string;
     name: string;
     images: ImageType[];
@@ -63,11 +67,11 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
             const url = window.location.href;
             await navigator.clipboard.writeText(url);
             setCopied(true);
-            
-            // 💡 Llamamos a la función onShare del padre
-            onShare(url); 
 
-            setTimeout(() => setCopied(false), 2000); 
+            // 💡 Llamamos a la función onShare del padre
+            onShare(url);
+
+            setTimeout(() => setCopied(false), 2000);
         } catch (error) {
             console.error('Error al copiar la URL:', error);
         }
@@ -75,6 +79,7 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
 
 
     return (
+         <>
         <GridCarrousell key={data.id}>
 
             {/* 1. INFO CONTAINER */}
@@ -83,21 +88,19 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
                     <BoxText>
                         {/* Usamos data.name en lugar de selectedRestaurant.name */}
                         <TitleInfo>{data.name}</TitleInfo>
-                        {isVerified && <IconInfo>verified</IconInfo>} 
+                        {isVerified && <IconInfo>verified</IconInfo>}
                     </BoxText>
                     <BoxShare>
                         <ButtonInfo onClick={handleShare}>
-                            <IconInfo color="black">ios_share</IconInfo>
+
                             {!copied ? (
-                                <ButtonText>Compartir</ButtonText>
+                                <IconInfo color="black">ios_share</IconInfo>
                             ) : (
-                                <ButtonText>Enlace copiado</ButtonText>
+                                <IconInfo color="black">content_paste</IconInfo>
                             )}
                         </ButtonInfo>
-                        {/* El botón de 'Guardar' (Favorito) también debería manejar una prop/función */}
-                        <ButtonLike $border="solid 1px black">
+                        <ButtonLike >
                             <IconInfo color="black">favorite</IconInfo>
-                            <ButtonText $borderBottom="none">Guardar</ButtonText>
                         </ButtonLike>
                     </BoxShare>
                 </BoxInfo>
@@ -112,7 +115,8 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
                             src={mainImage.url}
                             alt={mainImage.id || "portada"}
                             key={mainImage.id}
-                            loading='lazy'
+                            rel="preload"
+                            fetchPriority='high'
                         />
                     </LeftColumn>
                 )}
@@ -132,11 +136,32 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
                 )}
 
                 <AboutContent>
-                  <h1>pais</h1>
+                    <AboutText>
+                        <AboutSubTitle>
+                            <IconInfo color="gray">location_on</IconInfo>
+                            {data.address}
+                        </AboutSubTitle>
+                    </AboutText>
+                    <AboutText>
+                        <AboutSubTitle>
+                            <IconInfo color="gray">paid</IconInfo>
+                            Precio Medio:
+                            12$
+                        </AboutSubTitle>
+                    </AboutText>
+                    <AboutText>
+                        <AboutSubTitle>
+                            <IconInfo color="gray">kid_star</IconInfo>
+                            9/10 Puntuación de usuarios
+                        </AboutSubTitle>
+                    </AboutText>
                 </AboutContent>
             </GridContent>
 
         </GridCarrousell>
+       
+       
+        </>
     );
 }
 

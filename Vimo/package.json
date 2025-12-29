@@ -51,5 +51,17 @@
     "typescript-eslint": "^8.18.1",
     "vite": "^6.0.5",
     "vite-plugin-imagemin": "^0.4.6"
+  },
+
+  "pnpm": {
+    "overrides": {
+      "trim-newlines": "^3.0.1",
+      "meow": "^9.0.0",
+      "cross-spawn": "^7.0.5",
+      "http-cache-semantics": "^4.1.1",
+      "got": "^11.8.5",
+      "esbuild": "^0.25.0",
+      "semver-regex": "^3.1.4"
+    }
   }
 }

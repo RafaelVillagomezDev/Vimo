@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
-import { Link } from 'react-router-dom';
 
 
 export const GridCarrousell = styled.div`
@@ -152,11 +151,7 @@ export const ButtonInfo = styled.button`
     align-items: center;
 `;
 
-export const ButtonLike = styled.button.attrs<{
-    $border?: string;
-}>((props) => ({
-    $border: props.$border || 'solid 1px black',
-}))`
+export const ButtonLike = styled.button`
     border: none;
     background: none;
     cursor: pointer;
@@ -164,12 +159,9 @@ export const ButtonLike = styled.button.attrs<{
     align-items: center;
     padding: 6px;
     border-radius: 10px;
-    &:hover {
-        background-color: orangered;
-    }
-    @media only screen and (${devices.sm}) {
-        border: ${(props) => props.$border};
-    }
+   
+
+    
 `;
 
 export const ButtonText = styled.span.attrs<{
@@ -180,7 +172,6 @@ export const ButtonText = styled.span.attrs<{
     font-family: 'Roboto';
 
     border-bottom: ${(props) => props.$borderBottom};
-    line-height: 22px;
     display: none;
     font-size: 1;
     
@@ -271,3 +262,23 @@ export const AboutContent=styled.div`
     grid-column: 1/7;
     grid-row: 3;
 `
+
+export const AboutText=styled.p`
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    color: gray;
+    padding-bottom: 0.5rem;
+`
+
+
+export const AboutSubTitle=styled.h5`
+    column-gap: 0.5rem;
+    display: flex;
+`
+
+
+
+
+

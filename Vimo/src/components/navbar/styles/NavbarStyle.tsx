@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { devices } from '../../../styles/mixin_styledComponent';
+import { devices } from '@styles/mixin_styledComponent';
 
 
 

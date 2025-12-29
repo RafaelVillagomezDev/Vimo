@@ -10,7 +10,7 @@ import {
     EmblaContainerInner 
 } from "./styles/carrousellCard";
 
-import CardSlide from "../../components/cardSlide/CardSlide";
+import CardSlide from "@components/cardSlide/CardSlide";
 import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
 import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
 import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';

@@ -1,29 +1,41 @@
-import animationData from '../assets/lottie/lottie_load.json';
-import Lottie from 'react-lottie-player';
+import React from 'react';
+function LoadingScreen() {
+    const containerStyle : React.CSSProperties = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'white',
+        zIndex: 9999,
+    };
 
-function LoadingScreen () {
+    const spinnerStyle:React.CSSProperties = {
+        width: '50px',
+        height: '50px',
+        border: '5px solid #f3f3f3',
+        borderTop: '5px solid #000', 
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+    };
+
     return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'fixed', // Cubre toda la pantalla y se mantiene fija
-                top: 0,
-                left: 0,
-                width: '100vw', // Cubre todo el ancho de la pantalla
-                height: '100vh', // Cubre todo el alto de la pantalla
-                backgroundColor: 'white',
-                zIndex: 1, // Asegúrate de que esté por encima de otros elementos
-            }}>
-            <Lottie
-                loop
-                play
-                animationData={animationData}
-                style={{ width: 400, height: 400 }} // Ajustar tamaño
-            />
+        <div style={containerStyle}>
+           
+            <style>
+                {`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                `}
+            </style>
+            <div style={spinnerStyle}></div>
         </div>
     );
-};
+}
 
 export default LoadingScreen;

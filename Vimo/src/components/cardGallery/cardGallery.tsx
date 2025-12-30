@@ -15,7 +15,7 @@ import {
     ImageItem,
     InfoContainer,
     LeftColumn,
-    
+
     RightColumn,
     Text,
     TitleInfo,
@@ -79,88 +79,91 @@ function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
 
 
     return (
-         <>
-        <GridCarrousell key={data.id}>
+        <>
+            <GridCarrousell key={data.id}>
 
-            {/* 1. INFO CONTAINER */}
-            <InfoContainer>
-                <BoxInfo>
-                    <BoxText>
-                        {/* Usamos data.name en lugar de selectedRestaurant.name */}
-                        <TitleInfo>{data.name}</TitleInfo>
-                        {isVerified && <IconInfo>verified</IconInfo>}
-                    </BoxText>
-                    <BoxShare>
-                        <ButtonInfo onClick={handleShare}>
+                {/* 1. INFO CONTAINER */}
+                <InfoContainer>
+                    <BoxInfo>
+                        <BoxText>
+                            {/* Usamos data.name en lugar de selectedRestaurant.name */}
+                            <TitleInfo>{data.name}</TitleInfo>
+                            {isVerified && <IconInfo>verified</IconInfo>}
+                        </BoxText>
+                        <BoxShare>
+                            <ButtonInfo onClick={handleShare}>
 
-                            {!copied ? (
-                                <IconInfo color="black">ios_share</IconInfo>
-                            ) : (
-                                <IconInfo color="black">content_paste</IconInfo>
-                            )}
-                        </ButtonInfo>
-                        <ButtonLike >
-                            <IconInfo color="black">favorite</IconInfo>
-                        </ButtonLike>
-                    </BoxShare>
-                </BoxInfo>
-            </InfoContainer>
+                                {!copied ? (
+                                    <IconInfo color="black">ios_share</IconInfo>
+                                ) : (
+                                    <IconInfo color="black">content_paste</IconInfo>
+                                )}
+                            </ButtonInfo>
+                            <ButtonLike >
+                                <IconInfo color="black">favorite</IconInfo>
+                            </ButtonLike>
+                        </BoxShare>
+                    </BoxInfo>
+                </InfoContainer>
 
-            {/* 2. GRID CONTENT (IMÁGENES) */}
-            <GridContent>
-                {/* LEFT COLUMN: Imagen principal */}
-                {mainImage && (
-                    <LeftColumn>
-                        <ImageItem
-                            src={mainImage.url}
-                            alt={mainImage.id || "portada"}
-                            key={mainImage.id}
-                            rel="preload"
-                            fetchPriority='high'
-                        />
-                    </LeftColumn>
-                )}
-
-                {/* RIGHT COLUMN: Collage de imágenes secundarias */}
-                {otherImages.length > 0 && (
-                    <RightColumn>
-                        {otherImages.map((image) => (
+                {/* 2. GRID CONTENT (IMÁGENES) */}
+                <GridContent>
+                    {/* LEFT COLUMN: Imagen principal */}
+                    {mainImage && (
+                        <LeftColumn>
                             <ImageItem
-                                loading='lazy'
-                                src={image.url}
-                                alt={image.id || "imagen secundaria"}
-                                key={image.id}
+                                src={mainImage.url}
+                                alt={mainImage.id || "portada"}
+                                key={mainImage.id}
+                                rel="preload"
+                      
+                                loading='eager'
                             />
-                        ))}
-                    </RightColumn>
-                )}
+                        </LeftColumn>
+                    )}
 
-                <AboutContent>
-                    <AboutText>
-                        <AboutSubTitle>
-                            <IconInfo color="gray">location_on</IconInfo>
-                            {data.address}
-                        </AboutSubTitle>
-                    </AboutText>
-                    <AboutText>
-                        <AboutSubTitle>
-                            <IconInfo color="gray">paid</IconInfo>
-                            Precio Medio:
-                            12$
-                        </AboutSubTitle>
-                    </AboutText>
-                    <AboutText>
-                        <AboutSubTitle>
-                            <IconInfo color="gray">kid_star</IconInfo>
-                            9/10 Puntuación de usuarios
-                        </AboutSubTitle>
-                    </AboutText>
-                </AboutContent>
-            </GridContent>
+                    {/* RIGHT COLUMN: Collage de imágenes secundarias */}
+                    {otherImages.length > 0 && (
+                        <RightColumn>
+                            {otherImages.map((image) => (
+                                <ImageItem
+                                    rel="preload"
+                           
+                                    loading='eager'
+                                    src={image.url}
+                                    alt={image.id || "imagen secundaria"}
+                                    key={image.id}
+                                />
+                            ))}
+                        </RightColumn>
+                    )}
 
-        </GridCarrousell>
-       
-       
+                    <AboutContent>
+                        <AboutText>
+                            <AboutSubTitle>
+                                <IconInfo color="gray">location_on</IconInfo>
+                                {data.address}
+                            </AboutSubTitle>
+                        </AboutText>
+                        <AboutText>
+                            <AboutSubTitle>
+                                <IconInfo color="gray">paid</IconInfo>
+                                Precio Medio:
+                                12$
+                            </AboutSubTitle>
+                        </AboutText>
+                        <AboutText>
+                            <AboutSubTitle>
+                                <IconInfo color="gray">kid_star</IconInfo>
+                                9/10 Puntuación de usuarios
+                            </AboutSubTitle>
+                        </AboutText>
+                    </AboutContent>
+                </GridContent>
+
+            </GridCarrousell>
+
+
         </>
     );
 }

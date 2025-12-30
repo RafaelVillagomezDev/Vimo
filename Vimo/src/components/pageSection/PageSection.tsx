@@ -8,12 +8,14 @@ import {
 } from "./styles/PageSectionStyle";
 
 import Description from "@components/descriptionSection/DescriptionSection";
+import MenuSection from "@components/menuSection/MenuSection";
+import ReviewSection from "@components/reviewSection/ReviewSection";
 
 // 1. Definimos las secciones fuera para evitar recrear objetos en cada render
 const SECTIONS_MAP: Record<string, React.ReactNode> = {
     desc: <Description />,
-    menu: <Description />, // Aquí irán tus otros componentes en el futuro
-    reviews: <Description />,
+    menu: <MenuSection />,
+    reviews: <ReviewSection />,
 };
 
 const TABS = [

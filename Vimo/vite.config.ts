@@ -5,12 +5,13 @@ import imagemin from 'vite-plugin-imagemin';
 import autoprefixer from 'autoprefixer'; // Importamos Autoprefixer
 
 export default defineConfig({
+  
   plugins: [
     // Plugin para React con SWC
     react({
       jsxImportSource: 'react',
     }),
-  
+
     // Plugin para optimización de imágenes (reduce peso de assets)
     imagemin({
       gifsicle: { optimizationLevel: 7, interlaced: false },
@@ -20,21 +21,21 @@ export default defineConfig({
       webp: { quality: 75 },     // Convertir imágenes a WebP con calidad 75%
     }),
   ],
-  
+
   // Configuración de alias para rutas de importación limpias
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, './src/components'),
       '@assets': path.resolve(__dirname, './src/assets'),
-      '@styles':path.resolve(__dirname, './src/styles'),
+      '@styles': path.resolve(__dirname, './src/styles'),
     },
   },
-  
+
   // Configuración de PostCSS para añadir prefijos CSS automáticamente
   css: {
     postcss: {
       plugins: [
-       autoprefixer()
+        autoprefixer()
       ],
     },
   },
@@ -48,8 +49,11 @@ export default defineConfig({
       compress: {
         drop_console: true,  // Eliminar `console.log`
         drop_debugger: true,  // Eliminar `debugger`
-        pure_getters: true,   
+        pure_getters: true,
         passes: 2,            // Realizar múltiples pasadas para mayor optimización
+      },
+      format: {
+        comments: false, // Elimina todos los comentarios
       },
       mangle: {
         toplevel: true,  // Mangle los nombres de las variables globales
@@ -62,39 +66,25 @@ export default defineConfig({
     // Limitar el tamaño de los chunks (en KB)
     chunkSizeWarningLimit: 500,
 
-    // Configuración avanzada de Rollup para Code Splitting (división de código)
     rollupOptions: {
       output: {
-        // Nombrar los archivos de salida
         assetFileNames: 'assets/[name].[hash][extname]',
         chunkFileNames: 'chunks/[name].[hash].js',
         entryFileNames: '[name].[hash].js',
 
-        // Lógica de división de chunks (manualChunks)
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            
-            // ************ NUEVA REGLA CRÍTICA ************
-            // 1. Separar react-lottie-player en su propio chunk.
-            if (id.includes('react-lottie-player')) {
-                return 'lottie-player';
-            }
-            // ********************************************
+            // Separar las librerías más pesadas en archivos individuales
+            if (id.includes('@reduxjs')) return 'redux-vendor';
+            if (id.includes('styled-components')) return 'styles-vendor';
+            if (id.includes('react-router')) return 'router-vendor';
 
-            // 2. Separar React y ReactDOM en su propio chunk para mejor caché
-            if (id.includes('/react') || id.includes('/react-dom')) {
-                return 'react-vendor';
-            }
-            // 3. El resto de dependencias va a 'vendor'
+            // React y DOM por separado para caché persistente
+            if (id.includes('react/') || id.includes('react-dom/')) return 'react-core';
+
+            // Todo lo demás pequeño va a vendor
             return 'vendor';
           }
-          if (id.includes('src/components')) {
-            // 4. Agrupar todos los componentes internos
-            return 'components'; 
-          }
-          
-          // Regla por defecto para el resto de archivos
-          return null;
         },
       },
     },
@@ -102,8 +92,8 @@ export default defineConfig({
 
   // Configuración del servidor de desarrollo
   server: {
-    port: 3007, 
-    open: true,  
-    hmr: true,   
+    port: 3007,
+    open: true,
+    hmr: true,
   },
 });

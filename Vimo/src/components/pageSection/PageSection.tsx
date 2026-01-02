@@ -1,76 +1,51 @@
-import { useState, useTransition, Suspense, useMemo, useCallback } from "react";
-import { 
-    GalleryContainer, 
-    GalleryItem, 
-    GalleryList, 
-    GallerySection, 
-    PageSectionContainer
-} from "./styles/PageSectionStyle";
+import { useState, useTransition, Suspense, createContext, useContext, useMemo, ReactNode } from "react";
+import * as S from "./styles/PageSectionStyle";
+import LoadingScreen from "../../pages/LoadingScreen";
 
-import Description from "@components/descriptionSection/DescriptionSection";
-import MenuSection from "@components/menuSection/MenuSection";
-import ReviewSection from "@components/reviewSection/ReviewSection";
+const PageSectionContext = createContext<any>(null);
 
-// 1. Definimos las secciones fuera para evitar recrear objetos en cada render
-const SECTIONS_MAP: Record<string, React.ReactNode> = {
-    desc: <Description />,
-    menu: <MenuSection />,
-    reviews: <ReviewSection />,
-};
-
-const TABS = [
-    { id: 'desc', label: 'Descripción' },
-    { id: 'menu', label: 'Menú' },
-    { id: 'reviews', label: 'Opiniones' }
-];
-
-function GalleryNavbar() {
-    const [activeTab, setActiveTab] = useState('desc');
+export function PageSection({ children, defaultTab = 'desc' }: { children: ReactNode, defaultTab?: string }) {
+    const [activeTab, setActiveTab] = useState(defaultTab);
     const [isPending, startTransition] = useTransition();
-
-    // 2. useMemo: Mantiene la referencia del componente activo. 
-    // Solo cambia si 'activeTab' cambia, ahorrando ciclos de CPU.
-    const activeSection = useMemo(() => {
-        return SECTIONS_MAP[activeTab] || SECTIONS_MAP.desc;
-    }, [activeTab]);
-
-    // 3. useCallback: Memoriza la función de cambio para no afectar el rendimiento de los hijos
-    const handleTabChange = useCallback((id: string) => {
-        startTransition(() => {
-            setActiveTab(id);
-        });
-    }, []);
+    const value = useMemo(() => ({ activeTab, setActiveTab, isPending, startTransition }), [activeTab, isPending]);
 
     return (
-        <PageSectionContainer>
-            <GallerySection>
-                <GalleryContainer>
-                    {/* Feedback visual con isPending para mejorar el INP (Interaction to Next Paint) */}
-                    <GalleryList style={{ opacity: isPending ? 0.7 : 1, transition: 'opacity 0.2s' }}>
-                        {TABS.map((tab) => (
-                            <GalleryItem 
-                                key={tab.id}
-                                $active={activeTab === tab.id}
-                                onClick={() => handleTabChange(tab.id)}
-                            >
-                                {tab.label}
-                            </GalleryItem>
-                        ))}
-                    </GalleryList>
-
-                    <Suspense fallback={<div style={{ height: '200px' }}>Cargando...</div>}>
-                        <div style={{ 
-                            opacity: isPending ? 0.6 : 1, 
-                            transition: 'opacity 0.3s ease',
-                            filter: isPending ? 'grayscale(0.5)' : 'none'
-                        }}>
-                            {activeSection}
-                        </div>
-                    </Suspense>
-                </GalleryContainer>
-            </GallerySection>
-        </PageSectionContainer>
+        <PageSectionContext.Provider value={value}>
+            <S.PageSectionContainer>
+                <S.GallerySection>
+                    <S.GalleryContainer>{children}</S.GalleryContainer>
+                </S.GallerySection>
+            </S.PageSectionContainer>
+        </PageSectionContext.Provider>
     );
 }
 
-export default GalleryNavbar;
+PageSection.Tabs = function ({ tabs }: { tabs: { id: string, label: string }[] }) {
+    const { activeTab, setActiveTab, startTransition } = useContext(PageSectionContext);
+    return (
+        <S.GalleryList>
+            {tabs.map((tab) => (
+                <S.GalleryItem 
+                    key={tab.id} 
+                    $active={activeTab === tab.id}
+                    onClick={() => startTransition(() => setActiveTab(tab.id))}
+                >
+                    {tab.label}
+                </S.GalleryItem>
+            ))}
+        </S.GalleryList>
+    );
+};
+
+PageSection.Panel = function ({ sections }: { sections: Record<string, ReactNode> }) {
+    const { activeTab, isPending } = useContext(PageSectionContext);
+    const activeSection = useMemo(() => sections[activeTab], [activeTab, sections]);
+
+    return (
+        <Suspense fallback={<LoadingScreen />}>
+            <div style={{ opacity: isPending ? 0.6 : 1, transition: '0.3s' }}>
+                {activeSection}
+            </div>
+        </Suspense>
+    );
+};

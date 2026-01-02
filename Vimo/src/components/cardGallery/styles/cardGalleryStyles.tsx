@@ -259,7 +259,7 @@ export const TextSpan = styled.span`
 
 export const AboutContent=styled.div`
     width: 100%;
-    grid-column: 1/7;
+    grid-column: 2/4;
     grid-row: 3;
 `
 
@@ -271,13 +271,6 @@ export const AboutText=styled.p`
     color: gray;
     padding-bottom: 0.5rem;
 `
-
-
-export const AboutSubTitle=styled.h5`
-    column-gap: 0.5rem;
-    display: flex;
-`
-
 
 
 

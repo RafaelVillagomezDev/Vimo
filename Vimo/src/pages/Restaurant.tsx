@@ -1,25 +1,36 @@
-// src/pages/Restaurant.tsx
-import { lazy, Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import Navbar from '../components/navbar/Navbar';
 import { useAppSelector } from '../custom/hooks/call/useAppSelector';
 import { useParams } from 'react-router-dom';
 import { selectRestaurantById } from '../slices/restaurant/restaurant-slice';
 import LoadingScreen from './LoadingScreen';
-import CardGallery from '@components/cardGallery/cardGallery';
+import { CardGallery } from '@components/cardGallery/cardGallery';
+import { PageSection} from '@components/pageSection/PageSection';
+import Description from "@components/descriptionSection/DescriptionSection";
+import MenuSection from "@components/menuSection/MenuSection";
+import ReviewSection from "@components/reviewSection/ReviewSection";
 
-// PageSection se mantiene lazy porque suele tener contenido pesado debajo del fold
-const PageSection = lazy(() => import('../components/pageSection/PageSection'));
+// Configuración de las pestañas
+const TABS_CONFIG = [
+    { id: 'desc', label: 'Descripción' },
+    { id: 'menu', label: 'Menú' },
+    { id: 'reviews', label: 'Opiniones' }
+];
 
 function Restaurant() {
     const { id } = useParams<{ id: string }>();
     
-    // Usamos useMemo para evitar cálculos costosos en cada render
     const selectedRestaurant = useAppSelector((state) =>
         id ? selectRestaurantById(state, id) : null
     );
 
-    // useCallback o una función fuera del componente evitaría re-crearla, 
-    // pero para logs simples está bien así.
+    // Mapeo de componentes para el panel
+    const SECTIONS_CONTENT = useMemo(() => ({
+        desc: <Description />,
+        menu: <MenuSection />,
+        reviews: <ReviewSection />,
+    }), []);
+
     const handleShareLogic = (url: string) => {
         console.log('URL compartida:', url);
     };
@@ -32,15 +43,19 @@ function Restaurant() {
         <>
             <Navbar />
             <main> 
-                <CardGallery 
-                    data={selectedRestaurant} 
-                    onShare={handleShareLogic} 
-                    isVerified={true} 
-                />
+                <CardGallery data={selectedRestaurant}>
+                    <CardGallery.Header onShare={handleShareLogic} isVerified={true} />
+                    <CardGallery.Visuals />
+                    <CardGallery.Footer price="15$" rating="9.5/10" />
+                </CardGallery>
                 
-                {/* El resto de la página se carga en segundo plano */}
-                <Suspense fallback={<div style={{ height: '500px' }} />}>
-                    <PageSection />
+                {/* Refactorizado: PageSection con hijos (Children) */}
+                <Suspense fallback={<LoadingScreen/>}>
+                    <PageSection defaultTab="desc">
+                        {/* Aquí insertamos los componentes uno tras otro */}
+                        <PageSection.Tabs tabs={TABS_CONFIG} />
+                        <PageSection.Panel sections={SECTIONS_CONTENT} />
+                    </PageSection>
                 </Suspense>
             </main>
         </>

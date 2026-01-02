@@ -1,4 +1,4 @@
-import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.B8BWolMe.js";import{d as i}from"./mixin_styledComponent.DHb0f0Lx.js";import{L as n}from"./router-vendor.BDvUuwyP.js";const s=o.nav`
+import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.B8BWolMe.js";import{d as i}from"./useAppSelector.DxXDhr7t.js";import{L as r}from"./router-vendor.B-vwFvdr.js";const s=o.nav`
     background-color: ${e=>e.theme.colors.blueDeep};
     height: 90px;
     display: flex;
@@ -7,17 +7,17 @@ import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.
     flex-direction: row;
     gap: 0.5rem;
     width: -webkit-fill-available;
-`,t=o.div`
+`,n=o.div`
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-`,r=o(t)`
+`,t=o(n)`
     display: none;
     @media only screen and (${i.sm}) {
         display: flex;
     }
-`,a=o(t)`
+`,a=o(n)`
     display: flex;
 `,l=o.h1`
     font-family: 'Poppins', sans-serif;
@@ -27,11 +27,11 @@ import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.
     @media only screen and (${i.sm}) {
         font-size: 35px;
     }
-`,d=o.ul`
+`,c=o.ul`
     display: flex;
     flex-direction: row;
     align-items: center;
-`,c=o(n)`
+`,d=o(r)`
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -42,4 +42,4 @@ import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.
         background-color: #6200ea; /* Color de fondo para el enlace activo */
         color: #fff;
     }
-`;function p(){return e.jsx(e.Fragment,{children:e.jsxs(s,{children:[e.jsx(a,{children:e.jsx(l,{children:"ZappyMap"})}),e.jsx(r,{children:e.jsxs(d,{children:[e.jsx(c,{to:"/restaurants",children:"Restaurantes"}),e.jsx(c,{to:"/destinations",children:"Discotecas"}),e.jsx(c,{to:"sites",children:"Sitios"}),e.jsx(c,{to:"destinations",children:"Transporte"})]})})]})})}export{p as N};
+`;function p(){return e.jsx(e.Fragment,{children:e.jsxs(s,{children:[e.jsx(a,{children:e.jsx(l,{children:"ZappyMap"})}),e.jsx(t,{children:e.jsxs(c,{children:[e.jsx(d,{to:"/restaurants",children:"Restaurantes"}),e.jsx(d,{to:"/destinations",children:"Discotecas"}),e.jsx(d,{to:"sites",children:"Sitios"}),e.jsx(d,{to:"destinations",children:"Transporte"})]})})]})})}export{p as N};

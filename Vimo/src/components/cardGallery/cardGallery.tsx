@@ -1,171 +1,107 @@
+import { createContext, useContext, useState, ReactNode } from 'react';
+import * as S from './styles/cardGalleryStyles';
 
-import {
-    AboutContent,
-    AboutSubTitle,
-    AboutText,
-    Box,
-    BoxInfo,
-    BoxShare,
-    BoxText,
-    ButtonInfo,
-    ButtonLike,
-    GridCarrousell,
-    GridContent,
-    IconInfo,
-    ImageItem,
-    InfoContainer,
-    LeftColumn,
-
-    RightColumn,
-    Text,
-    TitleInfo,
-} from './styles/cardGalleryStyles';
-import { useState } from 'react';
-
-// 💡 Definición de tipos de datos esperados para hacer el componente robusto
-interface ImageType {
-    id: string;
-    url: string;
-}
-
+// --- Tipos ---
+interface ImageType { id: string; url: string; }
 interface RestaurantDataType {
     address: string;
     id: string;
     name: string;
     images: ImageType[];
-    // Puedes añadir más campos genéricos aquí si los usas
 }
 
-// 💡 Props que el componente aceptará
+
+const CardContext = createContext<RestaurantDataType | null>(null);
+
+function useCardContext() {
+    const context = useContext(CardContext);
+    if (!context) throw new Error("CardGallery sub-components  deben tener como padre  <CardGallery />");
+    return context;
+}
+
+
 interface CardGalleryProps {
-    data: RestaurantDataType | null | undefined; // La entidad a mostrar
-    onShare: (url: string) => void; // Función de compartir (se pasa desde el padre)
-    isVerified?: boolean; // Booleano para el icono de verificación
+    data: RestaurantDataType | null | undefined;
+    children: ReactNode;
 }
 
-
-// El componente ahora acepta las props definidas
-function CardGallery({ data, onShare, isVerified = true }: CardGalleryProps) {
-    const [copied, setCopied] = useState(false);
-
-    // Si los datos no se han pasado, renderizamos el estado de carga/error
-    if (!data) {
-        return (
-            <Box>
-                <Text>Cargando datos o no se encontró la entidad.</Text>
-            </Box>
-        );
-    }
-
-    // --- Lógica de Manejo de Datos ---
-    const allImages = data.images || [];
-    const mainImage = allImages[0]; // La primera imagen para LeftColumn
-    const otherImages = allImages.slice(1); // El resto de las imágenes para RightColumn
-
-    const handleShare = async () => {
-        try {
-            const url = window.location.href;
-            await navigator.clipboard.writeText(url);
-            setCopied(true);
-
-            // 💡 Llamamos a la función onShare del padre
-            onShare(url);
-
-            setTimeout(() => setCopied(false), 2000);
-        } catch (error) {
-            console.error('Error al copiar la URL:', error);
-        }
-    };
-
+export function CardGallery({ data, children }: CardGalleryProps) {
+    if (!data) return <S.Box><S.Text>Cargando datos...</S.Text></S.Box>;
 
     return (
-        <>
-            <GridCarrousell key={data.id}>
-
-                {/* 1. INFO CONTAINER */}
-                <InfoContainer>
-                    <BoxInfo>
-                        <BoxText>
-                            {/* Usamos data.name en lugar de selectedRestaurant.name */}
-                            <TitleInfo>{data.name}</TitleInfo>
-                            {isVerified && <IconInfo>verified</IconInfo>}
-                        </BoxText>
-                        <BoxShare>
-                            <ButtonInfo onClick={handleShare}>
-
-                                {!copied ? (
-                                    <IconInfo color="black">ios_share</IconInfo>
-                                ) : (
-                                    <IconInfo color="black">content_paste</IconInfo>
-                                )}
-                            </ButtonInfo>
-                            <ButtonLike >
-                                <IconInfo color="black">favorite</IconInfo>
-                            </ButtonLike>
-                        </BoxShare>
-                    </BoxInfo>
-                </InfoContainer>
-
-                {/* 2. GRID CONTENT (IMÁGENES) */}
-                <GridContent>
-                    {/* LEFT COLUMN: Imagen principal */}
-                    {mainImage && (
-                        <LeftColumn>
-                            <ImageItem
-                                src={mainImage.url}
-                                alt={mainImage.id || "portada"}
-                                key={mainImage.id}
-                                rel="preload"
-                      
-                                loading='eager'
-                            />
-                        </LeftColumn>
-                    )}
-
-                    {/* RIGHT COLUMN: Collage de imágenes secundarias */}
-                    {otherImages.length > 0 && (
-                        <RightColumn>
-                            {otherImages.map((image) => (
-                                <ImageItem
-                                    rel="preload"
-                           
-                                    loading='eager'
-                                    src={image.url}
-                                    alt={image.id || "imagen secundaria"}
-                                    key={image.id}
-                                />
-                            ))}
-                        </RightColumn>
-                    )}
-
-                    <AboutContent>
-                        <AboutText>
-                            <AboutSubTitle>
-                                <IconInfo color="gray">location_on</IconInfo>
-                                {data.address}
-                            </AboutSubTitle>
-                        </AboutText>
-                        <AboutText>
-                            <AboutSubTitle>
-                                <IconInfo color="gray">paid</IconInfo>
-                                Precio Medio:
-                                12$
-                            </AboutSubTitle>
-                        </AboutText>
-                        <AboutText>
-                            <AboutSubTitle>
-                                <IconInfo color="gray">kid_star</IconInfo>
-                                9/10 Puntuación de usuarios
-                            </AboutSubTitle>
-                        </AboutText>
-                    </AboutContent>
-                </GridContent>
-
-            </GridCarrousell>
-
-
-        </>
+        <CardContext.Provider value={data}>
+            <S.GridCarrousell key={data.id}>
+                {children}
+            </S.GridCarrousell>
+        </CardContext.Provider>
     );
 }
 
-export default CardGallery;
+
+
+
+CardGallery.Header = function CardHeader({ onShare, isVerified = true }: { onShare: (url: string) => void, isVerified?: boolean }) {
+    const data = useCardContext();
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = async () => {
+        const url = window.location.href;
+        await navigator.clipboard.writeText(url);
+        setCopied(true);
+        onShare(url);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <S.InfoContainer>
+            <S.BoxInfo>
+                <S.BoxText>
+                    <S.TitleInfo>{data.name}</S.TitleInfo>
+                    {isVerified && <S.IconInfo>verified</S.IconInfo>}
+                </S.BoxText>
+                <S.BoxShare>
+                    <S.ButtonInfo onClick={handleShare}>
+                        <S.IconInfo color="black">{!copied ? 'ios_share' : 'content_paste'}</S.IconInfo>
+                    </S.ButtonInfo>
+                    <S.ButtonLike><S.IconInfo color="black">favorite</S.IconInfo></S.ButtonLike>
+                </S.BoxShare>
+            </S.BoxInfo>
+        </S.InfoContainer>
+    );
+};
+
+// Visuals: La grilla de imágenes
+CardGallery.Visuals = function CardVisuals() {
+    const { images } = useCardContext();
+    const mainImage = images?.[0];
+    const otherImages = images?.slice(1) || [];
+
+    return (
+        <S.GridContent>
+            {mainImage && (
+                <S.LeftColumn>
+                    <S.ImageItem src={mainImage.url} alt="portada" loading='eager' />
+                </S.LeftColumn>
+            )}
+            {otherImages.length > 0 && (
+                <S.RightColumn>
+                    {otherImages.map((img) => (
+                        <S.ImageItem key={img.id} src={img.url} alt="secundaria" loading='eager' />
+                    ))}
+                </S.RightColumn>
+            )}
+        </S.GridContent>
+    );
+};
+
+
+CardGallery.Footer = function CardFooter({ price = "12$", rating = "9/10" }) {
+    const { address } = useCardContext();
+    return (
+        <S.AboutContent>
+            <S.AboutText><S.IconInfo color="gray">location_on</S.IconInfo>{address}</S.AboutText>
+            <S.AboutText><S.IconInfo color="gray">paid</S.IconInfo>Precio Medio: {price}</S.AboutText>
+            <S.AboutText><S.IconInfo color="gray">kid_star</S.IconInfo>{rating} Puntuación de usuarios</S.AboutText>
+        </S.AboutContent>
+    );
+};

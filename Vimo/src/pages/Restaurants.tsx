@@ -12,6 +12,7 @@ import { fetchTokenAndRestaurant } from '../slices/restaurant/restaurant-api';
 
 import CardPost from '@components/cardPost/CardPost';
 import Configurator from '@components/configurator/Configurator';
+import { CardContainer, MainCard } from '@components/cardPost/styles/CardPostStyle';
 const Carrousell = lazy(() => import('@components/carrousell/Carrousell'));
 
 
@@ -51,20 +52,27 @@ function Restaurants() {
     return (
         <Suspense fallback={<LoadingScreen />}>
             <Carrousell />
-            {/* <Configurator menuOptions={MENU_OPTIONS}/> */}
-            {restaurant?.data?.map((item: any) => (
-                <CardPost
-                    key={item.id}
-                    data={item}
-                >
-                    <CardPost.Image />
-                    <CardPost.Content>
-                        <CardPost.Header />
-                        <CardPost.Description />
-                        <CardPost.Actions />
-                    </CardPost.Content>
-                </CardPost>
-            ))}
+            <CardContainer>
+                <Configurator menuOptions={MENU_OPTIONS} />
+                <MainCard>
+                    {restaurant?.data?.map((item: any) => (
+                        <CardPost
+                            key={item.id}
+                            data={item}
+                        >
+                            <CardPost.Image />
+                            <CardPost.Content>
+                                <CardPost.Header />
+                                <CardPost.Description />
+                                <CardPost.Actions />
+                            </CardPost.Content>
+                        </CardPost>
+                    ))}
+                </MainCard>
+
+
+            </CardContainer>
+
             <Footer />
         </Suspense>
     );

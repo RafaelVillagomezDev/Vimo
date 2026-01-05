@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '@styles/mixin_styledComponent';
 
 export const ContainerConfigurator = styled.div`
     width: 100%;
@@ -8,6 +9,22 @@ export const ContainerConfigurator = styled.div`
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    
+    
+    @media only screen and (${devices.sm}) {
+        grid-row: 1;
+        grid-column: 2/6;
+        display: block;
+    }
+     @media only screen and (${devices.md}) {
+        grid-column: 2/ 5;
+     
+    }
+     @media only screen and (${devices.lg}) {
+        grid-column: 2/ 4;
+       
+    }
 `;
 
 export const MenuContainer = styled.ul`

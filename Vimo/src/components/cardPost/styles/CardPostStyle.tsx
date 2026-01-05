@@ -1,13 +1,32 @@
 import styled from 'styled-components';
-import { devices } from '../../../styles/mixin_styledComponent';
+import { devices } from '@styles/mixin_styledComponent';
 import { Link } from 'react-router-dom';
 
-export const MainCard = styled.div`
-    margin: 2rem;
+export const CardContainer = styled.div`
+    display: grid;
+    /* Definimos 12 columnas fijas para que las coordenadas 3/7 existan */
+    grid-template-columns: repeat(12, 1fr); 
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 1rem;
+`;
 
+export const MainCard = styled.div`
+   
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
     @media only screen and (${devices.sm}) {
-        margin: 3rem;
+        grid-column: 6/ 12;
     }
+     @media only screen and (${devices.md}) {
+        grid-column: 5 / 12;
+    }
+     @media only screen and (${devices.lg}) {
+        grid-column: 4 / 12;
+    }
+    
 `;
 
 export const SectionCard = styled.div`
@@ -32,6 +51,7 @@ export const LinkCard = styled(Link)`
     
 `;
 
+
 export const Card = styled.div`
 
     margin: 1rem;
@@ -42,6 +62,7 @@ export const Card = styled.div`
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 12px; 
     overflow: hidden;
+   
     
     @media only screen and (${devices.xl}) {
         flex-direction: row;
@@ -62,11 +83,7 @@ export const CardSection = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-       border-radius: 12px;
-
-    @media only screen and (${devices.xl}) {
-        width: 50%;
-    }
+    border-radius: 12px;
 `;
 
 export const CardSectionText = styled(CardSection)`

@@ -12,10 +12,10 @@ interface CardPostProps {
 
 const CardPostContext = createContext<any>(null);
 
-export  default function CardPost({ data, children , count, menuOptions, isLoading}: CardPostProps) {
+export default function CardPost({ data, children, count, menuOptions, isLoading }: CardPostProps) {
     return (
-        <CardPostContext.Provider value={data}>
-            <S.Card>{children}</S.Card>
+        <CardPostContext.Provider value={data}>    
+              <S.Card>{children}</S.Card>
         </CardPostContext.Provider>
     );
 }

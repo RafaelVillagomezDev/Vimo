@@ -1,14 +1,17 @@
-import { IconText, Nav, NavContact, NavLinker, NavLinks, NavList } from './styles/NavbarStyle';
+import { IconText, Nav, NavContact, NavLinker, NavLinks, NavList, NavLogoLink } from './styles/NavbarStyle';
 
 function Navbar() {
     return (
         <>
             <Nav>
                 <NavContact>
-                    <IconText>ZappyMap</IconText>
+                    <NavLogoLink to={'/'}>
+                        <IconText>ZappyMap</IconText>
+                    </NavLogoLink>
                 </NavContact>
                 <NavLinks>
                     <NavList>
+                        <NavLinker to={'/home'}>Inicio</NavLinker>
                         <NavLinker to={'/restaurants'}>Restaurantes</NavLinker>
                         <NavLinker to={'/destinations'}>Discotecas</NavLinker>
                         <NavLinker to={'sites'}>Sitios</NavLinker>

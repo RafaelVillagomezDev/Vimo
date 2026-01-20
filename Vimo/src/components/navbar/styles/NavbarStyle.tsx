@@ -34,6 +34,11 @@ export const NavContact = styled(NavContainer)`
     display: flex;
 `;
 
+export const NavLogoLink = styled(Link)`
+    display: flex;
+    align-items: center;
+`;
+
 export const IconText = styled.h1`
     font-family: 'Poppins', sans-serif;
     font-size: 25px;

@@ -21,8 +21,9 @@ export const GallerySection = styled.div`
     grid-column: 1 / -1; 
     
     @media only screen and (${devices.md}) {
-        grid-column: 2 / 12;
+        grid-column: 2 / 8;
     }
+
 `;
 
 export const GalleryList = styled.ul`
@@ -72,4 +73,13 @@ export const GalleryContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+`;
+
+export const ContactContent = styled.div`
+    grid-column: 2; 
+    
+    @media only screen and (${devices.md}) {
+        grid-column: 4 / 12;
+    }
+
 `;

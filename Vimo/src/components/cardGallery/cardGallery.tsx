@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import * as S from './styles/cardGalleryStyles';
+import { Card } from '@components/cardPost/styles/CardPostStyle';
 
 // --- Tipos ---
 interface ImageType { id: string; url: string; }
@@ -105,3 +106,4 @@ CardGallery.Footer = function CardFooter({ price = "12$", rating = "9/10" }) {
         </S.AboutContent>
     );
 };
+

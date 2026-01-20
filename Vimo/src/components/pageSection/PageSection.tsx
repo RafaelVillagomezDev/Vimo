@@ -49,3 +49,16 @@ PageSection.Panel = function ({ sections }: { sections: Record<string, ReactNode
         </Suspense>
     );
 };
+
+PageSection.Contact=function CardContact() {
+
+    return (
+        
+             <S.PageSectionContainer>
+                <S.ContactContent>
+                    <h1>Contacto</h1>
+                </S.ContactContent>
+             </S.PageSectionContainer>
+        
+    );
+}

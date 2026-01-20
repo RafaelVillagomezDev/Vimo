@@ -12,7 +12,7 @@ import { fetchTokenAndRestaurant } from '../slices/restaurant/restaurant-api';
 
 import CardPost from '@components/cardPost/CardPost';
 import Configurator from '@components/configurator/Configurator';
-import { CardContainer, MainCard } from '@components/cardPost/styles/CardPostStyle';
+import { Card, CardContainer, MainCard } from '@components/cardPost/styles/CardPostStyle';
 const Carrousell = lazy(() => import('@components/carrousell/Carrousell'));
 
 
@@ -66,6 +66,7 @@ function Restaurants() {
                                 <CardPost.Description />
                                 <CardPost.Actions />
                             </CardPost.Content>
+                       
                         </CardPost>
                     ))}
                 </MainCard>

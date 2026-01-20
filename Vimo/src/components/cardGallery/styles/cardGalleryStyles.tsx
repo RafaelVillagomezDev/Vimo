@@ -8,16 +8,10 @@ export const GridCarrousell = styled.div`
     /* Límite de ancho para controlar el número máximo de columnas visibles */
     max-width: 1400px; 
     width: 100%; 
-    
-    /* MANTENER: Posicionamiento dentro del Grid MÁS EXTERNO */
     grid-column: 2 / 7;
     grid-row: 3;
-
     justify-self: center; 
-    
     grid-auto-rows: minmax(min-content, max-content); 
-    
-    /* Define 7 columnas explícitas para posicionar a los hijos */
     grid-template-columns: repeat(7, 1fr); 
 
     @media only screen and (${devices.md}) {
@@ -25,71 +19,57 @@ export const GridCarrousell = styled.div`
     }
 `;
 
-export const GridContent = styled.div`
+export const GridContent = styled.div<{ $isSingleImage?: boolean }>`
     display: grid;
     gap: 16px;
     width: 100%;
-    
- 
-    grid-column: 2 / 7; 
+    grid-column: 2 / 7;
     grid-row: 2;
-   
-   
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-    
-    grid-auto-rows: auto;
 
-    @media only screen and (${devices.md}) {
-        grid-column: 2 / 7;
+    /* Móvil siempre 1 columna */
+    grid-template-columns: 1fr;
+
+    @media only screen and (${devices.sm}) {
+        /* Si es única: 1 col, si hay varias: 3 cols */
+        grid-template-columns: ${({ $isSingleImage }) => 
+            $isSingleImage ? '1fr' : 'repeat(3, 1fr)'};
     }
-    
 `;
 
-export const LeftColumn = styled.div`
+export const LeftColumn = styled.div<{ $isSingleImage?: boolean }>`
     display: flex;
-    flex-direction: column;
-    /* Relación de aspecto para la imagen principal */
-    aspect-ratio: 4 / 3; 
-    
-    /* Ocupa 1 columna del grid interno por defecto */
-    grid-column: span 1; 
+    aspect-ratio: ${({ $isSingleImage }) => ($isSingleImage ? '21 / 9' : '4 / 3')};
+    grid-column: span 1;
 
-    @media only screen and (${devices.md}) {
-        /* En pantallas medianas y grandes, ocupa 2 columnas */
-        grid-column: span 2; 
+    @media only screen and (${devices.sm}) {
+        /* Si es única ocupa las 3 columnas del grid, si no, solo 2 */
+        grid-column: ${({ $isSingleImage }) => ($isSingleImage ? 'span 3' : 'span 2')};
     }
 `;
 
 export const RightColumn = styled.div`
     display: none;
-    /* Relación de aspecto para el collage */
-    aspect-ratio: 3 / 4; 
 
-     @media only screen and (${devices.sm}) {
+    @media only screen and (${devices.sm}) {
         display: grid;
-        /* Ocupa el espacio restante del GridContent (span 1) */
-        grid-column: span 1; 
-        
-        /* Define su propia cuadrícula interna (2 columnas para las imágenes) */
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 1rem;
-        grid-auto-rows: 200px;
-    }
-    @media only screen and (${devices.lg}) {
-        grid-auto-rows: 242px;
+        grid-column: span 1;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        /* Esto asegura que las fotos del collage sean cuadradas o proporcionales */
+        grid-auto-rows: 1fr; 
     }
 `;
 
 export const ImageItem = styled.img`
     width: 100%;
-    height: fit-content;
+    height: 100%; /* Cambiado de fit-content a 100% para llenar el grid */
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
 
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.02); /* Escala más sutil para no tapar bordes */
     }
 `;
 
@@ -124,8 +104,13 @@ export const BoxText = styled.div`
 
 export const TitleInfo = styled.h3`
     font-family: 'Poppins', sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
+    padding-right: 0.2rem;
+     @media only screen and (${devices.sm}) {
+        font-size: 25px;
+    }
+
 `;
 
 
@@ -257,19 +242,27 @@ export const TextSpan = styled.span`
    padding-right: 2px;
 `
 
-export const AboutContent=styled.div`
+export const AboutContent = styled.div`
     width: 100%;
-    grid-column: 2/4;
+    grid-column: 2/7;
     grid-row: 3;
+     @media only screen and (${devices.md}) {
+        grid-column: 2 / 4;
+    }
 `
 
-export const AboutText=styled.p`
+export const AboutText = styled.p`
     font-family: 'Poppins', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    font-size: 20px;
     color: gray;
     padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+      @media only screen and (${devices.md}) {
+          font-size: 20px;
+    }
 `
 
 

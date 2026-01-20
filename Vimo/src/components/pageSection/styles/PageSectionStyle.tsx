@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { devices } from '@styles/mixin_styledComponent';
+import { Link } from 'react-router-dom';
 
 export const PageSectionContainer = styled.section`
     display: grid;
@@ -14,6 +15,19 @@ export const PageSectionContainer = styled.section`
 
     @media only screen and (${devices.md}) {
         padding: 2rem;
+    }
+`;
+
+
+export const Section = styled.div`
+    grid-column: 1 / -1; 
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media only screen and (${devices.md}) {
+        grid-column: 2 / 8;
     }
 `;
 
@@ -79,7 +93,81 @@ export const ContactContent = styled.div`
     grid-column: 2; 
     
     @media only screen and (${devices.md}) {
-        grid-column: 4 / 12;
+        grid-column: 2 / 8;
     }
 
+`;
+
+export const BoxInfo = styled.div`
+    display: flex;
+    justify-content: space-around;
+`;
+
+export const Text = styled.div`
+    font-family: 'Poppins',sans-serif;
+    font-size: 16px;
+    padding: 6px 0px;
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    @media only screen and (${devices.sm}) {
+        flex-direction: row;
+    }
+    grid-row: 3;
+`;
+
+
+export const Box = styled(BoxInfo)`
+    flex-direction: column;
+    justify-content: start;
+    @media only screen and (${devices.sm}) {
+        row-gap: 1rem;
+    }
+`;
+
+export const TitleInfo = styled.h1`
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+    color: #333;
+    @media only screen and (${devices.md}) {
+           font-size: 25px;
+    }
+`;
+
+export const AboutText = styled.p`
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: gray;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    @media only screen and (${devices.md}) {
+           font-size: 20px;
+    }
+`
+
+export const LinkText = styled(Link)`
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    color: gray;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+`;
+
+export const IconInfo = styled.span`
+    font-family: 'Material Symbols Outlined';
+    color: ${({ color }) => color || 'orange'};
+    font-weight: 400;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
 `;

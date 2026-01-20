@@ -49,22 +49,15 @@ function Restaurant() {
                     <CardGallery.Footer price="15$" rating="9.5/10" />
                 </CardGallery>
 
-                {/* Refactorizado: PageSection con hijos (Children) */}
                 <Suspense fallback={<LoadingScreen />}>
-                    <PageSection defaultTab="desc">
-                        {/* Aquí insertamos los componentes uno tras otro */}
+                    <PageSection data={selectedRestaurant} defaultTab="desc">
                         <PageSection.Tabs tabs={TABS_CONFIG} />
-                        <PageSection.Panel sections={SECTIONS_CONTENT} />
-                    </PageSection>
-                    {/*Seccion contacto */}
-                    
-
-                </Suspense>
-                <CardGallery data={selectedRestaurant}>
+                        <Suspense fallback={<LoadingScreen />}>
+                            <PageSection.Panel sections={SECTIONS_CONTENT} />
+                        </Suspense>
                         <PageSection.Contact />
-                    </CardGallery>
-
-
+                    </PageSection>
+                </Suspense>
             </main>
         </>
     );

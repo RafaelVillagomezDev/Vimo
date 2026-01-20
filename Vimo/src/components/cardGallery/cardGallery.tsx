@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import * as S from './styles/cardGalleryStyles';
-import { Card } from '@components/cardPost/styles/CardPostStyle';
+
 
 // --- Tipos ---
 interface ImageType { id: string; url: string; }
@@ -72,22 +72,37 @@ CardGallery.Header = function CardHeader({ onShare, isVerified = true }: { onSha
 };
 
 // Visuals: La grilla de imágenes
+
 CardGallery.Visuals = function CardVisuals() {
     const { images } = useCardContext();
-    const mainImage = images?.[0];
-    const otherImages = images?.slice(1) || [];
+    
+    // Validaciones de seguridad
+    if (!images || images.length === 0) return null;
+
+    const isSingle = images.length === 1;
+    const mainImage = images[0];
+    // Limitamos a 4 imágenes para la columna derecha (collage 2x2)
+    const otherImages = images.slice(1, 5); 
 
     return (
-        <S.GridContent>
-            {mainImage && (
-                <S.LeftColumn>
-                    <S.ImageItem src={mainImage.url} alt="portada" loading='eager' />
-                </S.LeftColumn>
-            )}
-            {otherImages.length > 0 && (
+        <S.GridContent $isSingleImage={isSingle}>
+            <S.LeftColumn $isSingleImage={isSingle}>
+                <S.ImageItem 
+                    src={mainImage.url} 
+                    alt="portada" 
+                    loading="eager" 
+                />
+            </S.LeftColumn>
+
+            {!isSingle && otherImages.length > 0 && (
                 <S.RightColumn>
                     {otherImages.map((img) => (
-                        <S.ImageItem key={img.id} src={img.url} alt="secundaria" loading='eager' />
+                        <S.ImageItem 
+                            key={img.id} 
+                            src={img.url} 
+                            alt="secundaria" 
+                            loading="eager" 
+                        />
                     ))}
                 </S.RightColumn>
             )}

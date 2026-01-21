@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { SeekerMain, InputSeeker, IconMaterial, BtnSearch } from "./styles/seekerStyles";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
-import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
+
 
 function Seeker() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -12,8 +12,7 @@ function Seeker() {
     const isTyping = useRef(false);
 
     const [valueSearch, setValueSearch] = useState(searchParams.get('name') || '');
-    const { restaurant } = useAppSelector((state) => state.restaurant);
-    const data = restaurant?.data;
+
 
     const handleUpdateParams = useCallback((value: string, isManual = false) => {
         const trimmedValue = value.trim();

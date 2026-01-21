@@ -7,7 +7,8 @@ export const CarrousellSection = styled.section`
     padding: 3rem;
     margin: 0 auto;
     max-width: 1200px;
-    padding: 1rem;
+    
+    
     @media only screen and (${devices.sm}){
       padding: 3rem;
     }
@@ -31,17 +32,17 @@ export const EmblaContainerInner = styled.div`
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
     
+    gap: 1rem;
 
-    margin-left: -15px; 
        
     /* Estilos para CADA SLIDE dentro del contenedor (& > *) */
     & > * {
-        //min-width: 0; Soluciona el flex en @media SM 
-        padding-left: 15px; 
+        
+
         position: relative;
         flex: 0 0 100%;
-      
-
+        min-width: 0;
+        
         @media only screen and (${devices.sm}){
          
             flex: 0 0 calc(25% - 3.75px); 

@@ -2,12 +2,12 @@ import { Key, startTransition, useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
 
-import { 
-    BtnNextSlide, 
-    BtnPrevSlide, 
-    CarrouselContainer, 
+import {
+    BtnNextSlide,
+    BtnPrevSlide,
+    CarrouselContainer,
     CarrousellSection,
-    EmblaContainerInner 
+    EmblaContainerInner
 } from "./styles/carrousellCard";
 
 import CardSlide from "@components/cardSlide/CardSlide";
@@ -18,15 +18,15 @@ import { fetchTokenAndRestaurant } from '../../slices/restaurant/restaurant-api'
 
 function CarrousellCard() {
 
-     const { restaurant } = useAppSelector((state) => state.restaurant);
-    const { data} = restaurant ?? {};
-     const dispatch = useAppDispatch();
+    const { restaurant } = useAppSelector((state) => state.restaurant);
+    const { data } = restaurant ?? {};
+    const dispatch = useAppDispatch();
 
     // 1. Inicializa Embla Carousel
-    const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    const [emblaRef, emblaApi] = useEmblaCarousel({
         loop: false, // Desactiva loop para controlar mejor los botones de inicio/fin
         align: 'start',
-        dragFree: false, 
+        dragFree: false,
     });
 
 
@@ -49,12 +49,12 @@ function CarrousellCard() {
         setPrevBtnDisabled(!emblaApi.canScrollPrev());
         setNextBtnDisabled(!emblaApi.canScrollNext());
     }, []);
-    
+
 
     // 5. Conecta las funciones de actualización al ciclo de vida de Embla
     useEffect(() => {
 
-       
+
 
         if (!emblaApi) return;
 
@@ -62,46 +62,44 @@ function CarrousellCard() {
         onSelect(emblaApi);
         emblaApi.on('reInit', onSelect);
         emblaApi.on('select', onSelect);
-        
-        
+
+
         return () => {
             emblaApi.off('select', onSelect);
         };
     }, [emblaApi, onSelect]);
 
 
-    useEffect(()=>{
-         startTransition(() => {
-                    dispatch(fetchTokenAndRestaurant({
-                        api_url: "http://localhost:3000/api/v1/restaurant/",
-                        api_path: "",
-                    }));
+    useEffect(() => {
+        startTransition(() => {
+            dispatch(fetchTokenAndRestaurant({
+                api_url: "http://localhost:3000/api/v1/restaurant/",
+                api_path: "",
+            }));
         });
-    },[])
+    }, [])
 
-  
+
 
     return (
         <CarrousellSection>
-            
-            
+
+
             <BtnPrevSlide onClick={scrollPrev} disabled={prevBtnDisabled}>
                 {'<'}
             </BtnPrevSlide>
-            
-            {/* Viewport de Embla - Se aplica el ref */}
+
             <CarrouselContainer ref={emblaRef}>
-                
-                {/* Contenedor Interno de Slides - Aplica los estilos flex */}
+
                 <EmblaContainerInner>
-                    { restaurant.count>0 ? data.map(( data:RestaurantDTO,index: Key | null | undefined) => (
-                        <CardSlide key={data.id+"-"+ index} data={data} />
-                    )):"No hay restaurantes"}
+                    {restaurant.count > 0 ? data.map((data: RestaurantDTO, index: Key | null | undefined) => (
+                        <CardSlide key={data.id + "-" + index} data={data} />
+                    )) : "No hay restaurantes"}
                 </EmblaContainerInner>
-                
+
             </CarrouselContainer>
-            
-      
+
+
             <BtnNextSlide onClick={scrollNext} disabled={nextBtnDisabled}>
                 {'>'}
             </BtnNextSlide>

@@ -32,6 +32,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      leaflet:
+        specifier: ^1.7.1
+        version: 1.7.1
       react:
         specifier: ^18.0.0
         version: 18.3.1
@@ -41,6 +44,9 @@ importers:
       react-icons:
         specifier: ^5.4.0
         version: 5.5.0(react@18.3.1)
+      react-leaflet:
+        specifier: ^3.1.0
+        version: 3.1.0(leaflet@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-lottie-player:
         specifier: ^2.1.0
         version: 2.1.0(react@18.3.1)
@@ -63,6 +69,9 @@ importers:
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/leaflet':
+        specifier: ^1.9.21
+        version: 1.9.21
       '@types/node':
         specifier: ^22.10.2
         version: 22.19.3
@@ -386,6 +395,13 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@react-leaflet/core@1.1.1':
+    resolution: {integrity: sha512-7PGLWa9MZ5x/cWy8EH2VzI4T8q5WpuHbixzCDXqixP/WyqwIrg5NDUPgYuFnB4IEIZF+6nA265mYzswFo/h1Pw==}
+    peerDependencies:
+      leaflet: ^1.7.1
+      react: ^17.0.1
+      react-dom: ^17.0.1
+
   '@reduxjs/toolkit@2.11.2':
     resolution: {integrity: sha512-Kd6kAHTA6/nUpp8mySPqj3en3dm0tdMIgbttnQ1xFMVpufoj+ADi8pXLBsd4xzTRHQa7t/Jv8W5UnCuW4kuWMQ==}
     peerDependencies:
@@ -609,6 +625,9 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
+  '@types/geojson@7946.0.16':
+    resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
+
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
 
@@ -652,6 +671,9 @@ packages:
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
+
+  '@types/leaflet@1.9.21':
+    resolution: {integrity: sha512-TbAd9DaPGSnzp6QvtYngntMZgcRk+igFELwR2N99XZn7RXUdKgsXMR+28bUO0rPsWp8MIu/f47luLIQuSLYv/w==}
 
   '@types/minimatch@6.0.0':
     resolution: {integrity: sha512-zmPitbQ8+6zNutpwgcQuLcsEpn/Cj54Kbn7L5pX0Os5kdWplB7xPgEh/g+SWOB/qmows2gpuCaPyduq8ZZRnxA==}
@@ -1885,6 +1907,9 @@ packages:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
 
+  leaflet@1.7.1:
+    resolution: {integrity: sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==}
+
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
@@ -2294,6 +2319,13 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-leaflet@3.1.0:
+    resolution: {integrity: sha512-kdZS8NYbYFPmkQr7zSDR2gkKGFeWvkxqoqcmZEckzHL4d5c85dJ2gbbqhaPDpmWWgaRw9O29uA/77qpKmK4mTQ==}
+    peerDependencies:
+      leaflet: ^1.7.1
+      react: ^17.0.1
+      react-dom: ^17.0.1
 
   react-lottie-player@2.1.0:
     resolution: {integrity: sha512-rxSNIVVLWYnwzsIow377vZsh7GDbReu70V7IDD9TbbcdcJWons4pSh3nyuEa4QWIZw0ZBIieoZRTsiqnb6MZ3g==}
@@ -3065,6 +3097,12 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
+  '@react-leaflet/core@1.1.1(leaflet@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      leaflet: 1.7.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@reduxjs/toolkit@2.11.2(react-redux@9.2.0(@types/react@19.2.7)(react@18.3.1)(redux@5.0.1))(react@18.3.1)':
     dependencies:
       '@standard-schema/spec': 1.1.0
@@ -3218,6 +3256,8 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
+  '@types/geojson@7946.0.16': {}
+
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 6.0.0
@@ -3268,6 +3308,10 @@ snapshots:
   '@types/keyv@3.1.4':
     dependencies:
       '@types/node': 22.19.3
+
+  '@types/leaflet@1.9.21':
+    dependencies:
+      '@types/geojson': 7946.0.16
 
   '@types/minimatch@6.0.0':
     dependencies:
@@ -4793,6 +4837,8 @@ snapshots:
 
   kind-of@6.0.3: {}
 
+  leaflet@1.7.1: {}
+
   levn@0.4.1:
     dependencies:
       prelude-ls: 1.2.1
@@ -5171,6 +5217,13 @@ snapshots:
       react: 18.3.1
 
   react-is@16.13.1: {}
+
+  react-leaflet@3.1.0(leaflet@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@react-leaflet/core': 1.1.1(leaflet@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      leaflet: 1.7.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-lottie-player@2.1.0(react@18.3.1):
     dependencies:

@@ -1,12 +1,6 @@
 import Seeker from '../../atoms/seeker/Seeker';
 import Navbar from '../navbar/Navbar';
-import {
-    CarrousellContainer,
-    CarrousellMain,
-    CarrousellText,
-} from './styles/CarrousellStyle';
-
-
+import { CarrousellContainer, CarrousellMain, CarrousellText } from './styles/CarrousellStyle';
 
 function Carrousell() {
     return (
@@ -14,7 +8,9 @@ function Carrousell() {
             <Navbar />
             <CarrousellContainer>
                 <CarrousellMain>
-                    <CarrousellText>Planea y reserva en cualquiera de nuestras ilimitadas opciones</CarrousellText>
+                    <CarrousellText>
+                        Planea y reserva en cualquiera de nuestras ilimitadas opciones
+                    </CarrousellText>
                     <Seeker />
                 </CarrousellMain>
             </CarrousellContainer>

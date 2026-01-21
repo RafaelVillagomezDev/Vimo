@@ -1,7 +1,6 @@
 import { useState, createContext, useContext, ReactNode } from 'react';
 import * as S from './styles/CardPostStyle';
 
-
 interface CardPostProps {
     data: any; // O mejor: RestaurantDTO
     children: ReactNode;
@@ -14,8 +13,8 @@ const CardPostContext = createContext<any>(null);
 
 export default function CardPost({ data, children, count, menuOptions, isLoading }: CardPostProps) {
     return (
-        <CardPostContext.Provider value={data}>    
-              <S.Card>{children}</S.Card>
+        <CardPostContext.Provider value={data}>
+            <S.Card>{children}</S.Card>
         </CardPostContext.Provider>
     );
 }
@@ -46,7 +45,9 @@ CardPost.Header = function CardHeader() {
     return (
         <>
             <S.CardBox>
-                <S.CardSubtitle>Top 1 <S.Icon>editor_choice</S.Icon></S.CardSubtitle>
+                <S.CardSubtitle>
+                    Top 1 <S.Icon>editor_choice</S.Icon>
+                </S.CardSubtitle>
                 <S.ButtonOption>Michelin</S.ButtonOption>
             </S.CardBox>
             <S.CardBox>
@@ -55,7 +56,9 @@ CardPost.Header = function CardHeader() {
                 </S.LinkCard>
             </S.CardBox>
             <S.CardBox>
-                <S.CardtTextFlex><S.Icon>kid_star</S.Icon> Puntuación (9,6)</S.CardtTextFlex>
+                <S.CardtTextFlex>
+                    <S.Icon>kid_star</S.Icon> Puntuación (9,6)
+                </S.CardtTextFlex>
             </S.CardBox>
         </>
     );
@@ -83,10 +86,16 @@ CardPost.Actions = function CardActions() {
     const data = useContext(CardPostContext);
     return (
         <S.CardIcons>
-            <S.LinkIcon to={data.web}><S.Icon>language</S.Icon> Web</S.LinkIcon>
-            <S.LinkIcon to={data.web}><S.Icon>menu_book</S.Icon> Menú</S.LinkIcon>
-            <S.TelLink href={`tel:${data.phone}`}><S.Icon>call_quality</S.Icon>{data.phone}</S.TelLink>
+            <S.LinkIcon to={data.web}>
+                <S.Icon>language</S.Icon> Web
+            </S.LinkIcon>
+            <S.LinkIcon to={data.web}>
+                <S.Icon>menu_book</S.Icon> Menú
+            </S.LinkIcon>
+            <S.TelLink href={`tel:${data.phone}`}>
+                <S.Icon>call_quality</S.Icon>
+                {data.phone}
+            </S.TelLink>
         </S.CardIcons>
     );
 };
-

@@ -1,7 +1,7 @@
 // src/slices/auth/auth-slice.ts
 
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getToken } from "./auth-api";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getToken } from './auth-api';
 // Asumo que tu CustomFetch/Thunk devuelve una estructura que contiene AuthApiContainer
 // Ejemplo de Payload: { data: AuthApiContainer }
 
@@ -13,11 +13,10 @@ export interface User {
     password: string;
     role: 'user' | 'cliente' | 'admin';
     created_at: string;
-    isAuthenticated: false,
-    token: null,
-    refreshToken: null
+    isAuthenticated: false;
+    token: null;
+    refreshToken: null;
 }
-
 
 export interface AuthSessionData {
     user: User | null;
@@ -25,7 +24,6 @@ export interface AuthSessionData {
     refreshToken: string | null;
     isAuthenticated: boolean;
 }
-
 
 export interface AuthApiContainer {
     code: string;
@@ -43,12 +41,10 @@ export interface AuthState {
     error: string | null;
     token: string | null;
     refreshToken: string | null;
-
 }
 
 // --- Estado Inicial CORREGIDO ---
 export const initialState: AuthState = {
-
     data: {
         code: '',
         count: 0,
@@ -56,12 +52,12 @@ export const initialState: AuthState = {
         message: '',
     },
     // Inicialización de las propiedades de estado
-    status: "idle",
+    status: 'idle',
     loading: false,
     error: null,
     isAuthenticated: false,
     token: null,
-    refreshToken: null
+    refreshToken: null,
 };
 
 // Define el payload esperado de tu Thunk (ajusta si tu Thunk devuelve diferente)
@@ -69,9 +65,8 @@ interface GetTokenPayload {
     data: AuthApiContainer;
 }
 
-
 export const authSlice = createSlice({
-    name: "auth",
+    name: 'auth',
     initialState: initialState,
 
     reducers: {
@@ -82,7 +77,7 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getToken.pending, (state) => {
             // ✅ Lógica de inicio de carga
-            state.loading = true; 
+            state.loading = true;
             state.status = 'loading';
             state.error = null;
             state.isAuthenticated = false;
@@ -101,14 +96,12 @@ export const authSlice = createSlice({
                 state.isAuthenticated = true;
                 state.status = 'success';
             }
-
-
         });
 
         builder.addCase(getToken.rejected, (state, action) => {
             state.loading = false;
             state.status = 'failed';
-            state.error = action.payload as string || action.error.message || 'Fallo de red.';
+            state.error = (action.payload as string) || action.error.message || 'Fallo de red.';
             state.isAuthenticated = false;
             state.data.user = null;
         });
@@ -116,8 +109,8 @@ export const authSlice = createSlice({
 
     selectors: {
         // ... (selectores)
-    }
-})
+    },
+});
 
-export const { } = authSlice.selectors;
+export const {} = authSlice.selectors;
 export default authSlice.reducer;

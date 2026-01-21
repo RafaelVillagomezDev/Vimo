@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { SeekerMain, InputSeeker, IconMaterial, BtnSearch } from "./styles/seekerStyles";
-import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
-
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { SeekerMain, InputSeeker, IconMaterial, BtnSearch } from './styles/seekerStyles';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 
 function Seeker() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -13,31 +12,33 @@ function Seeker() {
 
     const [valueSearch, setValueSearch] = useState(searchParams.get('name') || '');
 
+    const handleUpdateParams = useCallback(
+        (value: string, isManual = false) => {
+            const trimmedValue = value.trim();
+            const isResultsPage = location.pathname === '/restaurants';
 
-    const handleUpdateParams = useCallback((value: string, isManual = false) => {
-        const trimmedValue = value.trim();
-        const isResultsPage = location.pathname === '/restaurants';
-
-        // Si estamos en Home, navegamos (crea historial)
-        if (!isResultsPage) {
-            if (trimmedValue !== '') {
-                navigate(`/restaurants?name=${encodeURIComponent(trimmedValue)}`);
+            // Si estamos en Home, navegamos (crea historial)
+            if (!isResultsPage) {
+                if (trimmedValue !== '') {
+                    navigate(`/restaurants?name=${encodeURIComponent(trimmedValue)}`);
+                }
+                return;
             }
-            return;
-        }
 
-        const params = new URLSearchParams(searchParams);
-        if (!trimmedValue) {
-            params.delete('name');
-        } else {
-            params.set('name', trimmedValue);
-        }
+            const params = new URLSearchParams(searchParams);
+            if (!trimmedValue) {
+                params.delete('name');
+            } else {
+                params.set('name', trimmedValue);
+            }
 
-        // isManual (Enter/Click) -> push (guarda historial)
-        // Debounce -> replace (no ensucia el historial)
-        setSearchParams(params, { replace: !isManual });
-        isTyping.current = false; // Resetear el estado de escritura
-    }, [location.pathname, navigate, searchParams, setSearchParams]);
+            // isManual (Enter/Click) -> push (guarda historial)
+            // Debounce -> replace (no ensucia el historial)
+            setSearchParams(params, { replace: !isManual });
+            isTyping.current = false; // Resetear el estado de escritura
+        },
+        [location.pathname, navigate, searchParams, setSearchParams]
+    );
 
     // 2. Sincronización desde la URL (Botón atrás/adelante)
     useEffect(() => {

@@ -1,9 +1,7 @@
-
 import { lazy } from 'react';
 
-
 const Carrousell = lazy(() => import('../components/carrousell/Carrousell'));
- const CarrousellSlide = lazy(() => import('../components/carrousellSlide/CarrousellSlide'));
+const CarrousellSlide = lazy(() => import('../components/carrousellSlide/CarrousellSlide'));
 
 import disco_icon from '@assets/icons/disco_icon.webp';
 import lugar_icon from '@assets/icons/lugar_icon.webp';
@@ -12,8 +10,6 @@ import place_icon from '@assets/icons/place_icon.webp';
 import restaurant_icon from '@assets/icons/restaurant_icon.webp';
 import CarrousellCard from '../atoms/carrousellCard/CarrousellCard';
 import { CarrousellTitle } from '../styles/commonStyles';
-
-
 
 const dataCarrousel = [
     { to: '/restaurants', iconSrc: restaurant_icon, text: 'Restaurantes' },
@@ -26,11 +22,11 @@ const dataCarrousel = [
 function Home() {
     return (
         <>
-            <Carrousell/>
+            <Carrousell />
             <CarrousellTitle>Categorias</CarrousellTitle>
-            <CarrousellSlide slidesData={dataCarrousel}/>
+            <CarrousellSlide slidesData={dataCarrousel} />
             <CarrousellTitle>Nuestras mejores ofertas</CarrousellTitle>
-            <CarrousellCard/>
+            <CarrousellCard />
         </>
     );
 }

@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 
-
 export const GridCarrousell = styled.div`
     display: grid;
     gap: 16px;
     /* Límite de ancho para controlar el número máximo de columnas visibles */
-    max-width: 1400px; 
-    width: 100%; 
+    max-width: 1400px;
+    width: 100%;
     grid-column: 2 / 7;
     grid-row: 3;
-    justify-self: center; 
-    grid-auto-rows: minmax(min-content, max-content); 
-    grid-template-columns: repeat(7, 1fr); 
+    justify-self: center;
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-template-columns: repeat(7, 1fr);
 
     @media only screen and (${devices.md}) {
         grid-column: 2 / 7;
@@ -31,7 +30,7 @@ export const GridContent = styled.div<{ $isSingleImage?: boolean }>`
 
     @media only screen and (${devices.sm}) {
         /* Si es única: 1 col, si hay varias: 3 cols */
-        grid-template-columns: ${({ $isSingleImage }) => 
+        grid-template-columns: ${({ $isSingleImage }) =>
             $isSingleImage ? '1fr' : 'repeat(3, 1fr)'};
     }
 `;
@@ -56,7 +55,7 @@ export const RightColumn = styled.div`
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
         /* Esto asegura que las fotos del collage sean cuadradas o proporcionales */
-        grid-auto-rows: 1fr; 
+        grid-auto-rows: 1fr;
     }
 `;
 
@@ -77,7 +76,7 @@ export const InfoContainer = styled.div`
     padding: 2rem;
     background-color: whitesmoke;
     width: 100%;
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
     grid-row: 1;
 `;
 
@@ -107,20 +106,18 @@ export const TitleInfo = styled.h3`
     font-size: 20px;
     font-weight: bold;
     padding-right: 0.2rem;
-     @media only screen and (${devices.sm}) {
+    @media only screen and (${devices.sm}) {
         font-size: 25px;
     }
-
 `;
-
 
 export const TextInfo = styled.p`
     font-family: 'Inter', 'sans-serif';
-    font-size:16px;
+    font-size: 16px;
 `;
 
 export const BoxShare = styled.div`
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -144,9 +141,6 @@ export const ButtonLike = styled.button`
     align-items: center;
     padding: 6px;
     border-radius: 10px;
-   
-
-    
 `;
 
 export const ButtonText = styled.span.attrs<{
@@ -159,14 +153,14 @@ export const ButtonText = styled.span.attrs<{
     border-bottom: ${(props) => props.$borderBottom};
     display: none;
     font-size: 1;
-    
+
     @media only screen and (${devices.sm}) {
         display: block;
     }
 `;
 
 export const Text = styled.div`
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     padding: 6px 0px;
     display: flex;
@@ -191,7 +185,6 @@ export const TextLine = styled.p`
     }
 `;
 
-
 export const TextCard = styled.p`
     font-family: 'Inter', sans-serif;
     font-size: 16px;
@@ -211,9 +204,6 @@ export const GridRestaurant = styled.div`
     }
 `;
 
-
-
-
 export const Box = styled(BoxInfo)`
     flex-direction: column;
     justify-content: start;
@@ -229,42 +219,38 @@ export const ContainerRow = styled.div`
     @media only screen and (${devices.sm}) {
         row-gap: 3rem;
     }
-`
+`;
 export const TextMenu = styled.p`
     cursor: pointer;
-   
-    &:hover{
+
+    &:hover {
         text-decoration: line-through;
     }
-`
+`;
 export const TextSpan = styled.span`
-   font-weight: bold;
-   padding-right: 2px;
-`
+    font-weight: bold;
+    padding-right: 2px;
+`;
 
 export const AboutContent = styled.div`
     width: 100%;
     grid-column: 2/7;
     grid-row: 3;
-     @media only screen and (${devices.md}) {
+    @media only screen and (${devices.md}) {
         grid-column: 2 / 4;
     }
-`
+`;
 
 export const AboutText = styled.p`
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    color: gray;
+    color: black;
     padding-bottom: 0.5rem;
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
-      @media only screen and (${devices.md}) {
-          font-size: 20px;
+    @media only screen and (${devices.md}) {
+        font-size: 18px;
     }
-`
-
-
-
-
+`;

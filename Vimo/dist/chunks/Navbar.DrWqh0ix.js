@@ -1,4 +1,4 @@
-import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.B8BWolMe.js";import{d as i}from"./useAppSelector.DxXDhr7t.js";import{L as r}from"./router-vendor.B-vwFvdr.js";const s=o.nav`
+import{j as e}from"./react-core.DzcB_2w7.js";import{d as i}from"./styles-vendor.DBgNySS0.js";import{d as o}from"./useAppSelector.D6_7lV5f.js";import{L as n}from"./router-vendor.DNrqJuUa.js";const s=i.nav`
     background-color: ${e=>e.theme.colors.blueDeep};
     height: 90px;
     display: flex;
@@ -7,31 +7,34 @@ import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.
     flex-direction: row;
     gap: 0.5rem;
     width: -webkit-fill-available;
-`,n=o.div`
+`,r=i.div`
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-`,t=o(n)`
+`,t=i(r)`
     display: none;
-    @media only screen and (${i.sm}) {
+    @media only screen and (${o.sm}) {
         display: flex;
     }
-`,a=o(n)`
+`,a=i(r)`
     display: flex;
-`,l=o.h1`
+`,l=i(n)`
+    display: flex;
+    align-items: center;
+`,c=i.h1`
     font-family: 'Poppins', sans-serif;
     font-size: 25px;
     font-weight: 500;
     color: white;
-    @media only screen and (${i.sm}) {
+    @media only screen and (${o.sm}) {
         font-size: 35px;
     }
-`,c=o.ul`
+`,d=i.ul`
     display: flex;
     flex-direction: row;
     align-items: center;
-`,d=o(r)`
+`,p=i(n)`
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -42,4 +45,4 @@ import{j as e}from"./react-core.Y2jSZEnw.js";import{d as o}from"./styles-vendor.
         background-color: #6200ea; /* Color de fondo para el enlace activo */
         color: #fff;
     }
-`;function p(){return e.jsx(e.Fragment,{children:e.jsxs(s,{children:[e.jsx(a,{children:e.jsx(l,{children:"ZappyMap"})}),e.jsx(t,{children:e.jsxs(c,{children:[e.jsx(d,{to:"/restaurants",children:"Restaurantes"}),e.jsx(d,{to:"/destinations",children:"Discotecas"}),e.jsx(d,{to:"sites",children:"Sitios"}),e.jsx(d,{to:"destinations",children:"Transporte"})]})})]})})}export{p as N};
+`;function f(){return e.jsx(e.Fragment,{children:e.jsxs(s,{children:[e.jsx(a,{children:e.jsx(l,{to:"/",children:e.jsx(c,{children:"ZappyMap"})})}),e.jsx(t,{children:e.jsxs(d,{children:[e.jsx(p,{to:"/",children:"Inicio"}),e.jsx(p,{to:"/restaurants",children:"Restaurantes"}),e.jsx(p,{to:"/destinations",children:"Discotecas"}),e.jsx(p,{to:"sites",children:"Sitios"}),e.jsx(p,{to:"destinations",children:"Transporte"})]})})]})})}export{f as N};

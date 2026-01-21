@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 import { theme, ThemeType } from './styles/themeProvider';
 declare module 'styled-components' {
-    export interface DefaultTheme extends ThemeType { }
+    export interface DefaultTheme extends ThemeType {}
 }
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
@@ -51,7 +51,6 @@ if (rootElement) {
                         <RouterProvider router={router} />
                     </Suspense>
                 </ThemeProvider>
-
             </PersistGate>
         </Provider>
     );

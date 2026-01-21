@@ -6,7 +6,6 @@ export const colorPalette = {
     redAlert: '#e83f21',
 };
 
-
 export const theme = {
     colors: colorPalette,
     spacing: {

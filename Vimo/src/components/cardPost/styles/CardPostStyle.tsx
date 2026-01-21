@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const CardContainer = styled.div`
     display: grid;
     /* Definimos 12 columnas fijas para que las coordenadas 3/7 existan */
-    grid-template-columns: repeat(12, 1fr); 
+    grid-template-columns: repeat(12, 1fr);
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
@@ -13,20 +13,18 @@ export const CardContainer = styled.div`
 `;
 
 export const MainCard = styled.div`
-   
     grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
     @media only screen and (${devices.sm}) {
         grid-column: 6/ 12;
     }
-     @media only screen and (${devices.md}) {
+    @media only screen and (${devices.md}) {
         grid-column: 5 / 12;
     }
-     @media only screen and (${devices.lg}) {
+    @media only screen and (${devices.lg}) {
         grid-column: 4 / 12;
     }
-    
 `;
 
 export const SectionCard = styled.div`
@@ -47,27 +45,21 @@ export const BoxCard = styled.div`
     row-gap: 2rem;
 `;
 
-export const LinkCard = styled(Link)`
-    
-`;
-
+export const LinkCard = styled(Link)``;
 
 export const Card = styled.div`
-
     margin: 1rem;
     display: flex;
     flex-direction: column;
     box-shadow:
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 12px; 
+    border-radius: 12px;
     overflow: hidden;
-   
-    
+
     @media only screen and (${devices.xl}) {
         flex-direction: row;
         align-items: center;
-       
     }
 `;
 
@@ -87,16 +79,14 @@ export const CardSection = styled.div`
 `;
 
 export const CardSectionText = styled(CardSection)`
-    padding:1rem;
+    padding: 1rem;
 `;
-
 
 export const CardImage = styled.img.attrs(({ src }) => ({
     src: src,
     alt: 'Imagen card ',
 }))`
     width: fit-content;
-  
 `;
 
 export const CardBox = styled.div`
@@ -122,19 +112,19 @@ export const CardIcons = styled(CardBox)`
 `;
 
 export const CardTitle = styled.h3`
-    font-family:  'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: bold;
 `;
 export const CardTitleText = styled.h3`
-    font-family:  'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 22px;
     font-weight: bold;
     padding: 10px 0px;
 `;
 
 export const CardSubtitle = styled.h3`
-    font-family:  'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-size: 20px;
     font-weight: bold;

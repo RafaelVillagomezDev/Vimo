@@ -10,20 +10,17 @@ export const ContainerConfigurator = styled.div`
     padding: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
-    
-    
+
     @media only screen and (${devices.sm}) {
         grid-row: 1;
         grid-column: 2/6;
         display: block;
     }
-     @media only screen and (${devices.md}) {
+    @media only screen and (${devices.md}) {
         grid-column: 2/ 5;
-     
     }
-     @media only screen and (${devices.lg}) {
+    @media only screen and (${devices.lg}) {
         grid-column: 2/ 4;
-       
     }
 `;
 
@@ -45,10 +42,12 @@ export const MenuItem = styled.li<{ open: boolean }>`
 
 export const SubMenu = styled.ul<{ open: boolean }>`
     list-style: none;
-    max-height: ${(props) => (props.open ? '1000px' : '0')}; 
+    max-height: ${(props) => (props.open ? '1000px' : '0')};
     overflow: hidden;
     opacity: ${({ open }) => (open ? '1' : '0')};
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; 
+    transition:
+        max-height 0.5s ease-in-out,
+        opacity 0.5s ease-in-out;
     background-color: #fff;
     padding-left: 10px;
     margin: 0;

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import hands_map from "../../../assets/pictures/banner/hands_map.png"
+import hands_map from '../../../assets/pictures/banner/hands_map.png';
 import { devices } from '../../../styles/mixin_styledComponent';
-
 
 export const CarrousellContainer = styled.div`
     width: 100%;
@@ -10,13 +9,11 @@ export const CarrousellContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 `;
-
 
 export const CarrousellMain = styled.div`
     /* Dimensiones y espacio */
-    width: -webkit-fill-available; 
+    width: -webkit-fill-available;
     height: 100%;
     max-height: 600px;
     padding: 2rem;
@@ -29,10 +26,10 @@ export const CarrousellMain = styled.div`
     flex-direction: column;
 
     /* Imagen de Fondo */
-    background-image: url(${hands_map}); 
-    background-position: right center; 
-    background-repeat: no-repeat; 
-    background-size: contain; 
+    background-image: url(${hands_map});
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
 
     @media only screen and (${devices.sm}) {
         margin: 4rem;
@@ -40,9 +37,6 @@ export const CarrousellMain = styled.div`
         border-radius: 12px;
     }
 `;
-
-
-
 
 export const CarrousellTitle = styled.h1`
     font-family: 'Poppins', sans-serif;
@@ -53,10 +47,7 @@ export const CarrousellTitle = styled.h1`
     color: white;
     flex-direction: column;
     justify-content: center;
-    
 `;
-
-
 
 export const CarrousellText = styled.p`
     font-size: 22px;
@@ -64,11 +55,10 @@ export const CarrousellText = styled.p`
     font-family: 'Poppins', sans-serif;
     line-height: normal;
     word-spacing: 3px;
-    padding-bottom:2rem;
+    padding-bottom: 2rem;
     color: white;
 
-     @media only screen and (${devices.sm}) {
+    @media only screen and (${devices.sm}) {
         font-size: 30px;
     }
-
-`
+`;

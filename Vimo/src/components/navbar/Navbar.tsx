@@ -1,4 +1,12 @@
-import { IconText, Nav, NavContact, NavLinker, NavLinks, NavList, NavLogoLink } from './styles/NavbarStyle';
+import {
+    IconText,
+    Nav,
+    NavContact,
+    NavLinker,
+    NavLinks,
+    NavList,
+    NavLogoLink,
+} from './styles/NavbarStyle';
 
 function Navbar() {
     return (

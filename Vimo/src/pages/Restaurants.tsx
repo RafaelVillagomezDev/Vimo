@@ -12,30 +12,34 @@ import { fetchTokenAndRestaurant } from '../slices/restaurant/restaurant-api';
 
 import CardPost from '@components/cardPost/CardPost';
 import Configurator from '@components/configurator/Configurator';
-import { Card, CardContainer, MainCard } from '@components/cardPost/styles/CardPostStyle';
+import { CardContainer, MainCard } from '@components/cardPost/styles/CardPostStyle';
 const Carrousell = lazy(() => import('@components/carrousell/Carrousell'));
 
-
-
 const MENU_OPTIONS = [
-    { label: 'Tipo de comida', subOptions: ['Mediterranea', 'Japonesa', 'Mexicana', 'China', 'Turca'] },
+    {
+        label: 'Tipo de comida',
+        subOptions: ['Mediterranea', 'Japonesa', 'Mexicana', 'China', 'Turca'],
+    },
     { label: 'Precio', subOptions: ['< 15€', '15€-30€', '> 30€'] },
-    { label: 'Guía Michelin', subOptions: ['Guía MICHELIN', '3 estrellas', '2 estrellas', '1 estrella'] },
+    {
+        label: 'Guía Michelin',
+        subOptions: ['Guía MICHELIN', '3 estrellas', '2 estrellas', '1 estrella'],
+    },
 ];
 
-const API_BASE_URL = "http://localhost:3000/api/v1/restaurant/";
+const API_BASE_URL = 'http://localhost:3000/api/v1/restaurant/';
 
 function Restaurants() {
     const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
     const [searchParams] = useSearchParams();
 
-    const { restaurant, status } = useAppSelector((state) => state.restaurant);
+    const { restaurant } = useAppSelector((state) => state.restaurant);
 
     const apiUrl = useSiteUrlBuilder({
         pathId: id,
         baseURL: API_BASE_URL,
-        filters: { name: searchParams.get("name"), address: searchParams.get("address") },
+        filters: { name: searchParams.get('name'), address: searchParams.get('address') },
     });
 
     useEffect(() => {
@@ -56,22 +60,16 @@ function Restaurants() {
                 <Configurator menuOptions={MENU_OPTIONS} />
                 <MainCard>
                     {restaurant?.data?.map((item: any) => (
-                        <CardPost
-                            key={item.id}
-                            data={item}
-                        >
+                        <CardPost key={item.id} data={item}>
                             <CardPost.Image />
                             <CardPost.Content>
                                 <CardPost.Header />
                                 <CardPost.Description />
                                 <CardPost.Actions />
                             </CardPost.Content>
-                       
                         </CardPost>
                     ))}
                 </MainCard>
-
-
             </CardContainer>
 
             <Footer />

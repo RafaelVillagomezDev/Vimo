@@ -21,21 +21,18 @@ interface OpenStates {
 }
 
 function Configurator({ menuOptions }: { menuOptions: MenuOption[] }) {
-    
- 
     const [openStates, setOpenStates] = useState<OpenStates>(() => {
         const initialStates: OpenStates = {};
         menuOptions.forEach((_, index) => {
-            initialStates[index] = true; 
+            initialStates[index] = true;
         });
         return initialStates;
     });
 
     const toggleMenu = (index: number) => {
-   
-        setOpenStates(prevStates => ({
+        setOpenStates((prevStates) => ({
             ...prevStates,
-            [index]: !prevStates[index]
+            [index]: !prevStates[index],
         }));
     };
 
@@ -43,14 +40,12 @@ function Configurator({ menuOptions }: { menuOptions: MenuOption[] }) {
         <ContainerConfigurator>
             <MenuContainer>
                 {menuOptions.map((option, index) => (
-                    <ul key={option.label || index}> 
-                     
+                    <ul key={option.label || index}>
                         <MenuItem onClick={() => toggleMenu(index)} open={openStates[index]}>
                             <CardTitle>{option.label}</CardTitle>
                             <Arrow open={openStates[index]}>▼</Arrow>
                         </MenuItem>
-                        
-                       
+
                         <SubMenu open={openStates[index]}>
                             {option.subOptions.map((sub, subIndex) => (
                                 <SubMenuItem key={subIndex}>

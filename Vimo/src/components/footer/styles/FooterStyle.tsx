@@ -2,13 +2,12 @@ import styled from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 import { Link } from 'react-router-dom';
 
-
 export const ContainerFooter = styled.div`
-    background-color:${(props) => props.theme.colors.blueDeep};
+    background-color: ${(props) => props.theme.colors.blueDeep};
     padding: 2rem;
-    position:-webkit-sticky;
+    position: -webkit-sticky;
     width: 100%;
-    bottom :0px;
+    bottom: 0px;
     @media only screen and (${devices.sm}) {
         height: 200px;
     }

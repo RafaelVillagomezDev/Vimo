@@ -7,8 +7,6 @@ import {
     NavLinker,
 } from './styles/CarrousellSlide';
 
-
-
 interface SlideData {
     to: string; // Ruta a la que enlaza
     iconSrc: string; // Fuente del ícono
@@ -87,33 +85,26 @@ const CarrousellSlide: React.FC<CarrousellSlideProps> = ({ slidesData }) => {
     };
 
     return (
-       <>
-        <CarrousellSlideContainer
-            ref={carouselRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}>
-            {slidesData.map((slide, index) => (
+        <>
+            <CarrousellSlideContainer
+                ref={carouselRef}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}>
+                {slidesData.map((slide, index) => (
+                    <CarrousellSlideItem key={index}>
+                        <NavLinker to={slide.to}>
+                            <CarrousellSlideCard src={slide.iconSrc} loading="lazy" />
 
-                <CarrousellSlideItem key={index}>
-                    <NavLinker to={slide.to}>
-                        <CarrousellSlideCard src={slide.iconSrc}  loading='lazy'/>
-
-                        <CarrousellSlideText>{slide.text}</CarrousellSlideText>
-
-
-                    </NavLinker>
-
-                </CarrousellSlideItem>
-
-
-            ))}
-
-        </CarrousellSlideContainer>
+                            <CarrousellSlideText>{slide.text}</CarrousellSlideText>
+                        </NavLinker>
+                    </CarrousellSlideItem>
+                ))}
+            </CarrousellSlideContainer>
         </>
     );
 };

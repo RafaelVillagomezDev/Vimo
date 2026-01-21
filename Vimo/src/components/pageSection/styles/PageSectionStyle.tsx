@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const PageSectionContainer = styled.section`
     display: grid;
 
-    grid-template-columns: repeat(12, 1fr); 
+    grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: min-content;
     width: 100%;
     max-width: 1300px;
@@ -18,13 +18,12 @@ export const PageSectionContainer = styled.section`
     }
 `;
 
-
 export const Section = styled.div`
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 2rem;
+   
 
     @media only screen and (${devices.md}) {
         grid-column: 2 / 8;
@@ -32,12 +31,11 @@ export const Section = styled.div`
 `;
 
 export const GallerySection = styled.div`
-    grid-column: 1 / -1; 
-    
+    grid-column: 1 / -1;
+
     @media only screen and (${devices.md}) {
         grid-column: 2 / 8;
     }
-
 `;
 
 export const GalleryList = styled.ul`
@@ -46,20 +44,22 @@ export const GalleryList = styled.ul`
     gap: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #e0e0e0;
-    overflow-x: auto; 
-    &::-webkit-scrollbar { display: none; }
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 // Usamos una transient prop ($active) para no enviarla al DOM
 export const GalleryItem = styled.li<{ $active?: boolean }>`
     cursor: pointer;
     font-family: inherit; /* Mejor que forzar Arial */
-    font-size: 1rem;
+    font-size: 16px;
     padding: 10px 5px;
     white-space: nowrap;
     transition: all 0.2s ease-in-out;
-    color: ${props => props.$active ? '#000' : '#666'};
-    font-weight: ${props => props.$active ? '700' : '500'};
+    color: ${(props) => (props.$active ? '#000' : '#666')};
+    font-weight: ${(props) => (props.$active ? '700' : '500')};
     position: relative;
 
     /* Indicador visual de activo permanente, no solo hover */
@@ -70,7 +70,7 @@ export const GalleryItem = styled.li<{ $active?: boolean }>`
         left: 0;
         width: 100%;
         height: 3px;
-        background-color: ${props => props.$active ? 'black' : 'transparent'};
+        background-color: ${(props) => (props.$active ? 'black' : 'transparent')};
         transition: background-color 0.3s;
     }
 
@@ -79,7 +79,7 @@ export const GalleryItem = styled.li<{ $active?: boolean }>`
     }
 
     @media only screen and (${devices.md}) {
-       font-size: 1.25rem;
+        font-size: 18px;
     }
 `;
 
@@ -90,12 +90,11 @@ export const GalleryContainer = styled.div`
 `;
 
 export const ContactContent = styled.div`
-    grid-column: 2; 
-    
+    grid-column: 2;
+
     @media only screen and (${devices.md}) {
         grid-column: 2 / 8;
     }
-
 `;
 
 export const BoxInfo = styled.div`
@@ -104,7 +103,7 @@ export const BoxInfo = styled.div`
 `;
 
 export const Text = styled.div`
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     padding: 6px 0px;
     display: flex;
@@ -117,7 +116,6 @@ export const Text = styled.div`
     }
     grid-row: 3;
 `;
-
 
 export const Box = styled(BoxInfo)`
     flex-direction: column;
@@ -133,7 +131,7 @@ export const TitleInfo = styled.h1`
     margin-bottom: 0.5rem;
     color: #333;
     @media only screen and (${devices.md}) {
-           font-size: 25px;
+        font-size: 25px;
     }
 `;
 
@@ -146,19 +144,24 @@ export const AboutText = styled.p`
     align-items: center;
     column-gap: 1rem;
     @media only screen and (${devices.md}) {
-           font-size: 20px;
+        font-size: 18px;
     }
-`
+`;
+
+export const MapContainer = styled.div`
+    width: 100%;
+    padding-top: 12px;
+    overflow: hidden;
+`;
 
 export const LinkText = styled(Link)`
     font-family: 'Poppins', sans-serif;
-    font-size: 20px;
     color: gray;
     padding-bottom: 0.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    column-gap: 0.5rem;
+    column-gap: 1rem;
 `;
 
 export const IconInfo = styled.span`

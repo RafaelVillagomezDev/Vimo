@@ -6,15 +6,15 @@ import { selectRestaurantById } from '../slices/restaurant/restaurant-slice';
 import LoadingScreen from './LoadingScreen';
 import { CardGallery } from '@components/cardGallery/cardGallery';
 import { PageSection } from '@components/pageSection/PageSection';
-import Description from "@components/descriptionSection/DescriptionSection";
-import MenuSection from "@components/menuSection/MenuSection";
-import ReviewSection from "@components/reviewSection/ReviewSection";
+import Description from '@components/descriptionSection/DescriptionSection';
+import MenuSection from '@components/menuSection/MenuSection';
+import ReviewSection from '@components/reviewSection/ReviewSection';
 
 // Configuración de las pestañas
 const TABS_CONFIG = [
     { id: 'desc', label: 'Descripción' },
     { id: 'menu', label: 'Menú' },
-    { id: 'reviews', label: 'Opiniones' }
+    { id: 'reviews', label: 'Opiniones' },
 ];
 
 function Restaurant() {
@@ -25,11 +25,14 @@ function Restaurant() {
     );
 
     // Mapeo de componentes para el panel
-    const SECTIONS_CONTENT = useMemo(() => ({
-        desc: <Description />,
-        menu: <MenuSection />,
-        reviews: <ReviewSection />,
-    }), []);
+    const SECTIONS_CONTENT = useMemo(
+        () => ({
+            desc: <Description />,
+            menu: <MenuSection />,
+            reviews: <ReviewSection />,
+        }),
+        []
+    );
 
     const handleShareLogic = (url: string) => {
         console.log('URL compartida:', url);
@@ -56,6 +59,7 @@ function Restaurant() {
                             <PageSection.Panel sections={SECTIONS_CONTENT} />
                         </Suspense>
                         <PageSection.Contact />
+                        <PageSection.Location />
                     </PageSection>
                 </Suspense>
             </main>

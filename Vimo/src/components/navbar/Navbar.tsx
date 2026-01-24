@@ -2,6 +2,7 @@ import {
     IconText,
     Nav,
     NavContact,
+    NavContainerRight,
     NavLinker,
     NavLinks,
     NavList,
@@ -11,7 +12,16 @@ import {
 function Navbar() {
     return (
         <>
+            <NavContainerRight>
+                <NavList>
+                    <NavLinker to={'/register'} activeColor="#ff5722"
+                        color="black"
+                        fontSize="14px"
+                    >REGISTRAR NUEVA OPCION</NavLinker>
+                </NavList>
+            </NavContainerRight>
             <Nav>
+
                 <NavContact>
                     <NavLogoLink to={'/'}>
                         <IconText>ZappyMap</IconText>

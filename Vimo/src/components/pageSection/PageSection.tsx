@@ -141,21 +141,42 @@ PageSection.Contact = function CardContact() {
         </S.Section>
     );
 };
+
+
 PageSection.Location = function CardLocation() {
     const context = usePageSection();
+
     if (!context || !context.data) return null;
 
-    const { address } = context.data;
+    const { address, location } = context.data;
+
+
+    const tieneCoordenadas = !!(location?.latitude && location?.longitude);
+
+
+    if (!tieneCoordenadas && !address && !location?.address) {
+        return null;
+    }
+
+    const centro: [number, number] = tieneCoordenadas? [Number(location.latitude), Number(location.longitude)] : [40.4169473, -3.7035285];
+
+    const textoDireccion = location?.address || address || "Dirección no disponible";
 
     return (
         <S.Section>
             <S.ContactContent>
                 <S.TitleInfo>Ubicación</S.TitleInfo>
-                <MapaLeaflet altura="300px" mensaje={address} />
+
+                <MapaLeaflet
+                    altura="300px"
+                    centro={centro}
+                    mensaje={textoDireccion}
+                />
+
                 <S.MapContainer>
                     <S.AboutText>
                         <S.IconInfo color="black">location_on</S.IconInfo>
-                        {address}
+                        {textoDireccion}
                     </S.AboutText>
                 </S.MapContainer>
             </S.ContactContent>

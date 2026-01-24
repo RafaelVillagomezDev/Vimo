@@ -1,4 +1,4 @@
-import { Suspense, useMemo } from 'react';
+import { startTransition, Suspense, useEffect, useMemo } from 'react';
 import Navbar from '../components/navbar/Navbar';
 import { useAppSelector } from '../custom/hooks/call/useAppSelector';
 import { useParams } from 'react-router-dom';
@@ -9,6 +9,10 @@ import { PageSection } from '@components/pageSection/PageSection';
 import Description from '@components/descriptionSection/DescriptionSection';
 import MenuSection from '@components/menuSection/MenuSection';
 import ReviewSection from '@components/reviewSection/ReviewSection';
+import Footer from '@components/footer/Footer';
+
+import { fetchTokenAndRestaurant } from '../../src/slices/restaurant/restaurant-api';
+import { useAppDispatch } from '../../src/custom/hooks/call/useAppDispatch';
 
 // Configuración de las pestañas
 const TABS_CONFIG = [
@@ -19,6 +23,7 @@ const TABS_CONFIG = [
 
 function Restaurant() {
     const { id } = useParams<{ id: string }>();
+    const dispatch = useAppDispatch()
 
     const selectedRestaurant = useAppSelector((state) =>
         id ? selectRestaurantById(state, id) : null
@@ -34,6 +39,20 @@ function Restaurant() {
         []
     );
 
+    // EFECTO DE CARGA: Si no hay restaurante, lo pedimos a la API
+    useEffect(() => {
+        if (!selectedRestaurant) {
+            startTransition(() => {
+                dispatch(
+                    fetchTokenAndRestaurant({
+                        api_url: 'http://localhost:3000/api/v1/restaurant/',
+                        api_path: id ? `/${id}` : '',
+                    })
+                );
+            });
+        }
+    }, [selectedRestaurant, dispatch, id]); // Se ejecuta si selectedRestaurant es null
+
     const handleShareLogic = (url: string) => {
         console.log('URL compartida:', url);
     };
@@ -41,6 +60,8 @@ function Restaurant() {
     if (!selectedRestaurant) {
         return <LoadingScreen />;
     }
+
+
 
     return (
         <>
@@ -63,6 +84,7 @@ function Restaurant() {
                     </PageSection>
                 </Suspense>
             </main>
+            <Footer />
         </>
     );
 }

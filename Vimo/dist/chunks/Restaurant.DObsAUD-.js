@@ -1,4 +1,4 @@
-import{j as e,r as n}from"./react-core.DzcB_2w7.js";import{N as i}from"./Navbar.DrWqh0ix.js";import{d as o,u as r}from"./useAppSelector.D6_7lV5f.js";import{L as s,s as a}from"../index.CxduC4vH.js";import{d as t}from"./styles-vendor.DBgNySS0.js";import{L as d,d as l}from"./router-vendor.DNrqJuUa.js";import{L as c,K as m,M as p,N as x,T as u,O as f,Q as g}from"./vendor.hSDL9w0M.js";import"./redux-vendor.CyEodbzn.js";const h=t.div`
+import{j as e,r as n}from"./react-core.DzcB_2w7.js";import{N as i}from"./Navbar.DrWqh0ix.js";import{d as o,u as r}from"./useAppSelector.D6_7lV5f.js";import{L as s,s as a}from"../index.DScpaeU5.js";import{d as t}from"./styles-vendor.DBgNySS0.js";import{L as d,d as l}from"./router-vendor.DNrqJuUa.js";import{L as c,K as m,M as p,N as x,T as u,O as f,Q as g}from"./vendor.hSDL9w0M.js";import"./redux-vendor.CyEodbzn.js";const h=t.div`
     display: grid;
     gap: 16px;
     /* Límite de ancho para controlar el número máximo de columnas visibles */

@@ -10,6 +10,7 @@ import place_icon from '@assets/icons/place_icon.webp';
 import restaurant_icon from '@assets/icons/restaurant_icon.webp';
 import CarrousellCard from '../atoms/carrousellCard/CarrousellCard';
 import { CarrousellTitle } from '../styles/commonStyles';
+import Footer from '@components/footer/Footer';
 
 const dataCarrousel = [
     { to: '/restaurants', iconSrc: restaurant_icon, text: 'Restaurantes' },
@@ -27,6 +28,7 @@ function Home() {
             <CarrousellSlide slidesData={dataCarrousel} />
             <CarrousellTitle>Nuestras mejores ofertas</CarrousellTitle>
             <CarrousellCard />
+            <Footer />
         </>
     );
 }

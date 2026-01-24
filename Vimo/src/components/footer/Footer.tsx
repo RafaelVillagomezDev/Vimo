@@ -19,6 +19,7 @@ function Footer() {
                     <BoxList>
                         <BoxLink to="./legales">¿Quienes somos?</BoxLink>
                         <BoxLink to="./legales">Información de contacto</BoxLink>
+                        <BoxLink to="/register">Registrar nueva opción</BoxLink>
                     </BoxList>
                     <BoxList>
                         <BoxLink to="./legales">Preguntas frecuentes</BoxLink>

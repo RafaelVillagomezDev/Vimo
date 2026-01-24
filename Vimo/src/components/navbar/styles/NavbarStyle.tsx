@@ -12,6 +12,13 @@ export const Nav = styled.nav`
     gap: 0.5rem;
     width: -webkit-fill-available;
 `;
+export const NavContainerRight = styled.div`
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: whitesmoke;
+`;
 
 export const NavContainer = styled.div`
     height: 100%;
@@ -52,15 +59,29 @@ export const NavList = styled.ul`
 `;
 
 // Estilos para los enlaces de navegación
-export const NavLinker = styled(Link)`
-    color: white;
+interface NavLinkerProps {
+    activeColor?: string;
+    hoverColor?: string;
+    color?: string;
+    fontSize?: string;
+}
+
+export const NavLinker = styled(Link) <NavLinkerProps>`
+    color:  ${props => props.color || 'white'};
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     font-weight: bold;
+    font-size: ${props => props.fontSize || '16px'};
+    /* Color cuando el enlace está activo */
     &.active {
-        background-color: #6200ea; /* Color de fondo para el enlace activo */
+        background-color: ${props => props.activeColor || '#6200ea'}; 
         color: #fff;
+    }
+
+    /* Color al pasar el ratón */
+    &:hover {
+        background-color: ${props => props.hoverColor || 'rgba(255, 255, 255, 0.1)'};
     }
 `;

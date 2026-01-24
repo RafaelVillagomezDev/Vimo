@@ -21,6 +21,7 @@ const Experience = lazy(() => import('./pages/Experience'));
 const Destination = lazy(() => import('./pages/Destination'));
 const Restaurants = lazy(() => import('./pages/Restaurants'));
 const Restaurant = lazy(() => import('./pages/Restaurant'));
+const Register = lazy(() => import('./pages/Register'));
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
@@ -36,6 +37,7 @@ if (rootElement) {
                 <Route path="restaurants/:id" element={<Restaurant />} />
                 <Route path="experiences" element={<Experience />} />
                 <Route path="destinations" element={<Destination />} />
+                <Route path="register" element={<Register />} />
             </Route>
         </>
     );

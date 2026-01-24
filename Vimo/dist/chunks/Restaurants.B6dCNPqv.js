@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["chunks/Carrousell.CGXf5dTi.js","chunks/react-core.DzcB_2w7.js","chunks/vendor.hSDL9w0M.js","assets/vendor.ytJtD8ZQ.css","chunks/styles-vendor.DBgNySS0.js","chunks/useAppSelector.D6_7lV5f.js","chunks/router-vendor.DNrqJuUa.js","chunks/Navbar.DrWqh0ix.js"])))=>i.map(i=>d[i]);
-import{f as e,L as n,_ as i}from"../index.CxduC4vH.js";import{r as s,j as o}from"./react-core.DzcB_2w7.js";import{u as r}from"./useAppDispatch.DlsLhMYc.js";import{u as t,L as a,d}from"./router-vendor.DNrqJuUa.js";import{d as l}from"./styles-vendor.DBgNySS0.js";import{d as c,u as p}from"./useAppSelector.D6_7lV5f.js";import"./vendor.hSDL9w0M.js";import"./redux-vendor.CyEodbzn.js";const x=l.div`
+import{f as e,L as n,_ as i}from"../index.DScpaeU5.js";import{r as s,j as o}from"./react-core.DzcB_2w7.js";import{u as r}from"./useAppDispatch.DlsLhMYc.js";import{u as t,L as a,d}from"./router-vendor.DNrqJuUa.js";import{d as l}from"./styles-vendor.DBgNySS0.js";import{d as c,u as p}from"./useAppSelector.D6_7lV5f.js";import"./vendor.hSDL9w0M.js";import"./redux-vendor.CyEodbzn.js";const x=l.div`
     background-color: ${e=>e.theme.colors.blueDeep};
     padding: 2rem;
     position: -webkit-sticky;

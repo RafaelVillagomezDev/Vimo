@@ -53,6 +53,9 @@ function Restaurants() {
         });
     }, [id, apiUrl, dispatch]);
 
+    
+   
+
     return (
         <Suspense fallback={<LoadingScreen />}>
             <Carrousell />

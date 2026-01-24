@@ -20,18 +20,18 @@ function CarrousellCard() {
     const { data } = restaurant ?? {};
     const dispatch = useAppDispatch();
 
-    // 1. Inicializa Embla Carousel
+    // Inicializa Embla Carousel
     const [emblaRef, emblaApi] = useEmblaCarousel({
         loop: false, // Desactiva loop para controlar mejor los botones de inicio/fin
         align: 'start',
         dragFree: false,
     });
 
-    // 2. Estado para el control de botones
+    //  Estado para el control de botones
     const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
     const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
 
-    // 3. Funciones de Navegación
+    // Funciones de Navegación
     const scrollPrev = useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev();
     }, [emblaApi]);
@@ -40,7 +40,7 @@ function CarrousellCard() {
         if (emblaApi) emblaApi.scrollNext();
     }, [emblaApi]);
 
-    // 4. Función de Actualización (Desactivar/Activar botones)
+    // Función de Actualización (Desactivar/Activar botones)
     const onSelect = useCallback(
         (emblaApi: { canScrollPrev: () => any; canScrollNext: () => any }) => {
             setPrevBtnDisabled(!emblaApi.canScrollPrev());
@@ -49,7 +49,7 @@ function CarrousellCard() {
         []
     );
 
-    // 5. Conecta las funciones de actualización al ciclo de vida de Embla
+    // Conecta las funciones de actualización al ciclo de vida de Embla
     useEffect(() => {
         if (!emblaApi) return;
 

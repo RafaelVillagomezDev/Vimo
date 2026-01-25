@@ -17,7 +17,7 @@ function Navbar() {
                     <NavLinker to={'/register'} activeColor="#ff5722"
                         color="black"
                         fontSize="14px"
-                    >REGISTRAR NUEVA OPCION</NavLinker>
+                    >REGISTRAR UN SITIO</NavLinker>
                 </NavList>
             </NavContainerRight>
             <Nav>

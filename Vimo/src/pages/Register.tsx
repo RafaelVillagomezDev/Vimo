@@ -1,7 +1,12 @@
+import Navbar from "@components/navbar/Navbar";
+import FormData from '../atoms/form/FormData';
+import Footer from "@components/footer/Footer";
 function Registrer() {
     return (
         <>
-            <h1>Registrar nueva opción</h1>
+            <Navbar />
+            <FormData />
+            <Footer />
         </>
     );
 }

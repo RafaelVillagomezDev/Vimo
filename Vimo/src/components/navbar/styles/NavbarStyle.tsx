@@ -60,7 +60,6 @@ export const NavList = styled.ul`
 
 // Estilos para los enlaces de navegación
 interface NavLinkerProps {
-    activeColor?: string;
     hoverColor?: string;
     color?: string;
     fontSize?: string;
@@ -76,7 +75,7 @@ export const NavLinker = styled(Link) <NavLinkerProps>`
     font-size: ${props => props.fontSize || '16px'};
     /* Color cuando el enlace está activo */
     &.active {
-        background-color: ${props => props.activeColor || '#6200ea'}; 
+        background-color: '#6200ea'; 
         color: #fff;
     }
 

@@ -3,6 +3,32 @@ import { customFetch } from '../../utils/call/customFetch';
 import { Restaurant } from './restaurant-slice';
 import { getToken } from '../../auth/auth-api';
 
+// Tipo del argumento que recibe fetchTokenAndRestaurant
+type FetchArgs = {
+    api_url: string;
+    api_path: string;
+    headers?: Record<string, string>;
+};
+
+
+type RestaurantArgs = {
+    name: string;
+    email: string;
+    address: string;
+    description: string;
+    phone: string;
+    type_food: string;
+    web: string;
+};
+
+
+type RestaurantPayload = any;
+
+const API_BASE_URL_TOKEN = 'http://localhost:3000/api/v1/anonymous/token'; // Ejemplo
+const API_PATH_TOKEN = '/anonymous/token';
+const API_KEY = import.meta.env.VITE_API_KEY_TOKEN;
+
+
 // NOTA: Asegúrate de que esta interfaz cumpla con el tipo 'DataFetch'
 // que customFetch requiere, que probablemente es más extenso.
 interface FetchRestaurantConfig {
@@ -48,18 +74,17 @@ export const getRestaurant = createAsyncThunk(
     }
 );
 
-// Tipo del argumento que recibe fetchTokenAndRestaurant
-type FetchArgs = {
-    api_url: string;
-    api_path: string;
-    headers?: Record<string, string>;
-};
+export const createRestaurant = createAsyncThunk<RestaurantPayload, RestaurantArgs, { rejectValue: string }>('api/createRestaurant', async (args, { dispatch, rejectWithValue }) => {
 
-type RestaurantPayload = any;
-
-const API_BASE_URL_TOKEN = 'http://localhost:3000/api/v1/anonymous/token'; // Ejemplo
-const API_PATH_TOKEN = '/anonymous/token';
-const API_KEY = import.meta.env.VITE_API_KEY_TOKEN;
+    try {
+        const { name, email, address, description, phone, type_food, web } = args;
+        return [name];
+    } catch (error) {
+        console.error('Fallo en el flujo de API unificado:', error);
+        // Retorna el valor de rechazo, que debe ser una string según el tipo genérico.
+        return rejectWithValue(error as string);
+    }   
+})
 
 export const fetchTokenAndRestaurant = createAsyncThunk<
     RestaurantPayload, // Retorno exitoso (fulfilled payload)

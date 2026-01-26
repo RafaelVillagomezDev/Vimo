@@ -131,3 +131,49 @@ export const FormTextArea = styled.textarea`
 `;
 
 
+export const FileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 550px;
+`;
+
+export const HiddenInput = styled.input`
+  display: none;
+`;
+
+export const StyledDropZone = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+
+  &:hover {
+    border-color: darkslategrey;
+    background-color: #f0f4f4;
+  }
+
+  & svg {
+    font-size: 2rem;
+    color: darkslategrey;
+    margin-bottom: 10px;
+  }
+
+  span {
+    color: darkslategrey;
+    font-weight: 500;
+  }
+
+  small {
+    color: #888;
+    margin-top: 5px;
+  }
+`;

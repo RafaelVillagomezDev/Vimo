@@ -14,7 +14,7 @@ function Navbar() {
         <>
             <NavContainerRight>
                 <NavList>
-                    <NavLinker to={'/register'} activeColor="#ff5722"
+                    <NavLinker to={'/register'} 
                         color="black"
                         fontSize="14px"
                     >REGISTRAR UN SITIO</NavLinker>

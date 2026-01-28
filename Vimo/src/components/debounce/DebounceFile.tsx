@@ -1,49 +1,68 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useController, Control, UseFormTrigger } from 'react-hook-form';
 import { updateFormField } from '@src/slices/form/form-slice';
 import * as S from '../form/styles/FormStyle';
 
 interface Props {
     name: string;
-    value: string;
+    control: Control<any>;
+    trigger: UseFormTrigger<any>; // Añadimos trigger para validación forzada
     label: string;
-    component: React.ElementType; 
+    component: React.ElementType;
+    rules?: any; 
     [key: string]: any;
 }
 
-export const DebounceField = ({ name, value: reduxValue, label, component: Component, ...props }: Props) => {
+export const DebounceField = ({ 
+    name, 
+    control, 
+    trigger, // Necesario para validar antes del dispatch
+    label, 
+    component: Component, 
+    rules, 
+    ...props 
+}: Props) => {
     const dispatch = useDispatch();
-    const [localValue, setLocalValue] = useState(reduxValue);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    const {
+        field: { onChange, onBlur, value, ref },
+        fieldState: { error }
+    } = useController({
+        name,
+        control,
+        rules,
+        defaultValue: "",
+    });
 
-    useEffect(() => {
-        setLocalValue(reduxValue);
-    }, [reduxValue]);
-
- 
-    useEffect(() => {
-        return () => {
-            if (timerRef.current) clearTimeout(timerRef.current);
-        };
-    }, []);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const newVal = e.target.value;
-        setLocalValue(newVal);
+        
+        // Actualizamos RHF inmediatamente para que el input sea fluido
+        onChange(newVal);
 
-        // Limpiamos el timeout anterior antes de crear uno nuevo
+        // Debounce
         if (timerRef.current) clearTimeout(timerRef.current);
-
-        timerRef.current = setTimeout(() => {
-            dispatch(updateFormField({ field: name as any, value: newVal }));
-        }, 500); // 500ms es el estándar ideal para no saturar Redux
+        
+        timerRef.current = setTimeout(async () => {
+            // Forzamos la validación de este campo específico
+            const isValid = await trigger(name);
+            
+            // Solo despachamos a Redux si los datos cumplen las reglas
+            if (isValid) {
+                dispatch(updateFormField({ field: name as any, value: newVal }));
+            }
+        }, 500);
     };
 
-    const handleBlur = () => {
-       
-        if (timerRef.current) clearTimeout(timerRef.current);
-        dispatch(updateFormField({ field: name as any, value: localValue }));
+    const handleBlurAction = async () => {
+        onBlur();
+        // Validamos al salir para asegurar que Redux tenga el valor final si es correcto
+        const isValid = await trigger(name);
+        if (isValid) {
+            dispatch(updateFormField({ field: name as any, value: value }));
+        }
     };
 
     return (
@@ -52,11 +71,13 @@ export const DebounceField = ({ name, value: reduxValue, label, component: Compo
             <Component
                 {...props}
                 id={name}
-                name={name}
-                value={localValue}
+                ref={ref} // Cambiado de inputRef a ref (estándar de RHF)
+                value={value}
                 onChange={handleChange}
-                onBlur={handleBlur}
+                onBlur={handleBlurAction}
+                $hasError={!!error}
             />
+            {error && <S.ErrorMessage>{error.message}</S.ErrorMessage>}
         </S.FormBox>
     );
 };

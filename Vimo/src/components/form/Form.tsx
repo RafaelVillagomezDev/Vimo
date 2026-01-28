@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import * as S from './styles/FormStyle';
 import { RootState } from '../../../src/store/store';
-import { DebounceField} from '@components/debounce/DebounceFile';
+import { DebounceField } from '@components/debounce/DebounceFile';
 import { useSelector } from 'react-redux';
-
+import { FormSiteSchema } from '@src/schemas/validation-form-site';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 export function Form() {
 
 
     const formData = useSelector((state: RootState) => state.form);
 
-
+    const { control, trigger } = useForm({
+        resolver: zodResolver(FormSiteSchema),
+        mode: "onChange",
+        defaultValues: formData as any
+    });
 
     return (
         <S.FormContainer>
@@ -17,7 +23,13 @@ export function Form() {
 
                 <S.FormBox>
                     <S.FormLabel htmlFor="name">Nombre del Sitio</S.FormLabel>
-                    <DebounceField type="text" id="name" name="name" autoComplete='true' placeholder="Ej: Café Exodus" value={formData.name} label={''} component={S.FormInput} />
+                    <DebounceField type="text" id="name" name="name" autoComplete='true' placeholder="Ej: Café Exodus"
+                        control={control}
+                        label=''
+                        trigger={trigger}
+                        component={S.FormInput}
+                       
+                    />
                 </S.FormBox>
                 <S.FormBox>
                     <S.FormLabel htmlFor="phone">Teléfono</S.FormLabel>
@@ -31,12 +43,15 @@ export function Form() {
                             id="phone"
                             name="phone"
                             type="tel"
-                            value={formData.phone}
+                            label={''}
+                            control={control}
+                            trigger={trigger}
                             component={S.FormInput}
                             maxLength={9}
                             autoComplete='true'
                             placeholder="600 000 000"
-                            label={''}
+                        
+
                         />
                     </S.InputWrapper>
                 </S.FormBox>
@@ -48,6 +63,9 @@ export function Form() {
                         value={formData.type_food}
                         component={S.FormSelect}
                         label={''}
+                        trigger={trigger}
+                        control={control}
+
                     >
                         <option value="" disabled>Seleccione una categoría</option>
                         <option value="restaurant">Restaurante</option>
@@ -73,15 +91,19 @@ export function Form() {
                             autoComplete='true'
                             component={S.FormInput}
                             label={''}
-                            value={formData.email} 
-                            
+                            control={control}
+                            trigger={trigger}
+                      
+
                         />
                     </S.InputWrapper>
                 </S.FormBox>
 
                 <S.FormBox>
                     <S.FormLabel htmlFor="description">Descripción</S.FormLabel>
-                    <DebounceField id="description" name="description" rows={4} placeholder="Breve descripción del sitio..." value={formData.description} component={S.FormTextArea} label={''} />
+                    <DebounceField id="description" name="description" rows={4} placeholder="Breve descripción del sitio..."
+                         component={S.FormTextArea} label={''}
+                        control={control} trigger={trigger} />
                 </S.FormBox>
             </S.Form>
         </S.FormContainer>
@@ -93,7 +115,11 @@ export function FormStepTwo() {
 
     const formData = useSelector((state: RootState) => state.form);
 
-
+    const { control, trigger} = useForm({
+        resolver: zodResolver(FormSiteSchema),
+        mode: "onChange",
+        defaultValues: formData as any
+    });
 
     return (
         <S.FormContainer>
@@ -115,9 +141,11 @@ export function FormStepTwo() {
                             id="address"
                             name="address"
                             placeholder='Calle, Ciudad, Código Postal...'
-                            value={formData.address} 
+                         
                             component={S.FormInput}
                             label={''}
+                            control={control}
+                            trigger={trigger}   
                         />
                     </S.InputWrapper>
                 </S.FormBox>
@@ -138,15 +166,19 @@ export function FormStepTwo() {
                             id="web"
                             name="web"
                             placeholder='url del sitio web...'
-                            value={formData.web} 
+                           
                             component={S.FormInput}
                             label={''}
+                            control={control}
+                            trigger={trigger}
+
                         />
                     </S.InputWrapper>
                 </S.FormBox>
                 <S.FormBox>
                     <S.FormLabel htmlFor="type_food">Tipo de comida</S.FormLabel>
-                    <DebounceField id="type_food" name="type_food" value={formData.type_food} component={S.FormSelect} label={''}>
+                    <DebounceField id="type_food" name="type_food" component={S.FormSelect} label={''}
+                        control={control} trigger={trigger}>
                         <option value="" disabled>Seleccione un tipo de comida</option>
                         <option value="china">China</option>
                         <option value="española">Española</option>

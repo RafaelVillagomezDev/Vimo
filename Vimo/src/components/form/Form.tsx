@@ -47,7 +47,7 @@ export function Form() {
                             control={control}
                             trigger={trigger}
                             component={S.FormInput}
-                            maxLength={9}
+                            maxLength={16}
                             autoComplete='true'
                             placeholder="600 000 000"
                         
@@ -208,7 +208,7 @@ export function FormStepThree() {
                         type="file"
                         id="file-upload"
                         multiple
-
+                        accept="image/*"
                         onChange={handleFileChange}
 
                     />

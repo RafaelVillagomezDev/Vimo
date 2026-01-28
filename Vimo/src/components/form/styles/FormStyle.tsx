@@ -1,10 +1,31 @@
-import styled , { keyframes } from 'styled-components';
-import { devices } from '@styles/mixin_styledComponent';
+import styled, { keyframes, css } from 'styled-components';
 
+
+// --- Interfaces ---
 interface StyledInputProps {
     $hasIcon?: boolean;
     $hasFlag?: boolean;
+    $hasError?: boolean;
 }
+
+// --- Animaciones ---
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+// --- Mixins Reutilizables ---
+const errorBorder = css<{ $hasError?: boolean }>`
+    ${props => props.$hasError && css`
+        border-color: #d32f2f !important;
+        &:focus {
+            border-color: #d32f2f !important;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1) !important;
+        }
+    `}
+`;
+
+// --- Componentes de Estilo ---
 
 export const FormContainer = styled.div`
     width: 100%;
@@ -14,13 +35,14 @@ export const FormContainer = styled.div`
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; 
+    gap: 1rem; 
 `;
 
 export const FormBox = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    padding-bottom: 25px; 
     width: 100%;
 `;
 
@@ -29,8 +51,9 @@ export const FormLabel = styled.label`
     font-weight: bold;
     font-family: 'inter', sans-serif;
     color: darkslategrey;
+    margin-bottom: 8px; 
+    display: block;
 `;
-
 
 export const InputWrapper = styled.div`
     position: relative;
@@ -39,10 +62,11 @@ export const InputWrapper = styled.div`
     width: 100%;
     max-width: 550px;
 
-    & > svg {
+    & > svg, & > span.icon-placeholder {
         position: absolute;
         left: 1rem;
         color: darkslategrey;
+        z-index: 2; 
         pointer-events: none;
     }
 `;
@@ -54,7 +78,8 @@ export const FlagContainer = styled.div`
     align-items: center;
     gap: 0.5rem;
     pointer-events: none;
-    
+    z-index: 2; 
+    top: 23px;
     .flag {
         font-size: 1.2rem;
     }
@@ -79,6 +104,11 @@ export const FormInput = styled.input<StyledInputProps>`
     width: 100%;
     box-sizing: border-box;
     transition: all 0.2s ease;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+
+    ${errorBorder}
 
     &:focus {
         outline: none;
@@ -87,7 +117,7 @@ export const FormInput = styled.input<StyledInputProps>`
     }
 `;
 
-export const FormSelect = styled.select`
+export const FormSelect = styled.select<{ $hasError?: boolean }>`
     padding: 1rem;
     padding-right: 3rem;
     border: 2px solid darkslategrey;
@@ -106,13 +136,15 @@ export const FormSelect = styled.select`
     background-size: 1.2rem;
     box-sizing: border-box;
 
+    ${errorBorder}
+
     &:focus {
         outline: none;
         border-color: #007bff;
     }
 `;
 
-export const FormTextArea = styled.textarea`
+export const FormTextArea = styled.textarea<{ $hasError?: boolean }>`
     padding: 1rem;
     border: 2px solid darkslategrey;
     border-radius: 4px;
@@ -124,12 +156,25 @@ export const FormTextArea = styled.textarea`
     resize: vertical;
     box-sizing: border-box;
 
+    ${errorBorder}
+
     &:focus {
         outline: none;
         border-color: #007bff;
     }
 `;
 
+export const ErrorMessage = styled.div`
+    color: #d32f2f;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'inter', sans-serif;
+    position: absolute;
+    bottom: 0px; 
+    left: 0;
+    animation: ${fadeIn} 0.2s ease-out forwards;
+    z-index: 1;
+`;
 
 export const FileContainer = styled.div`
   display: flex;
@@ -161,12 +206,6 @@ export const StyledDropZone = styled.label`
     background-color: #f0f4f4;
   }
 
-  & svg {
-    font-size: 2rem;
-    color: darkslategrey;
-    margin-bottom: 10px;
-  }
-
   span {
     color: darkslategrey;
     font-weight: 500;
@@ -176,10 +215,4 @@ export const StyledDropZone = styled.label`
     color: #888;
     margin-top: 5px;
   }
-`;
-
-export const ErrorMessage = styled.div`
-    color: red;
-    font-size: 14px;
-    margin-top: 4px;
 `;

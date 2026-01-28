@@ -17,7 +17,7 @@ export function Form() {
 
                 <S.FormBox>
                     <S.FormLabel htmlFor="name">Nombre del Sitio</S.FormLabel>
-                    <DebounceField type="text" id="name" name="name" autoComplete='true' placeholder="Ej: Café Exodus" value={formData.phone} label={''} component={S.FormInput} />
+                    <DebounceField type="text" id="name" name="name" autoComplete='true' placeholder="Ej: Café Exodus" value={formData.name} label={''} component={S.FormInput} />
                 </S.FormBox>
                 <S.FormBox>
                     <S.FormLabel htmlFor="phone">Teléfono</S.FormLabel>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createRestaurant, getRestaurant } from './restaurant-api';
+import { getRestaurant } from './restaurant-api';
 
 export interface ImageDTO {
     id: string;
@@ -87,14 +87,6 @@ export const restaurantSlice = createSlice({
             state.restaurant = action.payload as unknown as Restaurant;
         });
         builder.addCase(getRestaurant.rejected, (state) => {
-            state.status = 'failed';
-            state.loading = false;
-        });
-        builder.addCase(createRestaurant.fulfilled, (state, action) => {
-            state.status = 'success';
-            state.loading = true;
-        });
-        builder.addCase(createRestaurant.rejected, (state) => {
             state.status = 'failed';
             state.loading = false;
         });

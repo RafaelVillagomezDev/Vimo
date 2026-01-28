@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import restaurantReducer from '../slices/restaurant/restaurant-slice';
+import formReducer from '../slices/form/form-slice';
 import authReducer from '../auth/auth-slice';
 import {
     persistStore,
@@ -31,11 +32,13 @@ const rootPersistConfig = {
 
 const persistedRestaurantReducer = persistReducer(rootPersistConfig, restaurantReducer);
 const persistedAuthReducer = persistReducer(rootPersistConfig, authReducer);
+const persistedFormReducer = persistReducer(rootPersistConfig, formReducer);
 
 export const store = configureStore({
     reducer: {
         restaurant: persistedRestaurantReducer,
         auth: persistedAuthReducer,
+        form:persistedFormReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

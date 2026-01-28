@@ -1,7 +1,13 @@
 import Navbar from "@components/navbar/Navbar";
 import FormData from '../atoms/form/FormData';
 import Footer from "@components/footer/Footer";
+
 function Registrer() {
+  
+
+
+    
+
     return (
         <>
             <Navbar />

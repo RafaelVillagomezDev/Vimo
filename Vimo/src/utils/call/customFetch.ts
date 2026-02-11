@@ -1,5 +1,5 @@
 export type AuthHeadersGenerator = (
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
     url: string,
     body?: Record<string, unknown> | null
 ) => Promise<Record<string, string>>;
@@ -12,6 +12,16 @@ interface DataFetch {
     headers?: Record<string, unknown>;
     token?: string;
     authHeadersGenerator?: AuthHeadersGenerator; // Inyección
+}
+
+interface DataFetchFormData {
+    api_url: string;
+    api_path: string;
+    method: 'POST' | 'PUT' | 'PATCH'; // Generalmente solo estos métodos aceptan archivos
+    body: FormData; // Obligatorio y de tipo FormData
+    headers?: Record<string, unknown>;
+    token?: string;
+    authHeadersGenerator?: AuthHeadersGenerator;
 }
 
 interface CustomFetchReturn<T = unknown> {
@@ -86,5 +96,63 @@ export const customFetch = async <T = unknown>({
             return { data: null, error: error.message || 'Error de red o desconocido' };
         }
         return { data: null, error: 'Error de red o desconocido' };
+    }
+};
+
+export const customFetchFormData = async <T = unknown>({
+    api_url,
+    api_path,
+    method = 'POST',
+    body,
+    headers = {},
+    token,
+    authHeadersGenerator,
+}: DataFetchFormData): Promise<CustomFetchReturn<T>> => {
+    let securityHeaders: Record<string, string> = {};
+
+
+    if (authHeadersGenerator) {
+        try {
+            // Pasamos 'null' al generador porque la mayoría de algoritmos HMAC 
+            // no pueden firmar objetos binarios (FormData) fácilmente.
+            securityHeaders = await authHeadersGenerator(method, api_path, null);
+        } catch (e: unknown) {
+            return { data: null, error: 'Error al generar seguridad para archivos.' };
+        }
+    }
+
+    // 2. CONSTRUIR ENCABEZADOS
+    const headersObject: Record<string, string> = {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(headers as Record<string, string>),
+        ...securityHeaders,
+    };
+
+    try {
+        const response = await fetch(api_url, {
+            method,
+            headers: headersObject,
+            body,
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            let errorMessage = `Error ${response.status}`;
+            try {
+                const errorJson = JSON.parse(errorText);
+                errorMessage = errorJson.message || errorMessage;
+            } catch {
+                return { data: null, error: 'Error al procesar el archivo' };
+            }
+            throw new Error(errorMessage);
+        }
+
+        const result = await response.json();
+        return { data: result as T, error: null };
+    } catch (error: unknown) {
+        return {
+            data: null,
+            error: error instanceof Error ? error.message : 'Error de red en subida de archivo'
+        };
     }
 };

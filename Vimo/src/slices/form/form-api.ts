@@ -7,14 +7,14 @@ type FormPayload = any;
 
 const API_BASE_URL_TOKEN = 'http://localhost:3000/api/v1/anonymous/token'; // Ejemplo
 const API_PATH_TOKEN = '/anonymous/token';
-const API_KEY = import.meta.env.VITE_API_KEY_TOKEN;
+
 
 
 // NOTA: Asegúrate de que esta interfaz cumpla con el tipo 'DataFetch'
 // que customFetch requiere, que probablemente es más extenso.
 interface FetchFormConfig {
     api_url: string;
-    api_path: string; // Correcto: Este campo es crucial para HMAC y es obligatorio.
+    api_path: string; 
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     body?: Record<string, unknown>;
     token?: string;
@@ -58,7 +58,6 @@ export const createRestaurant = createAsyncThunk<FormPayload, FetchFormConfig, {
                 api_url: API_BASE_URL_TOKEN,
                 api_path: API_PATH_TOKEN,
                 method: 'POST',
-                headers: { 'x-api-key': API_KEY },
             })
         ).unwrap();
 

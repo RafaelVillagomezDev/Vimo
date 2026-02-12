@@ -22,13 +22,52 @@ interface DataFetchFormData {
     headers?: Record<string, unknown>;
     token?: string;
     authHeadersGenerator?: AuthHeadersGenerator;
+    credentials: 'include'
 }
 
 interface CustomFetchReturn<T = unknown> {
     data: T | null;
     error: string | null;
 }
-// Asume importaciones de interfaces DataFetch y CustomFetchReturn
+
+const getCookie = (name: string): string | null => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) {
+        let raw = parts.pop()?.split(';').shift() || null;
+        if (!raw) return null;
+
+        // Decodificamos el valor (Express escapa caracteres)
+        raw = decodeURIComponent(raw);
+
+        if (raw.startsWith('s:')) {
+
+            return raw.slice(2).split('.')[0];
+        }
+        return raw;
+    }
+    return null;
+};
+
+const securityHeadersGenerator = async (method: string, path: string): Promise<Record<string, string>> => {
+    const headers: Record<string, string> = {};
+    const csrfToken = getCookie('_csrf_token');
+
+    if (csrfToken) {
+        headers['x-csrf-token'] = csrfToken;
+    } else {
+        // 🚨 EXCEPCIÓN: Si es la ruta de token y no hay cookie, permitimos continuar
+        // para que el servidor nos la entregue por primera vez.
+        const isLoginPath = path.includes('/anonymous/token');
+
+        if (!isLoginPath && !['GET', 'OPTIONS'].includes(method)) {
+            throw new Error('CSRF Token missing. Please refresh.');
+        }
+    }
+    return headers;
+};
+
 
 export const customFetch = async <T = unknown>({
     api_url,
@@ -37,13 +76,12 @@ export const customFetch = async <T = unknown>({
     body,
     headers = {},
     token,
-    authHeadersGenerator, // Función de seguridad inyectada
+    authHeadersGenerator = securityHeadersGenerator, // Función de seguridad inyectada
 }: DataFetch): Promise<CustomFetchReturn<T>> => {
     let securityHeaders: Record<string, string> = {};
 
-    // 1. GENERAR ENCABEZADOS DE SEGURIDAD (Solo para métodos que modifican estado)
-    // 🚨 CORRECCIÓN: SOLO llamar al generador si está presente Y el método NO es GET/OPTIONS.
-    const requiresSecurity = authHeadersGenerator && method !== 'GET' && method !== 'OPTIONS';
+
+    const requiresSecurity = method !== 'GET' && method !== 'OPTIONS';
 
     if (requiresSecurity) {
         try {
@@ -59,23 +97,24 @@ export const customFetch = async <T = unknown>({
         }
     }
 
-    // 2. CONSTRUIR TODOS LOS ENCABEZADOS
+
     const headersObject = {
+        'Accept': 'application/json', // Es buena práctica añadirlo
         'Content-Type': 'application/json',
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(token && { 'Authorization': `Bearer ${token}` }),
         ...headers,
-        ...securityHeaders, // Incluirá headers solo si se generaron en el paso 1
+        ...securityHeaders,
     };
 
     try {
         const response = await fetch(api_url, {
             method,
             headers: headersObject,
-            // El body es solo para métodos que no son GET
             body: method !== 'GET' && body ? JSON.stringify(body) : undefined,
+             credentials: 'include' 
         });
 
-        // ... (Manejo de errores y retorno) ...
+
         if (!response.ok) {
             const errorText = await response.text();
             let errorMessage = `Error ${response.status}: ${response.statusText}`;
@@ -84,7 +123,7 @@ export const customFetch = async <T = unknown>({
                 const errorJson = JSON.parse(errorText);
                 errorMessage = errorJson.message || errorMessage;
             } catch {
-                /* no es json */
+
             }
             throw new Error(errorMessage);
         }
@@ -126,6 +165,7 @@ export const customFetchFormData = async <T = unknown>({
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...(headers as Record<string, string>),
         ...securityHeaders,
+        credentials: 'include'
     };
 
     try {

@@ -15,7 +15,7 @@ type RestaurantPayload = any;
 
 const API_BASE_URL_TOKEN = 'http://localhost:3000/api/v1/anonymous/token'; // Ejemplo
 const API_PATH_TOKEN = '/anonymous/token';
-const API_KEY = import.meta.env.VITE_API_KEY_TOKEN;
+
 
 
 // NOTA: Asegúrate de que esta interfaz cumpla con el tipo 'DataFetch'
@@ -76,7 +76,6 @@ export const fetchTokenAndRestaurant = createAsyncThunk<
                 api_url: API_BASE_URL_TOKEN,
                 api_path: API_PATH_TOKEN,
                 method: 'POST',
-                headers: { 'x-api-key': API_KEY },
             })
         ).unwrap();
 

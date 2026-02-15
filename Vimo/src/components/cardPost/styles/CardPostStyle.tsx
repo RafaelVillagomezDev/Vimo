@@ -18,13 +18,13 @@ export const MainCard = styled.div`
     display: flex;
     flex-direction: column;
     @media only screen and (${devices.sm}) {
-        grid-column: 6/ 12;
+        grid-column: 1/ 12;
     }
     @media only screen and (${devices.md}) {
-        grid-column: 5 / 12;
+        grid-column: 1 / 12;
     }
     @media only screen and (${devices.lg}) {
-        grid-column: 4 / 12;
+        grid-column: 1 / 12;
     }
 `;
 

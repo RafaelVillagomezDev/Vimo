@@ -8,16 +8,16 @@ import Footer from '../components/footer/Footer';
 import Pager from '@components/pager/Pager';
 import LoadingScreen from './LoadingScreen';
 import CardPost from '@components/cardPost/CardPost';
-import Configurator from '@components/configurator/Configurator';
+// import Configurator from '@components/configurator/Configurator';
 import { CardContainer, ContainerLoading, ContainerRender, MainCard } from '@components/cardPost/styles/CardPostStyle';
 
 const Carrousell = lazy(() => import('@components/carrousell/Carrousell'));
 
-const MENU_OPTIONS = [
-    { label: 'Tipo de comida', subOptions: ['Mediterranea', 'Japonesa', 'Mexicana', 'China', 'Turca'] },
-    { label: 'Precio', subOptions: ['< 15€', '15€-30€', '> 30€'] },
-    { label: 'Guía Michelin', subOptions: ['Guía MICHELIN', '3 estrellas', '2 estrellas', '1 estrella'] },
-];
+// const MENU_OPTIONS = [
+//     { label: 'Tipo de comida', subOptions: ['Mediterranea', 'Japonesa', 'Mexicana', 'China', 'Turca'] },
+//     { label: 'Precio', subOptions: ['< 15€', '15€-30€', '> 30€'] },
+//     { label: 'Guía Michelin', subOptions: ['Guía MICHELIN', '3 estrellas', '2 estrellas', '1 estrella'] },
+// ];
 
 const API_BASE_URL = 'http://localhost:3000/api/v1/restaurant';
 
@@ -47,7 +47,7 @@ function Restaurants() {
         Math.floor(queryParams.offset / queryParams.limit) + 1
         , [queryParams.offset, queryParams.limit]);
 
-    const menuOptions = useMemo(() => MENU_OPTIONS, []);
+    // const menuOptions = useMemo(() => MENU_OPTIONS, []);
 
     const filteredData = useAppSelector(selectFilteredRestaurants);
     const totalItems = useAppSelector(selectRestaurantCount);
@@ -81,7 +81,7 @@ function Restaurants() {
         <Suspense fallback={<LoadingScreen />}>
             <Carrousell />
             <CardContainer>
-                <Configurator menuOptions={menuOptions} />
+                {/* <Configurator menuOptions={menuOptions} /> */}
                 <MainCard style={{ position: 'relative', minHeight: '600px' }}>
                     {status === 'loading' && (
                         <ContainerLoading><LoadingScreen /></ContainerLoading>

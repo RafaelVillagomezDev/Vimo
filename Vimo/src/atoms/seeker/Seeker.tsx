@@ -33,6 +33,7 @@ function Seeker() {
         } else {
             const params = new URLSearchParams(searchParams);
             trimmed ? params.set('name', trimmed) : params.delete('name');
+            params.set('offset', '0');
             setSearchParams(params);
         }
         dispatch(setSearchTerm(trimmed));

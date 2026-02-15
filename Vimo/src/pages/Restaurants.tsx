@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, startTransition } from 'react';
+import { lazy, Suspense, useEffect, startTransition, useMemo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { selectFilteredRestaurants, selectRestaurantCount, selectRestaurantStatus, setSearchTerm } from '../slices/restaurant/restaurant-slice';
 import { useAppDispatch } from '../custom/hooks/call/useAppDispatch';
@@ -25,28 +25,45 @@ function Restaurants() {
     const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    // 1. Lectura de URL
-    const queryName = searchParams.get('name') || '';
-    const queryLimit = parseInt(searchParams.get('limit') || '5', 10);
-    const queryOffset = parseInt(searchParams.get('offset') || '0', 10);
+    // Memorizamos los parámetros para tener una referencia estable
+    const queryParams = useMemo(() => ({
+        name: searchParams.get('name') || '',
+        limit: parseInt(searchParams.get('limit') || '5', 10),
+        offset: parseInt(searchParams.get('offset') || '0', 10),
+    }), [searchParams]);
 
-    const currentPage = Math.floor(queryOffset / queryLimit) + 1;
+    // useCallback para que el Pager no se re-renderice innecesariamente
+    const handlePageChange = useCallback((page: number) => {
+        const newOffset = (page - 1) * queryParams.limit;
+        setSearchParams(prev => {
+            const next = new URLSearchParams(prev);
+            next.set('offset', newOffset.toString());
+            return next;
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [queryParams.limit, setSearchParams]);
 
-    // 2. Selectores
+    const currentPage = useMemo(() =>
+        Math.floor(queryParams.offset / queryParams.limit) + 1
+        , [queryParams.offset, queryParams.limit]);
+
+    const menuOptions = useMemo(() => MENU_OPTIONS, []);
+
     const filteredData = useAppSelector(selectFilteredRestaurants);
     const totalItems = useAppSelector(selectRestaurantCount);
     const status = useAppSelector(selectRestaurantStatus);
 
-    // 3. Efecto de carga de datos
+    // Efecto de carga corregido (usando queryParams.prop)
     useEffect(() => {
-        dispatch(setSearchTerm(queryName));
+        dispatch(setSearchTerm(queryParams.name));
 
-        // startTransition ayuda a mantener la UI fluida durante re-renders pesados
         startTransition(() => {
             const params = new URLSearchParams();
-            if (queryName.trim()) params.append('name', queryName.trim());
-            params.append('limit', queryLimit.toString());
-            params.append('offset', queryOffset.toString());
+            if (queryParams.name.trim()) params.append('name', queryParams.name.trim());
+
+            // CORRECCIÓN AQUÍ: Usamos queryParams.limit y queryParams.offset
+            params.append('limit', queryParams.limit.toString());
+            params.append('offset', queryParams.offset.toString());
 
             const apiPath = `?${params.toString()}`;
             dispatch(fetchTokenAndRestaurant({
@@ -54,33 +71,20 @@ function Restaurants() {
                 api_path: apiPath
             }));
         });
-    }, [queryName, queryLimit, queryOffset, dispatch]);
+    }, [queryParams, dispatch]);
 
-    // 4. Handlers con lógica de protección
-    const handlePageChange = (page: number) => {
-        const newOffset = (page - 1) * queryLimit;
-        setSearchParams(prev => {
-            prev.set('offset', newOffset.toString());
-            return prev;
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    // Helper para renderizado condicional
-    const hasResults = filteredData && filteredData.length > 0;
+    const hasResults = useMemo(() =>
+        filteredData && filteredData.length > 0
+        , [filteredData]);
 
     return (
         <Suspense fallback={<LoadingScreen />}>
             <Carrousell />
             <CardContainer>
-                <Configurator menuOptions={MENU_OPTIONS} />
-                
+                <Configurator menuOptions={menuOptions} />
                 <MainCard style={{ position: 'relative', minHeight: '600px' }}>
-                    {/* Overlay de carga: Solo si realmente está cargando */}
                     {status === 'loading' && (
-                        <ContainerLoading>
-                            <LoadingScreen />
-                        </ContainerLoading>
+                        <ContainerLoading><LoadingScreen /></ContainerLoading>
                     )}
 
                     <ContainerRender $status={status}>
@@ -96,7 +100,6 @@ function Restaurants() {
                                 </CardPost>
                             ))
                         ) : (
-                            // Solo mostramos "No encontrado" si la carga terminó con éxito
                             status === 'success' && (
                                 <div style={{ textAlign: 'center', padding: '4rem' }}>
                                     <h2>No se encontraron restaurantes</h2>
@@ -106,28 +109,23 @@ function Restaurants() {
                         )}
 
                         {status === 'failed' && (
-                            <div style={{ textAlign: 'center', marginTop: '3rem', color: '#ff4757' }}>
-                                <h3>⚠️ Error </h3>
-                                <p>No pudimos cargar los datos. Revisa tu internet e inténtalo de nuevo.</p>
-                                <button onClick={() => window.location.reload()} style={{marginTop: '1rem', cursor: 'pointer'}}>
-                                    Reintentar
-                                </button>
+                            <div style={{ textAlign: 'center', padding: '4rem' }}>
+                                <h3>⚠️ Error de conexión</h3>
+                                <p>No pudimos cargar los restaurantes.</p>
                             </div>
                         )}
                     </ContainerRender>
                 </MainCard>
             </CardContainer>
 
-            {/* 5. Protección del Pager: Solo si hay éxito y hay más de una página */}
-            {status === 'success' && totalItems > queryLimit && (
+            {status === 'success' && totalItems > queryParams.limit && (
                 <Pager
                     totalItems={totalItems}
-                    itemsPerPage={queryLimit}
+                    itemsPerPage={queryParams.limit}
                     currentPage={currentPage}
                     onPageChange={handlePageChange}
                 />
             )}
-            
             <Footer />
         </Suspense>
     );

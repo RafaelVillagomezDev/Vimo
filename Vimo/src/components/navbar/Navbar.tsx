@@ -31,9 +31,9 @@ function Navbar() {
                     <NavList>
                         <NavLinker to={'/'}>Inicio</NavLinker>
                         <NavLinker to={'/restaurants'}>Restaurantes</NavLinker>
-                        <NavLinker to={'/destinations'}>Discotecas</NavLinker>
+                        {/* <NavLinker to={'/destinations'}>Discotecas</NavLinker>
                         <NavLinker to={'sites'}>Sitios</NavLinker>
-                        <NavLinker to={'destinations'}>Transporte</NavLinker>
+                        <NavLinker to={'destinations'}>Transporte</NavLinker> */}
                     </NavList>
                 </NavLinks>
             </Nav>

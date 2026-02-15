@@ -1,23 +1,17 @@
-import { Key, startTransition, useCallback, useEffect, useState } from 'react';
+import { startTransition, useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-
-import {
-    BtnNextSlide,
-    BtnPrevSlide,
-    CarrouselContainer,
-    CarrousellSection,
-    EmblaContainerInner,
-} from './styles/carrousellCard';
+import * as S from './styles/carrousellCard';
 
 import CardSlide from '@components/cardSlide/CardSlide';
 import { useAppSelector } from '../../custom/hooks/call/useAppSelector';
-import { RestaurantDTO } from '../../slices/restaurant/restaurant-slice';
+import { RestaurantDTO, selectRestaurantStatus } from '../../slices/restaurant/restaurant-slice';
 import { useAppDispatch } from '../../custom/hooks/call/useAppDispatch';
 import { fetchTokenAndRestaurant } from '../../slices/restaurant/restaurant-api';
 
 function CarrousellCard() {
     const { restaurant } = useAppSelector((state) => state.restaurant);
     const { data } = restaurant ?? {};
+    const status = useAppSelector(selectRestaurantStatus);
     const dispatch = useAppDispatch();
 
     // Inicializa Embla Carousel
@@ -72,28 +66,54 @@ function CarrousellCard() {
                 })
             );
         });
-    }, []);
+    }, [dispatch]);
 
     return (
-        <CarrousellSection>
-            <BtnPrevSlide onClick={scrollPrev} disabled={prevBtnDisabled}>
-                {'<'}
-            </BtnPrevSlide>
+        <S.CarrousellSection>
+            {/* Los botones solo se habilitan si hay éxito y contenido */}
+            {status === "success" && restaurant.count > 0 && (
+                <S.BtnPrevSlide onClick={scrollPrev} disabled={prevBtnDisabled}>
+                    {'<'}
+                </S.BtnPrevSlide>
+            )}
 
-            <CarrouselContainer ref={emblaRef}>
-                <EmblaContainerInner>
-                    {restaurant.count > 0
-                        ? data.map((data: RestaurantDTO, index: Key | null | undefined) => (
-                              <CardSlide key={data.id + '-' + index} data={data} />
-                          ))
-                        : 'No hay restaurantes'}
-                </EmblaContainerInner>
-            </CarrouselContainer>
+            <S.CarrouselContainer ref={emblaRef}>
+                <S.EmblaContainerInner>
+                    {/* ESTADO 1: CARGANDO (Skeletons) */}
+                    {status === "loading" && (
+                        Array.from({ length: 4 }).map((_, i) => (
+                            <S.SkeletonCard key={`skeleton-${i}`} />
+                        ))
+                    )}
 
-            <BtnNextSlide onClick={scrollNext} disabled={nextBtnDisabled}>
-                {'>'}
-            </BtnNextSlide>
-        </CarrousellSection>
+                    {/* ESTADO 2: ÉXITO (Datos reales) */}
+                    {status === "success" && restaurant.count > 0 && (
+                        data.map((item: RestaurantDTO, index: number) => (
+                            <CardSlide key={`${item.id}-${index}`} data={item} />
+                        ))
+                    )}
+
+                    {/* ESTADO 3: VACÍO O ERROR */}
+                    {status === "success" && restaurant.count === 0 && (
+                        <S.EmptyStateMessage>
+                            No se encontraron sitios registrados.
+                        </S.EmptyStateMessage>
+                    )}
+
+                    {status === "failed" && (
+                        <S.ErrorMessage>
+                            Ocurrió un error al cargar los datos.
+                        </S.ErrorMessage>
+                    )}
+                </S.EmblaContainerInner>
+            </S.CarrouselContainer>
+
+            {status === "success" && restaurant.count > 0 && (
+                <S.BtnNextSlide onClick={scrollNext} disabled={nextBtnDisabled}>
+                    {'>'}
+                </S.BtnNextSlide>
+            )}
+        </S.CarrousellSection>
     );
 }
 

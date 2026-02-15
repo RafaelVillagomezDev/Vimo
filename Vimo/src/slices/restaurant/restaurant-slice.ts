@@ -128,7 +128,7 @@ export const restaurantSlice = createSlice({
          */
         selectFilteredRestaurants: (state) => {
             const term = state.searchTerm.toLowerCase().trim();
-            const allRestaurants = state.restaurant.data;
+            const allRestaurants = state.restaurant?.data || [];
 
             // Si el buscador está vacío, devolvemos todos los restaurantes intactos
             if (!term) return allRestaurants;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { devices } from '../../../styles/mixin_styledComponent';
 
 export const CarrousellSection = styled.section`
@@ -71,4 +71,110 @@ export const BtnPrevSlide = styled(BtnSlide)`
 
 export const BtnNextSlide = styled(BtnSlide)`
     right: 0px;
+`;
+
+
+
+export const ErrorMessage = styled.div`
+    width: 100%;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 2rem;
+    background-color: #fff5f5; 
+    border: 1px dashed #feb2b2;
+    border-radius: 12px;
+    color: #c53030; 
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+
+    &::before {
+        content: '⚠️'; /* Icono rápido sin importar librerías */
+        font-size: 1.5rem;
+    }
+
+    span {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    button {
+        margin-top: 10px;
+        background: none;
+        border: 1px solid #c53030;
+        color: #c53030;
+        padding: 5px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.2s;
+
+        &:hover {
+            background: #c53030;
+            color: white;
+        }
+    }
+`;
+
+// Opcionalmente, para cuando no hay datos (estado vacío)
+export const EmptyStateMessage = styled(ErrorMessage)`
+    background-color: #f7fafc;
+    border-color: #e2e8f0;
+    color: #4a5568;
+
+    &::before {
+        content: '📍';
+    }
+`;
+
+
+const shimmer = keyframes`
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+`;
+
+export const SkeletonCard = styled.div`
+  /* Ajusta estas medidas a las de tu CardSlide real */
+  min-width: 300px; 
+  height: 250px;
+  margin-right: 20px;
+  border-radius: 12px;
+  flex: 0 0 auto; 
+
+
+  background: #f6f7f8;
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 20%,
+    #f6f7f8 40%,
+    #f6f7f8 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 100%;
+  
+  /* Aplicación de la animación */
+  animation: ${shimmer} 1.5s linear infinite forwards;
+
+  /* Opcional: Puedes añadir formas internas si quieres que sea más detallado */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 15px;
+
+  &::after {
+    content: '';
+    height: 20px;
+    width: 60%;
+    background: #e2e8f0;
+    border-radius: 4px;
+    opacity: 0.6;
+  }
 `;

@@ -25,23 +25,23 @@ function Restaurants() {
     const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    // 1. Fuente de verdad: La URL
+    // 1. Lectura de URL
     const queryName = searchParams.get('name') || '';
     const queryLimit = parseInt(searchParams.get('limit') || '5', 10);
     const queryOffset = parseInt(searchParams.get('offset') || '0', 10);
 
-    // 2. Cálculo de página para la UI del Pager
     const currentPage = Math.floor(queryOffset / queryLimit) + 1;
 
-    // 3. Selectores de Redux
+    // 2. Selectores
     const filteredData = useAppSelector(selectFilteredRestaurants);
-    const totalItems = useAppSelector(selectRestaurantCount); // Aquí llega el 11
+    const totalItems = useAppSelector(selectRestaurantCount);
     const status = useAppSelector(selectRestaurantStatus);
 
+    // 3. Efecto de carga de datos
     useEffect(() => {
-        // Sincronizamos el término de búsqueda en Redux
         dispatch(setSearchTerm(queryName));
 
+        // startTransition ayuda a mantener la UI fluida durante re-renders pesados
         startTransition(() => {
             const params = new URLSearchParams();
             if (queryName.trim()) params.append('name', queryName.trim());
@@ -49,8 +49,6 @@ function Restaurants() {
             params.append('offset', queryOffset.toString());
 
             const apiPath = `?${params.toString()}`;
-
-            // Llamada a la API combinando URL base y path
             dispatch(fetchTokenAndRestaurant({
                 api_url: API_BASE_URL + apiPath,
                 api_path: apiPath
@@ -58,33 +56,36 @@ function Restaurants() {
         });
     }, [queryName, queryLimit, queryOffset, dispatch]);
 
+    // 4. Handlers con lógica de protección
     const handlePageChange = (page: number) => {
         const newOffset = (page - 1) * queryLimit;
-        const newParams = new URLSearchParams(searchParams);
-        newParams.set('limit', queryLimit.toString());
-        newParams.set('offset', newOffset.toString());
-
-        setSearchParams(newParams);
+        setSearchParams(prev => {
+            prev.set('offset', newOffset.toString());
+            return prev;
+        });
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
+    // Helper para renderizado condicional
+    const hasResults = filteredData && filteredData.length > 0;
 
     return (
         <Suspense fallback={<LoadingScreen />}>
             <Carrousell />
             <CardContainer>
                 <Configurator menuOptions={MENU_OPTIONS} />
-                <MainCard style={{ position: 'relative', minHeight: '700px' }}>
-                    {/* Overlay de carga */}
+                
+                <MainCard style={{ position: 'relative', minHeight: '600px' }}>
+                    {/* Overlay de carga: Solo si realmente está cargando */}
                     {status === 'loading' && (
                         <ContainerLoading>
                             <LoadingScreen />
                         </ContainerLoading>
                     )}
 
-                    {/* Pasamos el status real de Redux para activar la opacidad */}
                     <ContainerRender $status={status}>
-                        {filteredData && filteredData.length > 0 ? (
-                            filteredData.map((item: any) => (
+                        {hasResults ? (
+                            filteredData.map((item) => (
                                 <CardPost key={item.id} data={item}>
                                     <CardPost.Image />
                                     <CardPost.Content>
@@ -95,25 +96,38 @@ function Restaurants() {
                                 </CardPost>
                             ))
                         ) : (
-                            status === 'success' && <p>No se encontraron restaurantes.</p>
+                            // Solo mostramos "No encontrado" si la carga terminó con éxito
+                            status === 'success' && (
+                                <div style={{ textAlign: 'center', padding: '4rem' }}>
+                                    <h2>No se encontraron restaurantes</h2>
+                                    <p>Intenta con otro nombre o ajusta los filtros.</p>
+                                </div>
+                            )
                         )}
+
                         {status === 'failed' && (
                             <div style={{ textAlign: 'center', marginTop: '3rem', color: '#ff4757' }}>
-                                <h3>⚠️ Ups, algo salió mal</h3>
-                                <p>No pudimos conectar con el servidor. Inténtalo de nuevo más tarde.</p>
+                                <h3>⚠️ Error </h3>
+                                <p>No pudimos cargar los datos. Revisa tu internet e inténtalo de nuevo.</p>
+                                <button onClick={() => window.location.reload()} style={{marginTop: '1rem', cursor: 'pointer'}}>
+                                    Reintentar
+                                </button>
                             </div>
                         )}
                     </ContainerRender>
                 </MainCard>
             </CardContainer>
 
-            {/* El Pager ahora recibe el total real de Redux */}
-            <Pager
-                totalItems={totalItems}
-                itemsPerPage={queryLimit}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-            />
+            {/* 5. Protección del Pager: Solo si hay éxito y hay más de una página */}
+            {status === 'success' && totalItems > queryLimit && (
+                <Pager
+                    totalItems={totalItems}
+                    itemsPerPage={queryLimit}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
+            )}
+            
             <Footer />
         </Suspense>
     );

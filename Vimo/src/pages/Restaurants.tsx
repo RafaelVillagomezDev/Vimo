@@ -9,7 +9,7 @@ import Pager from '@components/pager/Pager';
 import LoadingScreen from './LoadingScreen';
 import CardPost from '@components/cardPost/CardPost';
 import Configurator from '@components/configurator/Configurator';
-import { CardContainer, MainCard } from '@components/cardPost/styles/CardPostStyle';
+import { CardContainer, ContainerLoading, ContainerRender, MainCard } from '@components/cardPost/styles/CardPostStyle';
 
 const Carrousell = lazy(() => import('@components/carrousell/Carrousell'));
 
@@ -27,7 +27,7 @@ function Restaurants() {
 
     // 1. Fuente de verdad: La URL
     const queryName = searchParams.get('name') || '';
-    const queryLimit = parseInt(searchParams.get('limit') || '11', 10);
+    const queryLimit = parseInt(searchParams.get('limit') || '5', 10);
     const queryOffset = parseInt(searchParams.get('offset') || '0', 10);
 
     // 2. Cálculo de página para la UI del Pager
@@ -41,7 +41,7 @@ function Restaurants() {
     useEffect(() => {
         // Sincronizamos el término de búsqueda en Redux
         dispatch(setSearchTerm(queryName));
-        
+
         startTransition(() => {
             const params = new URLSearchParams();
             if (queryName.trim()) params.append('name', queryName.trim());
@@ -49,7 +49,7 @@ function Restaurants() {
             params.append('offset', queryOffset.toString());
 
             const apiPath = `?${params.toString()}`;
-            
+
             // Llamada a la API combinando URL base y path
             dispatch(fetchTokenAndRestaurant({
                 api_url: API_BASE_URL + apiPath,
@@ -63,7 +63,7 @@ function Restaurants() {
         const newParams = new URLSearchParams(searchParams);
         newParams.set('limit', queryLimit.toString());
         newParams.set('offset', newOffset.toString());
-        
+
         setSearchParams(newParams);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -73,28 +73,43 @@ function Restaurants() {
             <Carrousell />
             <CardContainer>
                 <Configurator menuOptions={MENU_OPTIONS} />
-                <MainCard>
-                    {filteredData && filteredData.length > 0 ? (
-                        filteredData.map((item: any) => (
-                            <CardPost key={item.id} data={item}>
-                                <CardPost.Image />
-                                <CardPost.Content>
-                                    <CardPost.Header />
-                                    <CardPost.Description />
-                                    <CardPost.Actions />
-                                </CardPost.Content>
-                            </CardPost>
-                        ))
-                    ) : (
-                        status === 'success' && <p>No se encontraron restaurantes.</p>
+                <MainCard style={{ position: 'relative', minHeight: '700px' }}>
+                    {/* Overlay de carga */}
+                    {status === 'loading' && (
+                        <ContainerLoading>
+                            <LoadingScreen />
+                        </ContainerLoading>
                     )}
-                    {status === 'loading' && <LoadingScreen />}
+
+                    {/* Pasamos el status real de Redux para activar la opacidad */}
+                    <ContainerRender $status={status}>
+                        {filteredData && filteredData.length > 0 ? (
+                            filteredData.map((item: any) => (
+                                <CardPost key={item.id} data={item}>
+                                    <CardPost.Image />
+                                    <CardPost.Content>
+                                        <CardPost.Header />
+                                        <CardPost.Description />
+                                        <CardPost.Actions />
+                                    </CardPost.Content>
+                                </CardPost>
+                            ))
+                        ) : (
+                            status === 'success' && <p>No se encontraron restaurantes.</p>
+                        )}
+                        {status === 'failed' && (
+                            <div style={{ textAlign: 'center', marginTop: '3rem', color: '#ff4757' }}>
+                                <h3>⚠️ Ups, algo salió mal</h3>
+                                <p>No pudimos conectar con el servidor. Inténtalo de nuevo más tarde.</p>
+                            </div>
+                        )}
+                    </ContainerRender>
                 </MainCard>
             </CardContainer>
 
             {/* El Pager ahora recibe el total real de Redux */}
             <Pager
-                totalItems={totalItems} 
+                totalItems={totalItems}
                 itemsPerPage={queryLimit}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}

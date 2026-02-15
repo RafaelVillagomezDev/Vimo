@@ -10,6 +10,7 @@ export const CardContainer = styled.div`
     padding: 20px;
     box-sizing: border-box;
     gap: 1rem;
+    
 `;
 
 export const MainCard = styled.div`
@@ -202,3 +203,25 @@ export const ButtonVerMas = styled.button`
     cursor: pointer;
 `;
 
+export const ContainerLoading = styled.div`
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s;
+`;
+
+export const ContainerRender = styled.div<{ $status: string }>`
+
+    opacity: ${props => (props.$status === 'loading' ? 0.4 : 1)};
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: ${props => (props.$status === 'loading' ? 'none' : 'auto')};
+    /* obligamos al contenedor a crecer para ocupar el espacio */
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
+`;

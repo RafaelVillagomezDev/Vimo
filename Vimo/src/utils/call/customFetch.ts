@@ -17,7 +17,7 @@ interface DataFetch {
 interface DataFetchFormData {
     api_url: string;
     api_path: string;
-    method: 'POST' | 'PUT' | 'PATCH'; // Generalmente solo estos métodos aceptan archivos
+    method: 'POST' | 'PUT' | 'PATCH' | 'OPTIONS' | 'GET';
     body: FormData; // Obligatorio y de tipo FormData
     headers?: Record<string, unknown>;
     token?: string;
@@ -85,21 +85,19 @@ export const customFetch = async <T = unknown>({
 
     if (requiresSecurity) {
         try {
-            // Usamos api_path, body y method para la firma
             securityHeaders = await authHeadersGenerator(method, api_path, body);
         } catch (e: unknown) {
             const errorMessage =
                 e instanceof Error
                     ? e.message
                     : 'Error desconocido al generar encabezados de seguridad.';
-            // Si la generación de seguridad falla (ej. falta CSRF token), abortamos.
             return { data: null, error: errorMessage };
         }
     }
 
 
     const headersObject = {
-        'Accept': 'application/json', // Es buena práctica añadirlo
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
         ...(token && { 'Authorization': `Bearer ${token}` }),
         ...headers,
@@ -111,7 +109,7 @@ export const customFetch = async <T = unknown>({
             method,
             headers: headersObject,
             body: method !== 'GET' && body ? JSON.stringify(body) : undefined,
-             credentials: 'include' 
+            credentials: 'include'
         });
 
 
@@ -145,27 +143,31 @@ export const customFetchFormData = async <T = unknown>({
     body,
     headers = {},
     token,
-    authHeadersGenerator,
+
+    authHeadersGenerator = securityHeadersGenerator,
 }: DataFetchFormData): Promise<CustomFetchReturn<T>> => {
     let securityHeaders: Record<string, string> = {};
 
 
-    if (authHeadersGenerator) {
+    const requiresSecurity = method !== 'GET' && method !== 'OPTIONS';
+
+    if (requiresSecurity) {
         try {
-            // Pasamos 'null' al generador porque la mayoría de algoritmos HMAC 
-            // no pueden firmar objetos binarios (FormData) fácilmente.
             securityHeaders = await authHeadersGenerator(method, api_path, null);
         } catch (e: unknown) {
-            return { data: null, error: 'Error al generar seguridad para archivos.' };
+            const errorMessage =
+                e instanceof Error
+                    ? e.message
+                    : 'Error al generar seguridad para archivos (CSRF).';
+            return { data: null, error: errorMessage };
         }
     }
 
-    // 2. CONSTRUIR ENCABEZADOS
     const headersObject: Record<string, string> = {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        'Accept': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` }),
         ...(headers as Record<string, string>),
         ...securityHeaders,
-        credentials: 'include'
     };
 
     try {
@@ -173,26 +175,30 @@ export const customFetchFormData = async <T = unknown>({
             method,
             headers: headersObject,
             body,
+            credentials: 'include',
         });
 
         if (!response.ok) {
             const errorText = await response.text();
-            let errorMessage = `Error ${response.status}`;
+            let errorMessage = `Error ${response.status}: ${response.statusText}`;
+
             try {
                 const errorJson = JSON.parse(errorText);
                 errorMessage = errorJson.message || errorMessage;
             } catch {
-                return { data: null, error: 'Error al procesar el archivo' };
+                errorMessage = errorText || "Error en el servidor al procesar archivos";
             }
+
             throw new Error(errorMessage);
         }
 
         const result = await response.json();
         return { data: result as T, error: null };
+
     } catch (error: unknown) {
         return {
             data: null,
-            error: error instanceof Error ? error.message : 'Error de red en subida de archivo'
+            error: error instanceof Error ? error.message : 'Error de conexión al subir archivos'
         };
     }
 };

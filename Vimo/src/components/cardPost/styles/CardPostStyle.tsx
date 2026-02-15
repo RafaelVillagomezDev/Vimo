@@ -201,3 +201,4 @@ export const ButtonVerMas = styled.button`
     font-weight: 400;
     cursor: pointer;
 `;
+

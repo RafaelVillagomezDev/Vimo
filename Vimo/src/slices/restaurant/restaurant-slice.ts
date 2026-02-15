@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { getRestaurant } from './restaurant-api';
 
 export interface ImageDTO {
@@ -56,6 +56,7 @@ export interface interfaceState {
     restaurant: Restaurant;
     status: string;
     loading: boolean;
+    searchTerm:string;
 }
 
 // Estado inicial Redux
@@ -68,22 +69,31 @@ export const initialState: interfaceState = {
     },
     status: 'idle',
     loading: false,
+    searchTerm:''
 };
 
 export const restaurantSlice = createSlice({
     name: 'restaurant',
     initialState,
     // Funciones sincronas
-    reducers: {},
+    reducers: {
+        setSearchTerm: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload;
+        },
+        // Opcional: Para limpiar todo el estado
+        resetSearch: (state) => {
+            state.searchTerm = '';
+        }
+    },
     // Funciones asincronas
     extraReducers: (builder) => {
         builder.addCase(getRestaurant.pending, (state) => {
             state.status = 'loading';
-            state.loading = false;
+            state.loading = true;
         });
         builder.addCase(getRestaurant.fulfilled, (state, action) => {
             state.status = 'success';
-            state.loading = true;
+            state.loading = false;
             state.restaurant = action.payload as unknown as Restaurant;
         });
         builder.addCase(getRestaurant.rejected, (state) => {
@@ -109,8 +119,35 @@ export const restaurantSlice = createSlice({
 
             return sliceState.find((restaurant) => restaurant.id === id);
         },
+
+        
+        /**
+         * SELECTOR DINÁMICO: Filtra por Nombre o Dirección.
+         * Este es el que debes usar en tu componente de lista (.map).
+         * No modifica el estado global, solo devuelve una "vista" filtrada.
+         */
+        selectFilteredRestaurants: (state) => {
+            const term = state.searchTerm.toLowerCase().trim();
+            const allRestaurants = state.restaurant.data;
+
+            // Si el buscador está vacío, devolvemos todos los restaurantes intactos
+            if (!term) return allRestaurants;
+
+            // Filtramos por nombre o dirección
+            return allRestaurants.filter((restaurant) => {
+                const nameMatch = restaurant.name.toLowerCase().includes(term);
+                const addressMatch = restaurant.address.toLowerCase().includes(term);
+                
+                return nameMatch || addressMatch;
+            });
+        },
+        selectSearchTerm: (state) => state.searchTerm,
+        selectRestaurantStatus: (state) => state.status,
+        selectRestaurantCount: (state) => state.restaurant.count,
+
+
     },
 });
-
-export const { selectRestaurantById } = restaurantSlice.selectors;
+export const { setSearchTerm, resetSearch } = restaurantSlice.actions;
+export const { selectRestaurantById,selectFilteredRestaurants,selectSearchTerm,selectRestaurantStatus,selectRestaurantCount } = restaurantSlice.selectors;
 export default restaurantSlice.reducer;

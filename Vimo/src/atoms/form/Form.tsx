@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux'; // Para traer los datos guardados
+import { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import StatusData from '@components/statusData/StatusData';
 import * as S from './styles/FormStyle';
 import { FormStepOne, FormStepThree, FormStepTwo } from '@components/form/Form';
 import { useAppDispatch } from '@src/custom/hooks/call/useAppDispatch';
-import { createRestaurant } from '@src/slices/form/form-api';
+import { createRestaurant, createImages } from '@src/slices/form/form-api';
 import { RootState } from '@src/store/store';
-
+import { FullFormSchema } from '@src/schemas/validation-form-site';
 
 const STEPS_CONFIG = [
     { id: 1, text: "Completa el formulario con la información del sitio." },
@@ -16,42 +16,79 @@ const STEPS_CONFIG = [
 
 function FormRegister() {
     const [currentStep, setCurrentStep] = useState(1);
-    const dispatch = useAppDispatch();
-
-    // 1. Obtenemos todos los datos acumulados en Redux y el estado de carga
-    const { loading, status, ...formData } = useSelector((state: RootState) => state.form);
-
-    // 2. Estado Local: Para las imágenes (No pasan por Redux)
+    const [isStepValid, setIsStepValid] = useState(false); // Estado para habilitar/deshabilitar botón
     const [localImages, setLocalImages] = useState<File[]>([]);
 
-    // 3 Capturamos imagenes del hijo
-    const handleImages= (files: File[]) => {
-        setLocalImages(files);
-    };
+    const dispatch = useAppDispatch();
+    const { loading, status, ...formData } = useSelector((state: RootState) => state.form);
 
-    // 2. Función que maneja el click del botón principal
-    const handleAction = () => {
+    // Handle para los pasos 1 y 2
+    const handleStepValidation = useCallback((isValid: boolean) => {
+        setIsStepValid(isValid);
+    }, []);
+
+    // Handle para el paso 3 (Imágenes)
+    const handleImages = useCallback((files: File[], isValid: boolean) => {
+        setLocalImages(files);
+        setIsStepValid(isValid);
+    }, []);
+
+    const handleAction = async () => {
         if (currentStep < 3) {
             setCurrentStep(prev => prev + 1);
+            setIsStepValid(false); // Resetear al cambiar de paso hasta que el nuevo hijo valide
         } else {
 
-            const dataMerge = new FormData();
+            const result = FullFormSchema.safeParse({ ...formData, images: localImages });
 
-           
+            if (!result.success) {
+                alert("Por favor, revisa que todos los campos sean correctos.");
+                return;
+            }
+
+            try {
+
+                const restaurantResponse = await dispatch(
+                    createRestaurant({
+                        api_url: 'http://localhost:3000/api/v1/restaurant/create',
+                        api_path: "",
+                        body: formData,
+                    })
+                ).unwrap();
+
+                //  Si el restaurante se creó, subir imágenes (FormData)
+                const { id } = restaurantResponse?.data || {};
+
+                if (id && localImages.length > 0) {
+                    const imgFormData = new FormData();
+                    localImages.forEach(file => imgFormData.append('images', file));
 
 
-            localImages.forEach((file) => {
+                    await createImages({
+                        api_url: `http://localhost:3000/api/v1/image/create/restaurant/${id}`,
+                        api_path: "",
+                        body: imgFormData
+                    })
 
-                dataMerge.append('images', file);
-            });
+                }
 
-            dispatch(
-                createRestaurant({
-                    api_url: 'http://localhost:3000/api/v1/restaurant/create',
-                    api_path: '',
-                    body: formData, // Enviamos el objeto con los datos de los 3 pasos
-                })
-            );
+                return restaurantResponse;
+            } catch (error) {
+                console.error("Error en el registro:", error);
+            }
+        }
+    };
+
+    const renderStep = () => {
+        switch (currentStep) {
+            case 1:
+                return <FormStepOne onValidationChange={handleStepValidation} />;
+            case 2:
+                return <FormStepTwo onValidationChange={handleStepValidation} />;
+            case 3:
+                return <FormStepThree onImagesChange={handleImages} />;
+            default:
+                return null;
         }
     };
 
@@ -62,16 +99,17 @@ function FormRegister() {
                 <StatusData steps={STEPS_CONFIG} activeStep={currentStep} />
 
                 <div style={{ overflow: 'hidden', width: '100%', padding: '5px' }}>
-                    {currentStep === 1 && <S.StepAnimated><FormStepOne /></S.StepAnimated>}
-                    {currentStep === 2 && <S.StepAnimated><FormStepTwo /></S.StepAnimated>}
-                    {currentStep === 3 && <S.StepAnimated><FormStepThree onImagesChange={handleImages} /></S.StepAnimated>}
+                    {renderStep()}
                 </div>
 
                 <S.ButtonContainer>
                     <S.FormButton
                         $secondary
                         type="button"
-                        onClick={() => setCurrentStep(prev => Math.max(prev - 1, 1))}
+                        onClick={() => {
+                            setCurrentStep(prev => Math.max(prev - 1, 1));
+                            setIsStepValid(true); // Al volver atrás, asumimos que el paso previo ya era válido
+                        }}
                         disabled={currentStep === 1 || loading}
                     >
                         Atrás
@@ -79,16 +117,15 @@ function FormRegister() {
 
                     <S.FormButton
                         type="button"
-                        onClick={handleAction} // Vinculamos la función aquí
-                        disabled={loading}
+                        onClick={handleAction}
+                        disabled={loading || !isStepValid} // Aquí bloqueamos el flujo
                     >
-                        {loading ? 'Enviando...' : currentStep === 3 ? 'Finalizar' : 'Siguiente'}
+                        {loading ? 'Procesando...' : currentStep === 3 ? 'Finalizar' : 'Siguiente'}
                     </S.FormButton>
                 </S.ButtonContainer>
 
-                {status === 'success' && <p style={{ color: 'green', textAlign: 'center' }}>¡Sitio creado con éxito!</p>}
-                {status === 'failed' && <p style={{ color: 'red', textAlign: 'center' }}>Error al guardar el sitio.</p>}
-
+                {status === 'success' && <p style={{ color: 'green', textAlign: 'center' }}>¡Guardado correctamente!</p>}
+                {status === 'failed' && <p style={{ color: 'red', textAlign: 'center' }}>Error en el servidor.</p>}
             </S.FormBox>
         </S.FormContainer>
     );

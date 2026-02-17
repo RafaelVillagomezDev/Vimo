@@ -1,91 +1,129 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { customFetch } from '../../utils/call/customFetch';
+import { customFetch, customFetchFormData } from '../../utils/call/customFetch';
 import { getToken } from '../../auth/auth-api';
 
 
-type FormPayload = any;
-
-const API_BASE_URL_TOKEN = 'http://localhost:3000/api/v1/anonymous/token'; // Ejemplo
+// Configuración de constantes
+const API_BASE_URL_TOKEN = 'http://localhost:3000/api/v1/anonymous/token';
 const API_PATH_TOKEN = '/anonymous/token';
 
-
-
-// NOTA: Asegúrate de que esta interfaz cumpla con el tipo 'DataFetch'
-// que customFetch requiere, que probablemente es más extenso.
+// Interfaces de entrada (Payloads)
 interface FetchFormConfig {
     api_url: string;
-    api_path: string; 
+    api_path: string;
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    body?: Record<string, unknown> ;
+    body?: any; // Usamos any para permitir tanto Record como FormData
     token?: string;
-    headers?: Record<string, unknown>;
+    headers?: Record<string, string>;
 }
 
+// Interfaz para subir imágenes específicamente
+interface CreateImagesConfig {
+    api_url: string;
+    api_path: string;
+    body: FormData;
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    token?: string;
+    headers?: Record<string, string>;
+}
 
-export const createImages= createAsyncThunk('',()=>{})
 
 const registerRestaurant = createAsyncThunk(
     'restaurant/registerRestaurant',
     async (config: FetchFormConfig, { rejectWithValue }) => {
-
         const { method = 'POST', ...rest } = config;
+        try {
+            const { data, error } = await customFetch<any>({ method, ...rest });
+            if (error) return rejectWithValue(error);
+            return data;
+        } catch (error: any) {
+            return rejectWithValue(error.message || 'Error en registro');
+        }
+    }
+);
 
-        const fetchConfig = {
-            method,
-            ...rest,
-        };
+
+export const createImages = async (config: CreateImagesConfig) => {
+    const { api_url, api_path, body } = config;
+
+    try {
+        
+        const responseToken = await customFetch<any>({
+            api_url: API_BASE_URL_TOKEN,
+            api_path: API_PATH_TOKEN,
+            method: 'POST'
+        });
+
+        if (responseToken?.error) {
+            return { data: null, error: responseToken.error };
+        }
+
+        
+        const token = responseToken?.data?.data?.user?.token
+
+        if (!token) {
+            const errorMsg = "No se pudo encontrar 'user.token' en la respuesta del servidor";
+            console.error(errorMsg, responseToken.data);
+            return { data: null, error: errorMsg };
+        }
+
+        
+        const result = await customFetchFormData<any>({
+            api_url,
+            api_path,
+            method: 'POST',
+            body: body,
+            token: token,
+            credentials: 'include'
+        });
+
+        if (result?.error) {
+            return { data: null, error: result.error };
+        }
+
+        return { data: result.data, error: null };
+
+    } catch (err: any) {
+        console.error("Error crítico:", err);
+        return { data: null, error: err.message || "Error inesperado" };
+    }
+};
+
+// Creacion restaurante (Orquestador)
+export const createRestaurant = createAsyncThunk<any, FetchFormConfig, { rejectValue: string }>(
+    'api/createRestaurant',
+    async (args, { dispatch, rejectWithValue }) => {
+        const { api_url, api_path, body } = args;
 
         try {
-            const { data, error } = await customFetch<FormPayload>(fetchConfig);
+            // Obtener Token
+            const tokenResult = await dispatch(
+                getToken({
+                    api_url: API_BASE_URL_TOKEN,
+                    api_path: API_PATH_TOKEN,
+                    method: 'POST',
+                })
+            ).unwrap();
 
-            if (error) {
-                return rejectWithValue(error);
-            }
+            const token = tokenResult?.data?.user?.token || tokenResult?.token;
 
-            // Retorna el payload que será enviado al reducer.
-            return data as FormPayload;
-        } catch (error) {
-            // Captura errores de red que no fueron manejados por customFetch.
-            const message =
-                error instanceof Error ? error.message : 'Error desconocido al contactar la API.';
-            return rejectWithValue(message);
+            if (!token) return rejectWithValue('Token ausente');
+
+            // Registrar Restaurante
+            const restaurantResult = await dispatch(
+                registerRestaurant({
+                    api_url: api_url,
+                    api_path: api_path,
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${token}` },
+                    body: body,
+                })
+            ).unwrap();
+
+            return restaurantResult;
+
+        } catch (error: any) {
+            return rejectWithValue(error || 'Fallo en el flujo unificado');
         }
-    });
-
-
-export const createRestaurant = createAsyncThunk<FormPayload, FetchFormConfig, { rejectValue: string }>('api/createRestaurant', async (args, { dispatch, rejectWithValue }) => {
-    const { api_url, api_path , body} = args;
-    try {
-        const tokenResult = await dispatch(
-            getToken({
-                api_url: API_BASE_URL_TOKEN,
-                api_path: API_PATH_TOKEN,
-                method: 'POST',
-            })
-        ).unwrap();
-
-        const token = tokenResult.data.user?.token;
-
-        if (!token || typeof token !== 'string' || token === null) {
-            return rejectWithValue('Token no válido o ausente en la respuesta de autenticación.');
-        }
-
-
-        const restaurantResult = (await dispatch(
-            registerRestaurant({
-                api_url: api_url,
-                api_path: api_path,
-                method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
-                body: body,
-            })
-        ).unwrap()) as FormPayload;
-
-        // Retorna el resultado final
-        return restaurantResult;
-
-    } catch (error) {
-        console.error('Fallo en el flujo de API unificado:', error);
-        return rejectWithValue(error as string);
     }
-})
+);

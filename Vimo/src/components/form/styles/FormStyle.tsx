@@ -216,3 +216,65 @@ export const StyledDropZone = styled.label`
     margin-top: 5px;
   }
 `;
+
+export const FormButton = styled.button<{ $secondary?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 140px;
+  outline: none;
+
+  /* Estilos para el botón Principal (Siguiente / Finalizar) */
+  background-color: #4caf50;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover:not(:disabled) {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  /* Estilos para el botón Secundario (Atrás) */
+  ${(props) =>
+    props.$secondary &&
+    css`
+      background-color: #f5f5f5;
+      color: #666;
+      border: 1px solid #ddd;
+      box-shadow: none;
+
+      &:hover:not(:disabled) {
+        background-color: #e8e8e8;
+        color: #333;
+        border-color: #ccc;
+      }
+    `}
+
+  /* ESTADO DESHABILITADO (Cuando la validación de Zod falla) */
+  &:disabled {
+    background-color: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 14px;
+  }
+`;

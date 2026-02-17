@@ -16,10 +16,13 @@ interface FetchFormConfig {
     api_url: string;
     api_path: string; 
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    body?: Record<string, unknown>;
+    body?: Record<string, unknown> ;
     token?: string;
     headers?: Record<string, unknown>;
 }
+
+
+export const createImages= createAsyncThunk('',()=>{})
 
 const registerRestaurant = createAsyncThunk(
     'restaurant/registerRestaurant',

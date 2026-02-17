@@ -1,5 +1,5 @@
 import Navbar from "@components/navbar/Navbar";
-import FormData from '../atoms/form/FormData';
+import FormData from '../atoms/form/Form';
 import Footer from "@components/footer/Footer";
 
 function Registrer() {

@@ -6,7 +6,10 @@ import { useSelector } from 'react-redux';
 import { FormSiteSchema } from '@src/schemas/validation-form-site';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-export function Form() {
+import { ImageStepSchema } from '@src/schemas/validation-form-images';
+
+
+export function FormStepOne() {
 
 
     const formData = useSelector((state: RootState) => state.form);
@@ -28,7 +31,7 @@ export function Form() {
                         label=''
                         trigger={trigger}
                         component={S.FormInput}
-                       
+
                     />
                 </S.FormBox>
                 <S.FormBox>
@@ -47,10 +50,10 @@ export function Form() {
                             control={control}
                             trigger={trigger}
                             component={S.FormInput}
-                            maxLength={16}
+                            maxLength={9}
                             autoComplete='true'
                             placeholder="600 000 000"
-                        
+
 
                         />
                     </S.InputWrapper>
@@ -93,7 +96,7 @@ export function Form() {
                             label={''}
                             control={control}
                             trigger={trigger}
-                      
+
 
                         />
                     </S.InputWrapper>
@@ -102,7 +105,7 @@ export function Form() {
                 <S.FormBox>
                     <S.FormLabel htmlFor="description">Descripción</S.FormLabel>
                     <DebounceField id="description" name="description" rows={4} placeholder="Breve descripción del sitio..."
-                         component={S.FormTextArea} label={''}
+                        component={S.FormTextArea} label={''}
                         control={control} trigger={trigger} />
                 </S.FormBox>
             </S.Form>
@@ -115,7 +118,7 @@ export function FormStepTwo() {
 
     const formData = useSelector((state: RootState) => state.form);
 
-    const { control, trigger} = useForm({
+    const { control, trigger } = useForm({
         resolver: zodResolver(FormSiteSchema),
         mode: "onChange",
         defaultValues: formData as any
@@ -141,11 +144,11 @@ export function FormStepTwo() {
                             id="address"
                             name="address"
                             placeholder='Calle, Ciudad, Código Postal...'
-                         
+
                             component={S.FormInput}
                             label={''}
                             control={control}
-                            trigger={trigger}   
+                            trigger={trigger}
                         />
                     </S.InputWrapper>
                 </S.FormBox>
@@ -166,7 +169,7 @@ export function FormStepTwo() {
                             id="web"
                             name="web"
                             placeholder='url del sitio web...'
-                           
+
                             component={S.FormInput}
                             label={''}
                             control={control}
@@ -190,35 +193,58 @@ export function FormStepTwo() {
     );
 }
 
-export function FormStepThree() {
 
+interface FormStepThreeProps {
+    onImagesChange: (files: File[], isValid: boolean) => void;
+}
+
+export function FormStepThree({ onImagesChange }: FormStepThreeProps) {
     const [fileName, setFileName] = useState("Ningún archivo seleccionado");
 
-    const handleFileChange = (e: any) => {
-        if (e.target.files.length > 0) {
-            setFileName(e.target.files[0].name);
+    const { register, formState: { errors }, setValue, trigger } = useForm({
+        resolver: zodResolver(ImageStepSchema),
+        mode: "onChange"
+    });
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            setFileName(files.length > 1 ? `${files.length} archivos` : files[0].name);
+            
+            // Sincronizamos con RHF y disparamos Zod
+            setValue("images", files, { shouldValidate: true });
+            const isValid = await trigger("images");
+
+            // Pasamos los archivos reales y el resultado del esquema al padre
+            onImagesChange(Array.from(files), isValid);
+        } else {
+            onImagesChange([], false);
         }
     };
+
     return (
         <S.FormContainer>
-            <S.Form>
-                <S.FileContainer>
-                    <S.FormLabel>Imágenes del Restaurante</S.FormLabel>
-                    <S.HiddenInput
-                        type="file"
-                        id="file-upload"
-                        multiple
-                        accept="image/*"
-                        onChange={handleFileChange}
+            <S.FileContainer>
+                <S.FormLabel>Imágenes del Restaurante</S.FormLabel>
+                <S.HiddenInput
+                    type="file"
+                    id="file-upload"
+                    multiple
+                    accept="image/*"
+                    {...register("images")}
+                    onChange={handleFileChange}
+                />
+                <S.StyledDropZone htmlFor="file-upload" style={{ borderColor: errors.images ? 'red' : '#ccc' }}>
+                    <span>📸 Haz clic para subir fotos</span>
+                    <small>{fileName}</small>
+                </S.StyledDropZone>
 
-                    />
-                    <S.StyledDropZone htmlFor="file-upload">
-                        <span>Haz clic o arrastra tus fotos</span>
-                        <small>{fileName}</small>
-                    </S.StyledDropZone>
-                </S.FileContainer>
-
-            </S.Form>
+                {errors.images && (
+                    <span style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
+                        {errors.images.message as string}
+                    </span>
+                )}
+            </S.FileContainer>
         </S.FormContainer>
     );
 }

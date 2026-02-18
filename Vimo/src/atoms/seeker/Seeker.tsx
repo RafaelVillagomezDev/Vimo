@@ -14,7 +14,13 @@ function Seeker() {
     const [valueSearch, setValueSearch] = useState(reduxSearchTerm);
     const isTyping = useRef(false);
 
-    // 1. Debounce para filtro local ( me filtra por mi estado de redux. )
+    // Sincronizar estado local si redux cambia externamente (ej. al limpiar filtros)
+    useEffect(() => {
+        if (!isTyping.current) {
+            setValueSearch(reduxSearchTerm);
+        }
+    }, [reduxSearchTerm]);
+
     useEffect(() => {
         if (!isTyping.current) return;
         const timeoutId = setTimeout(() => {
@@ -23,18 +29,31 @@ function Seeker() {
         return () => clearTimeout(timeoutId);
     }, [valueSearch, dispatch]);
 
-    // 2. Búsqueda profunda (Enter o Click): Actualiza URL para disparar API
     const handleDeepSearch = () => {
         isTyping.current = false;
-        const trimmed = valueSearch.trim();
+        const trimmed = valueSearch.trim().toLowerCase(); // Normalizamos a minúsculas
         
         if (location.pathname !== '/restaurants') {
-            navigate(`/restaurants?name=${encodeURIComponent(trimmed)}`);
+            // Si navegamos desde fuera, el orden es sencillo
+            navigate(`/restaurants?name=${encodeURIComponent(trimmed)}&offset=0&limit=5`);
         } else {
-            const params = new URLSearchParams(searchParams);
-            trimmed ? params.set('name', trimmed) : params.delete('name');
-            params.set('offset', '0');
-            setSearchParams(params);
+            // 🛠 RECONSTRUCCIÓN: Mantener el orden para el Backend
+            const next = new URLSearchParams();
+            
+            // 1. Filtro actual (nombre)
+            if (trimmed) next.set('name', trimmed);
+            
+            // 2. Mantener otros filtros existentes (como type_food)
+            const currentType = searchParams.get('type_food');
+            const currentAddress = searchParams.get('address');
+            if (currentType) next.set('type_food', currentType.toLowerCase());
+            if (currentAddress) next.set('address', currentAddress.toLowerCase());
+
+            // 3. Paginación SIEMPRE al final
+            next.set('offset', '0');
+            next.set('limit', searchParams.get('limit') || '5');
+
+            setSearchParams(next, { replace: true });
         }
         dispatch(setSearchTerm(trimmed));
     };
@@ -44,7 +63,10 @@ function Seeker() {
             <IconMaterial>search</IconMaterial>
             <InputSeeker
                 value={valueSearch}
-                onChange={(e) => { isTyping.current = true; setValueSearch(e.target.value); }}
+                onChange={(e) => { 
+                    isTyping.current = true; 
+                    setValueSearch(e.target.value); 
+                }}
                 onKeyDown={(e) => e.key === 'Enter' && handleDeepSearch()}
                 placeholder="Busca en 1200 restaurantes..."
             />

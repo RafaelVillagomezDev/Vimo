@@ -40,13 +40,13 @@ CardPost.Content = function CardContent({ children }: { children: ReactNode }) {
 };
 
 // Info principal (Nombre, Rating, Tags)
-CardPost.Header = function CardHeader() {
+CardPost.Header = function CardHeader({id}:any) {
     const data = useContext(CardPostContext);
     return (
         <>
             <S.CardBox>
                 <S.CardSubtitle>
-                    Top 1 <S.Icon>editor_choice</S.Icon>
+                    Top {id} <S.Icon>editor_choice</S.Icon>
                 </S.CardSubtitle>
                 <S.ButtonOption>Michelin</S.ButtonOption>
             </S.CardBox>
@@ -58,6 +58,11 @@ CardPost.Header = function CardHeader() {
             <S.CardBox>
                 <S.CardtTextFlex>
                     <S.Icon>kid_star</S.Icon> Puntuación (9,6)
+                </S.CardtTextFlex>
+            </S.CardBox>
+            <S.CardBox>
+                <S.CardtTextFlex>
+                    <S.Icon>fork_spoon</S.Icon> {data.type_food}
                 </S.CardtTextFlex>
             </S.CardBox>
         </>

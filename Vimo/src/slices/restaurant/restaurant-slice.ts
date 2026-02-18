@@ -137,8 +137,8 @@ export const restaurantSlice = createSlice({
             return allRestaurants.filter((restaurant) => {
                 const nameMatch = restaurant.name.toLowerCase().includes(term);
                 const addressMatch = restaurant.address.toLowerCase().includes(term);
-                
-                return nameMatch || addressMatch;
+                const type_food=restaurant.type_food.toLocaleLowerCase().includes(term);
+                return nameMatch || addressMatch || type_food ;
             });
         },
         selectSearchTerm: (state) => state.searchTerm,

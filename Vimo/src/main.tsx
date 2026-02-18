@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import '../reset.css'; // Importa tu archivo de reset CSS
+import '../reset.css'; 
 import {
     RouterProvider,
     createBrowserRouter,
@@ -13,36 +13,40 @@ import { persistor, store } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 import { theme, ThemeType } from './styles/themeProvider';
+import NotFound from './pages/NotFound'; // Importación estática (Síncrona)
+
 declare module 'styled-components' {
     export interface DefaultTheme extends ThemeType {}
 }
+
 const Home = lazy(() => import('./pages/Home'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Destination = lazy(() => import('./pages/Destination'));
 const Restaurants = lazy(() => import('./pages/Restaurants'));
 const Restaurant = lazy(() => import('./pages/Restaurant'));
 const Register = lazy(() => import('./pages/Register'));
+
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-    const root = createRoot(rootElement); // Crea un contenedor raíz
+    const root = createRoot(rootElement);
 
-    // Definir las rutas utilizando createRoutesFromElements
-    const routes = createRoutesFromElements(
-        <>
-            <Route path="/">
-                <Route path="/" element={<Home />} />
-                <Route path="home" element={<Home />} />
-                <Route path="restaurants" element={<Restaurants />} />
-                <Route path="restaurants/:id" element={<Restaurant />} />
-                <Route path="experiences" element={<Experience />} />
-                <Route path="destinations" element={<Destination />} />
-                <Route path="register" element={<Register />} />
-            </Route>
-        </>
+   const routes = createRoutesFromElements(
+        <Route 
+            path="/" 
+            errorElement={<NotFound />} 
+        >
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="restaurants" element={<Restaurants />} />
+            <Route path="restaurants/:id" element={<Restaurant />} />
+            <Route path="experiences" element={<Experience />} />
+            <Route path="destinations" element={<Destination />} />
+            <Route path="register" element={<Register />} />
+            <Route path="*" element={<NotFound />} />
+        </Route>
     );
 
-    // Crear el enrutador principal
     const router = createBrowserRouter(routes);
 
     root.render(

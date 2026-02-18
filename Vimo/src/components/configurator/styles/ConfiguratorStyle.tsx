@@ -5,7 +5,7 @@ export const ContainerConfigurator = styled.div`
     width: 100%;
     background-color: #fff;
     height: 100%;
-    max-height: 900px;
+    max-height: 800px;
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -30,7 +30,7 @@ export const MenuContainer = styled.ul`
     overflow: hidden;
 `;
 
-export const MenuItem = styled.li<{ open: boolean }>`
+export const MenuItem = styled.div<{ open: boolean }>`
     padding: 15px;
     cursor: pointer;
     display: flex;
@@ -99,4 +99,61 @@ export const Checkbox = styled.input`
 export const Arrow = styled.span<{ open: boolean }>`
     transition: transform 0.3s ease-in-out;
     transform: ${(props) => (props.open ? 'rotate(180deg)' : 'rotate(0)')};
+`;
+
+
+export const CardTitle = styled.h3`
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+`;
+
+export const ClearButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    background-color: transparent;
+    color: #718096;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: #f7fafc;
+        color: #e53e3e;
+        border-color: #feb2b2;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+`;
+
+export const Icon = styled.span`
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; 
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  color: inherit; 
+  
+  /* Centrado vertical si está junto a texto */
+  vertical-align: middle;
+  
+  /* Evita que se seleccione el texto del icono */
+  user-select: none;
 `;

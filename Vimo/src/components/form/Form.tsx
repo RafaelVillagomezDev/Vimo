@@ -44,15 +44,13 @@ export function FormStepOne({ onValidationChange }: { onValidationChange: (isVal
                     <DebounceField id="type_food" name="type_food" component={S.FormSelect} trigger={trigger} control={control} label=''>
                         <option value="" disabled>Seleccione una categoría</option>
                         <option value="restaurant">Restaurante</option>
-                        <option value="museum">Museo</option>
-                        <option value="park">Parque</option>
                     </DebounceField>
                 </S.FormBox>
                 <S.FormBox>
                     <S.FormLabel htmlFor="email">Email</S.FormLabel>
                     <S.InputWrapper>
                         <S.FlagContainer><span className="flag">📥</span></S.FlagContainer>
-                        <DebounceField $hasFlag id="email" name="email" type="email" placeholder="test@yandydev.cloud" component={S.FormInput} control={control} trigger={trigger} label='' />
+                        <DebounceField $hasFlag id="email" name="email" type="email" placeholder="restaurante@gmail.es" component={S.FormInput} control={control} trigger={trigger} label='' />
                     </S.InputWrapper>
                 </S.FormBox>
                 <S.FormBox>
@@ -106,6 +104,7 @@ export function FormStepTwo({ onValidationChange }: { onValidationChange: (isVal
                         <option value="china">China</option>
                         <option value="española">Española</option>
                         <option value="turca">Turca</option>
+                        <option value="japonesa">Japonesa</option>
                     </DebounceField>
                 </S.FormBox>
             </S.Form>

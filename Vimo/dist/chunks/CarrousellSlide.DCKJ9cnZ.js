@@ -1,4 +1,4 @@
-import{r as e,j as r}from"./react-core.DzcB_2w7.js";import{d as o}from"./styles-vendor.DBgNySS0.js";import{d as t}from"./useAppSelector.D6_7lV5f.js";import{L as n}from"./router-vendor.DNrqJuUa.js";import"./vendor.hSDL9w0M.js";const s=o.div`
+import{r as e,j as r}from"./react-core.hIu8Leyl.js";import{d as o}from"./styles-vendor.BBhjEPUr.js";import{d as t}from"./Footer.B68oxbZL.js";import{L as n}from"./router-vendor.DJhrlxSV.js";import"./vendor.Dqz0mnuI.js";const s=o.div`
     display: flex;
     overflow-x: scroll;
     -ms-overflow-style: none;
